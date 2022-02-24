@@ -2,6 +2,8 @@
 forward
 global type w_spre_anim_inventario from window
 end type
+type cb_1 from commandbutton within w_spre_anim_inventario
+end type
 type cbx_vivos from checkbox within w_spre_anim_inventario
 end type
 type cbx_todos from checkbox within w_spre_anim_inventario
@@ -57,6 +59,7 @@ long backcolor = 67108864
 string icon = "AppIcon!"
 boolean center = true
 event cerrar_ventana ( )
+cb_1 cb_1
 cbx_vivos cbx_vivos
 cbx_todos cbx_todos
 cbx_decesos cbx_decesos
@@ -291,6 +294,7 @@ end subroutine
 
 on w_spre_anim_inventario.create
 if this.MenuName = "m_spre_anim_menu_inventario" then this.MenuID = create m_spre_anim_menu_inventario
+this.cb_1=create cb_1
 this.cbx_vivos=create cbx_vivos
 this.cbx_todos=create cbx_todos
 this.cbx_decesos=create cbx_decesos
@@ -310,7 +314,8 @@ this.cb_actualiza_cambios_dw2=create cb_actualiza_cambios_dw2
 this.cb_actualiza=create cb_actualiza
 this.dw_invent_x_gener_fecha=create dw_invent_x_gener_fecha
 this.dw_lista_inventario_corta_params=create dw_lista_inventario_corta_params
-this.Control[]={this.cbx_vivos,&
+this.Control[]={this.cb_1,&
+this.cbx_vivos,&
 this.cbx_todos,&
 this.cbx_decesos,&
 this.cbx_gen_padre_madre,&
@@ -333,6 +338,7 @@ end on
 
 on w_spre_anim_inventario.destroy
 if IsValid(MenuID) then destroy(MenuID)
+destroy(this.cb_1)
 destroy(this.cbx_vivos)
 destroy(this.cbx_todos)
 destroy(this.cbx_decesos)
@@ -377,6 +383,21 @@ end event
 
 event close;w_ppal.toolbarvisible=true
 end event
+
+type cb_1 from commandbutton within w_spre_anim_inventario
+integer x = 2002
+integer y = 1592
+integer width = 402
+integer height = 112
+integer taborder = 40
+integer textsize = -10
+integer weight = 400
+fontcharset fontcharset = ansi!
+fontpitch fontpitch = variable!
+fontfamily fontfamily = swiss!
+string facename = "Arial"
+string text = "alex"
+end type
 
 type cbx_vivos from checkbox within w_spre_anim_inventario
 integer x = 3442
