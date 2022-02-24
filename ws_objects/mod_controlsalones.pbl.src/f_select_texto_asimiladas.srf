@@ -1,0 +1,30 @@
+﻿$PBExportHeader$f_select_texto_asimiladas.srf
+global type f_select_texto_asimiladas from function_object
+end type
+
+forward prototypes
+global function string f_select_texto_asimiladas (long pl_materia, string ps_grupo, integer pi_periodo, integer pi_anio)
+end prototypes
+
+global function string f_select_texto_asimiladas (long pl_materia, string ps_grupo, integer pi_periodo, integer pi_anio);integer li_i, li_row
+string ls_materias=''
+
+datastore ids_grupos_asimilados
+
+ids_grupos_asimilados = create datastore 
+ids_grupos_asimilados.dataobject ='d_csal_grupos_asimilados'
+ids_grupos_asimilados.settransobject(gtr_escolar)
+ids_grupos_asimilados.retrieve(pi_periodo,pi_anio,pl_materia,ps_grupo)
+	
+li_row=ids_grupos_asimilados.rowcount()
+
+for li_i=1 to li_row
+	
+	if ls_materias<>'' then ls_materias=ls_materias+', '
+	ls_materias=ls_materias+ids_grupos_asimilados.GetItemString(li_i,"materias_materia")+' (GRUPO '+ids_grupos_asimilados.GetItemString(li_i,"grupos_gpo")+')'
+
+next
+
+return (ls_materias)
+end function
+

@@ -1,0 +1,72 @@
+﻿$PBExportHeader$d_controls_matdisp.srd
+$PBExportComments$Muestra el material disponible para un grupo determinado,
+release 10;
+datawindow(units=0 timer_interval=0 color=29534863 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=88 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=92 color="536870912"  height.autosize=yes)
+table(column=(type=long updatewhereclause=yes name=spre_inventario_cvedepto dbname="spre_inventario.cvedepto" )
+ column=(type=long updatewhereclause=yes name=spre_inventario_cvearea dbname="spre_inventario.cvearea" )
+ column=(type=char(15) updatewhereclause=yes name=spre_inventario_cvematerial dbname="spre_inventario.cvematerial" )
+ column=(type=char(20) updatewhereclause=yes name=num_serie dbname="spre_inventario.num_serie" )
+ column=(type=long updatewhereclause=yes name=cvegrupo dbname="spre_inventario.cvegrupo" )
+ column=(type=long updatewhereclause=yes name=spre_sol_materiales_folio dbname="spre_sol_materiales.folio" )
+ column=(type=long updatewhereclause=yes name=status dbname="spre_sol_materiales.status" )
+ column=(type=char(100) updatewhereclause=yes name=spre_materiales_descripcion dbname="spre_materiales.descripcion" )
+ column=(type=char(5) updatewhereclause=yes name=spre_sol_materiales_cve_salon dbname="spre_sol_materiales.cve_salon" )
+ column=(type=long updatewhereclause=yes name=spre_sol_materiales_hora_inicio dbname="spre_sol_materiales.hora_inicio" )
+ column=(type=long updatewhereclause=yes name=spre_sol_materiales_hora_final dbname="spre_sol_materiales.hora_final" )
+ retrieve="  SELECT DISTINCT
+			spre_inventario.cvedepto,   
+         	spre_inventario.cvearea,   
+         	spre_inventario.cvematerial,  
+			spre_inventario.num_serie,   
+        		spre_inventario.cvegrupo,
+			spre_sol_materiales.folio,
+			spre_sol_materiales.status,
+			spre_materiales.descripcion,
+			spre_sol_materiales.cve_salon,
+			spre_sol_materiales.hora_inicio, 
+			spre_sol_materiales.hora_final
+  FROM         spre_materiales LEFT OUTER JOIN
+                      spre_inventario ON spre_materiales.cvedepto = spre_inventario.cvedepto AND spre_materiales.cvearea = spre_inventario.cvearea AND 
+                      spre_materiales.cvematerial = spre_inventario.cvematerial AND spre_materiales.cvegrupo = spre_inventario.cvegrupo LEFT OUTER JOIN
+                      spre_sol_materiales ON spre_materiales.cvedepto = spre_sol_materiales.cvedepto AND spre_materiales.cvearea = spre_sol_materiales.cvearea AND 
+                      spre_materiales.cvematerial = spre_sol_materiales.cvematerial AND spre_materiales.cvegrupo = spre_sol_materiales.cvegrupo AND 
+                      spre_inventario.num_serie = spre_sol_materiales.num_serie
+
+ 
+	  
+     
+     
+   	
+ 		
+	"  sort="spre_materiales_descripcion A " )
+rectangle(band=header x="5" y="0" height="88" width="2414"  name=r_1 visible="1" brush.hatch="6" brush.color="16777215" pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="0" )
+text(band=header alignment="2" text="Descripción material" border="0" color="0" x="9" y="8" height="72" width="2021" html.valueishtml="0"  name=spre_materiales_descripcion_t visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+rectangle(band=header x="2030" y="0" height="88" width="521"  name=r_2 visible="1" brush.hatch="6" brush.color="16777215" pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="No. Serie" border="0" color="0" x="2039" y="8" height="72" width="503" html.valueishtml="0"  name=spre_inventario_num_serie_t visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+rectangle(band=header x="2546" y="0" height="88" width="393"  name=r_3 visible="1" brush.hatch="6" brush.color="16777215" pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="0" )
+text(band=header alignment="2" text="Solicitud" border="0" color="0" x="2555" y="8" height="72" width="375" html.valueishtml="0"  name=txt_solicitud visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+line(band=detail x1="14" y1="84" x2="2935" y2="84"  name=l_1 visible="1" pen.style="0" pen.width="5" pen.color="255"  background.mode="2" background.color="16777215" )
+column(band=detail id=8 alignment="0" tabsequence=32766 border="5" color="0" x="9" y="4" height="60" width="2021" format="[general]" html.valueishtml="0"  name=spre_materiales_descripcion visible="1" height.autosize=yes edit.limit=100 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.displayonly=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=6 alignment="2" tabsequence=32766 border="5" color="0" x="2555" y="4" height="60" width="370" format="[general]" html.valueishtml="0"  name=spre_sol_materiales_folio visible="1" edit.limit=28 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.displayonly=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="5" color="0" x="2048" y="4" height="60" width="489" format="[general]" html.valueishtml="0"  name=num_serie visible="1" edit.limit=35 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.displayonly=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=7 alignment="0" tabsequence=32766 border="0" color="0" x="2967" y="8" height="60" width="229" format="[general]" html.valueishtml="0"  name=status visible="1~t0" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="0" color="0" x="3218" y="0" height="60" width="233" format="[general]" html.valueishtml="0"  name=cvegrupo visible="1~t0" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=9 alignment="0" tabsequence=32766 border="0" color="0" x="3451" y="0" height="64" width="347" format="[general]" html.valueishtml="0"  name=spre_sol_materiales_cve_salon visible="0" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=10 alignment="0" tabsequence=32766 border="0" color="0" x="3799" y="0" height="64" width="507" format="[General]" html.valueishtml="0"  name=spre_sol_materiales_hora_inicio visible="0" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=11 alignment="0" tabsequence=32766 border="0" color="0" x="4329" y="8" height="64" width="617" format="[General]" html.valueishtml="0"  name=spre_sol_materiales_hora_final visible="0" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="0" x="4974" y="8" height="60" width="347" format="[general]" html.valueishtml="0"  name=spre_inventario_cvematerial visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

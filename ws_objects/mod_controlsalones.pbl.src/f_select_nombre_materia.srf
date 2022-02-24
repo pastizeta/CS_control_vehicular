@@ -1,0 +1,24 @@
+﻿$PBExportHeader$f_select_nombre_materia.srf
+global type f_select_nombre_materia from function_object
+end type
+
+forward prototypes
+global function string f_select_nombre_materia (long pl_cve_materia)
+end prototypes
+
+global function string f_select_nombre_materia (long pl_cve_materia);string ls_materia
+
+select dbo.materias.materia
+into :ls_materia
+from dbo.materias
+where dbo.materias.cve_mat=:pl_cve_materia
+using gtr_escolar;
+
+
+if gtr_escolar.SQLCode = -1 then 
+		messagebox("Error ESCOLAR: Selección de nombre de materia", gtr_escolar.SQLErrText)	
+end if
+ 
+return (ls_materia)
+end function
+

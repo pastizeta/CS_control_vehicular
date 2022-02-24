@@ -1,0 +1,96 @@
+﻿$PBExportHeader$configurausuario.srf
+$PBExportComments$Funcion que me permite saber las caracteristicas del usuario firmado
+global type configurausuario from function_object
+end type
+
+forward prototypes
+global subroutine configurausuario (string argsusuario)
+end prototypes
+
+global subroutine configurausuario (string argsusuario);
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:  configurausuario
+//
+//	Access:  public
+//
+//	Arguments:
+//	string argsusuario
+//
+//	Returns:
+//	none
+//
+//	Description:
+//
+//
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Revision History
+//
+//	Version
+//	1.0   Initial version
+//
+//////////////////////////////////////////////////////////////////////////////
+
+decimal ld_promedio
+integer liIdUsuario, liPriordad, liTipo, liCodigoSql, liCveUsuario, llRow
+string lsUsuario, lsNombrepuesto, lsAsignadoa,lsNombregrupo, lsMensajeSql
+datastore ids_MatReq
+ids_MatReq =  create datastore 
+ids_MatReq.dataobject ='d_sp_gruposu'
+ids_MatReq.settransobject(gtr_sumuia)
+ids_MatReq.Retrieve(argsUsuario)
+
+	giUsuarioId = 0
+	giUsuarioNivel =0
+	gsGupoUsuario=""
+	giUsuarioCve=0
+
+if ids_MatReq.rowcount() >0 then
+	
+	for llRow=1 to ids_MatReq.rowcount()
+		giUsuarioId = ids_MatReq.getitemnumber(llRow,'saa_usuarios_idusuario')
+		gsGupoUsuario = gsGupoUsuario +";"+ ids_MatReq.getitemstring(llRow,'saa_gruposusuarios_nombregrupo')
+		giUsuarioCve = ids_MatReq.getitemnumber(llRow,'saa_usuarios_claveusuario')
+	next
+end if
+
+//
+//DECLARE  spobtenperfil PROCEDURE FOR SP_CONSULTA_CVEUSUARIO
+//@SELOGIN = :argsUsuario
+//USING gtr_sumuia;
+//
+//EXECUTE spobtenperfil;
+//
+//
+//FETCH spobtenperfil INTO :liIdUsuario,
+//:lsUsuario,
+//:lsNombrepuesto,
+//:lsAsignadoa,
+//:liPriordad,
+//:liTipo,
+//:liCveUsuario;
+//liCodigoSql = gtr_sumuia.SQLCode
+//lsMensajeSql = gtr_sumuia.SQLErrText
+//
+//if liCodigoSql = -1 then
+//		MessageBox("Error en la ejecución del stored procedure: Consulta usuario", lsMensajeSql)				
+//	giUsuarioId = 0
+//	giUsuarioNivel =0
+//	gsGupoUsuario=""
+//	giUsuarioCve=0
+//	
+//else
+//
+//	giUsuarioId = liIdUsuario
+//	giUsuarioNivel = liPriordad
+//	gsAsignadoA= lsAsignadoa
+//	giUsuarioCve =liCveUsuario
+//end if
+//
+//CLOSE spobtenperfil;
+//
+//
+//
+end subroutine
+

@@ -1,0 +1,39 @@
+﻿$PBExportHeader$f_valida_prestamo_clase.srf
+global type f_valida_prestamo_clase from function_object
+end type
+
+forward prototypes
+global function integer f_valida_prestamo_clase (long p_depto, long p_area, long p_grupo, string p_material, datetime p_fecha_inicio, datetime p_fecha_final, string p_grupo_clase, long p_materia_clase)
+end prototypes
+
+global function integer f_valida_prestamo_clase (long p_depto, long p_area, long p_grupo, string p_material, datetime p_fecha_inicio, datetime p_fecha_final, string p_grupo_clase, long p_materia_clase);integer li_conteo=0
+
+select count(*)
+into :li_conteo
+from dbo.spre_sol_materiales a 
+join dbo.spre_solicitud b on b.cvedepto=a.cvedepto and b.folio=a.folio
+join dbo.spre_prestamo_material c on c.cvedepto=a.cvedepto and c.folio=a.folio
+where 
+b.cvedepto=:p_depto
+and a.cvearea=:p_area
+and a.status in (0,2,3)
+and b.status in (0,2,3)
+and a.cvegrupo=:p_grupo
+and a.cvematerial=:p_material
+and c.cvegpo_clase=:p_grupo_clase
+and c.cvemat_clase=:p_materia_clase
+and b.fecha_inicio=:p_fecha_inicio 
+and b.fecha_fin=:p_fecha_final
+
+using gtr_sumuia; 
+
+if gtr_sumuia.SQLCode = -1 then 
+		messagebox("Error SUMUIA: Conteo de prestamos por usuario.", gtr_sumuia.SQLErrText)	
+		rollback using gtr_sumuia;
+else
+	commit using gtr_sumuia;
+end if
+
+return (li_conteo)
+end function
+

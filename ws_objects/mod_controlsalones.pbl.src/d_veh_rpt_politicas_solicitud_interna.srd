@@ -1,0 +1,49 @@
+﻿$PBExportHeader$d_veh_rpt_politicas_solicitud_interna.srd
+release 12;
+datawindow(units=0 timer_interval=0 color=1073741824 brushmode=0 transparency=0 gradient.angle=0 gradient.color=8421504 gradient.focus=0 gradient.repetition.count=0 gradient.repetition.length=100 gradient.repetition.mode=0 gradient.scale=100 gradient.spread=100 gradient.transparency=0 picture.blur=0 picture.clip.bottom=0 picture.clip.left=0 picture.clip.right=0 picture.clip.top=0 picture.mode=0 picture.scale.x=100 picture.scale.y=100 picture.transparency=0 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes print.background=no print.preview.background=no print.preview.outline=yes hidegrayline=no showbackcoloronxp=no picture.file="" )
+header(height=0 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+summary(height=0 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+footer(height=0 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+detail(height=3392 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+table(column=(type=long update=yes updatewhereclause=yes key=yes name=sol_id dbname="via_solicitud_interna.sol_id" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"dbo.via_solicitud_interna~" ) COLUMN(NAME=~"dbo.via_solicitud_interna.sol_id~")WHERE(    EXP1 =~"dbo.via_solicitud_interna.sol_id~"   OP =~"=~"    EXP2 =~":an_sol_id~" ) ) ARG(NAME = ~"an_sol_id~" TYPE = number) " update="dbo.via_solicitud_interna" updatewhere=1 updatekeyinplace=no arguments=(("an_sol_id", number)) )
+text(band=detail alignment="1" text="Políticas para el servicio de vehículos institucionales" border="0" color="33554432" x="5" y="380" height="64" width="1531" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+compute(band=detail alignment="3" expression="~"A) La unidad será conducida por personal administrativo de la Ibero, deberá contar con licencia de conducir y credencial de empleado vigente. Deberán existir registros de estos documentos en el archivo de la oficina de control vehicular y presentarlos al momento de recibir la unidad.
+B) Los autos se encuentran en el estacionamiento E-5 (junto a controles de acceso), en donde se deberá dejar al terminar el servicio. 
+C) En la oficina de Control Vehicular (edificio A P.B.) se entregará la llave del auto y la bitácora FO-UIACM-DOS-74-02 (misma que deberá ser llenada completamente por el usuario), al concluir el servicio deberán devolverse en la misma oficina. En caso de empezar o concluir el servicio fuera de horario de atención, la llave y la bitácora deberán ser entregadas en la oficina de seguridad.
+D)    El saldo de la TAG para el uso de autopistas deberá solicitarse por correo electrónico con un día hábil de anticipación de 8:00 a 17:00 horas. El uso de casetas está restringido al traslado solo de personas con servicio de chofer y para citas con justificación institucional. No aplica el uso para la entrega de mensajería.     
+E) Al utilizar un auto institucional el usuario deberá sujetarse a los siguientes puntos:
+	Verificar la tarjeta de circulación, póliza de seguro, tarjeta TAG, herramienta de apoyo vial y tarjeta de acceso al estacionamiento Ibero.
+	Revisar que no tenga golpes, abolladuras, tallones, etc. En caso de encontrar algún desperfecto avisar de inmediato a la oficina de Informes.
+	Cumplir con los reglamentos de tránsito vigentes en la localidad donde se conduzca.
+	Cubrir las infracciones correspondientes y liberación de los vehículos, en su caso.
+	Realizar desplazamientos únicamente dentro del Distrito Federal y área metropolitana.
+	Durante el servicio utilizar estacionamiento públicos y cerrados.
+	Dentro de la IBERO, está prohibido estacionase en lugares restringidos y/o destinados para alumnos, personas con discapacidad, pasos peatonales, ambulancias, servicio médico, etc., así como el bloquear la salida de los autos estacionados.
+	No se permite consumir alimentos, bebidas, ni fumar en el interior de los autos.
+	La reposición por pérdida de tarjeta de acceso al estacionamiento de la IBERO, documentos y herramienta del auto serán cubiertas por el usuario a los costos vigentes.
+	Los autos deberán pernoctar dentro de la Universidad Iberoamericana.
+	La oficina de control vehicular no se hará responsable de las pérdidas de objetos personales olvidados en el interior de los autos ya que estos son destinados a diferentes usuarios.
+F) En caso de surgir alguna eventualidad o siniestro durante el uso, todos los autos cuentan con una póliza de seguro (guantera) que ampara asistencia vial, legal y daños a terceros, en tal caso favor de contactar a la compañía aseguradora y avisar a la oficina de control vehicular a los teléfonos 59504000 Ext. 7686 y/o 59504001 o 4002                                                                                         
+G) La Universidad Iberoamericana A.C. No se hace responsable de los daños ocasionados al auto y/o tercero por parte del usuario. Cualquier daño o deducible deberá ser pagado por el usuario asignado. 
+H) En cada asignación se tiene tolerancia de 30 minutos en caso de no llegar por la unidad, esta será asignada al siguiente usuario.          
+I) No se permite el uso de los autos y/o choferes institucionales en los siguientes casos:
+
+	Actividades de carácter personal, cursos y capacitaciones
+	Viajes culturales, recreativos, deportivos o turísticos
+	Servicios funerarios
+	Trasladar alumnos o material de los mismos aún con fines académicos
+	
+Nombre y firma del usuario_____________________________________________________
+~""border="0" color="33554432" x="0" y="460" height="2892" width="3406" format="[GENERAL]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" pagingmethod=0 generatedddwframes="1" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=1 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

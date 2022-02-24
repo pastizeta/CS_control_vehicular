@@ -1,0 +1,30 @@
+﻿$PBExportHeader$crea_fecha_hora.srf
+global type crea_fecha_hora from function_object
+end type
+
+forward prototypes
+global function datetime crea_fecha_hora (string dia_param, string mes_param, string anio_param, string hora_param)
+end prototypes
+
+global function datetime crea_fecha_hora (string dia_param, string mes_param, string anio_param, string hora_param);date solo_fecha
+time solo_hora
+
+solo_hora=time(hora_param)
+
+datetime fecha_larga
+
+string dia_str,mes_str,anio_str,fecha_completa
+
+//fecha_completa=mes_param+"/"+dia_param+"/"+anio_param
+
+// lo cambio para CD MX CPH feb 2018
+fecha_completa=anio_param+"/"+mes_param+"/"+dia_param
+solo_fecha=date(fecha_completa)
+
+
+
+fecha_larga=datetime(solo_fecha,solo_hora)
+
+return fecha_larga
+end function
+

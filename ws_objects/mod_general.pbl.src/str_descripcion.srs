@@ -1,0 +1,6 @@
+﻿$PBExportHeader$str_descripcion.srs
+global type str_descripcion from structure
+	integer		codigo
+	string		descripcion
+end type
+

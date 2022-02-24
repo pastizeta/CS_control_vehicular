@@ -1,0 +1,29 @@
+﻿$PBExportHeader$f_select_texto_horarios_materia.srf
+global type f_select_texto_horarios_materia from function_object
+end type
+
+forward prototypes
+global function string f_select_texto_horarios_materia (long pl_materia, string ps_grupo, integer pi_periodo, integer pi_anio)
+end prototypes
+
+global function string f_select_texto_horarios_materia (long pl_materia, string ps_grupo, integer pi_periodo, integer pi_anio);integer li_i, li_row
+string ls_horarios=''
+
+datastore ids_horarios_materia
+ids_horarios_materia= create datastore 
+ids_horarios_materia.dataobject ='d_csal_horarios_materia'
+ids_horarios_materia.settransobject(gtr_escolar)
+ids_horarios_materia.retrieve(pi_anio,pi_periodo,pl_materia,ps_grupo)
+	
+li_row=ids_horarios_materia.rowcount()
+
+for li_i=1 to li_row
+	
+	if ls_horarios<>'' then ls_horarios=ls_horarios+', '
+	ls_horarios=ls_horarios+ids_horarios_materia.GetItemString(li_i,"dias_dia")+'  '+string(ids_horarios_materia.GetItemNumber(li_i,"horario_hora_inicio"))+'-'+string(ids_horarios_materia.GetItemNumber(li_i,"horario_hora_final"))
+
+next
+
+return (ls_horarios)
+end function
+

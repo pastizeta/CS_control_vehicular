@@ -1,0 +1,69 @@
+﻿$PBExportHeader$d_gen_rep_presolici_fechaspres.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 1 print.margin.left = 50 print.margin.right = 50 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 1 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=296 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=76 color="536870912" )
+table(column=(type=long update=yes updatewhereclause=yes name=folio dbname="spre_pre_solicitud.folio" )
+ column=(type=long updatewhereclause=yes name=solicitanteid dbname="spre_pre_solicitud.solicitanteid" )
+ column=(type=char(80) updatewhereclause=yes name=solicitantenombre dbname="spre_pre_solicitud.solicitantenombre" )
+ column=(type=long updatewhereclause=yes name=status dbname="spre_pre_solicitud.status" )
+ column=(type=char(9) updatewhereclause=yes name=desc_status dbname="desc_status" )
+ column=(type=datetime update=yes updatewhereclause=yes name=fecha_solicitud dbname="spre_pre_solicitud.fecha_solicitud" )
+ column=(type=datetime updatewhereclause=yes name=fecha_inicio dbname="spre_pre_solicitud.fecha_inicio" )
+ column=(type=datetime updatewhereclause=yes name=fecha_fin dbname="spre_pre_solicitud.fecha_fin" )
+ column=(type=long updatewhereclause=yes name=autorizada dbname="spre_pre_solicitud.autorizada" )
+ column=(type=long updatewhereclause=yes name=cvearea dbname="spre_pre_solicitud.cvearea" )
+ column=(type=long updatewhereclause=yes name=req_autorizacion dbname="req_autorizacion" values="	1/	0" )
+ retrieve=" select folio,
+		solicitanteid,
+		solicitantenombre,
+		status,
+		case status when 0 then 'Pendiente'
+		 when 1 then 'Procesada'
+		when 2 then 'Cancelada'
+	 	end as desc_status,
+		fecha_solicitud,
+		fecha_inicio,
+		fecha_fin,
+		autorizada,
+		cvearea,
+		case when status = 0 and autorizada = 0 Then 1
+			else 0
+		end as req_autorizacion
+ from spre_pre_solicitud
+where cvedepto =:cvedepto
+  and cvearea =:cvearea
+  and convert(date,fecha_inicio) >=:fechainicio
+  and  convert(date,fecha_fin) <=:fechafin
+" arguments=(("cvedepto", number),("cvearea", number),("fechainicio", date),("fechafin", date))  sort="folio A " )
+rectangle(band=header x="27" y="192" height="104" width="4014"  name=r_1 visible="1" brush.hatch="6" brush.color="80269524" pen.style="0" pen.width="5" pen.color="33554432"  background.mode="2" background.color="0" )
+text(band=header alignment="2" text="Folio" border="0" color="0" x="133" y="216" height="56" width="197" html.valueishtml="0"  name=t_1 visible="1"  font.face="Tahoma" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="2" text="Req Autorización" border="0" color="0" x="3543" y="216" height="56" width="480" html.valueishtml="0"  name=t_8 visible="1"  font.face="Tahoma" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="2" text="Solicitante" border="0" color="0" x="352" y="216" height="56" width="1170" html.valueishtml="0"  name=t_2 visible="1"  font.face="Tahoma" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="2" text="Estatus" border="0" color="0" x="1536" y="216" height="56" width="425" html.valueishtml="0"  name=t_7 visible="1"  font.face="Tahoma" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="2" text="Fecha Captura" border="0" color="0" x="1975" y="216" height="56" width="448" html.valueishtml="0"  name=t_3 visible="1"  font.face="Tahoma" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="2" text="Fecha Inicial" border="0" color="0" x="2437" y="216" height="56" width="535" html.valueishtml="0"  name=t_4 visible="1"  font.face="Tahoma" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="2" text="Fecha Final" border="0" color="0" x="2990" y="216" height="56" width="535" html.valueishtml="0"  name=t_6 visible="1"  font.face="Tahoma" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="2" text="Reporte de Presolicitudes" border="0" color="0" x="1531" y="48" height="64" width="763" html.valueishtml="0"  name=t_5 visible="1"  font.face="Tahoma" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="2" text="" border="0" color="0" x="1189" y="116" height="60" width="1449" html.valueishtml="0"  name=t_depto visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+line(band=detail x1="64" y1="72" x2="4032" y2="72"  name=l_1 visible="1" pen.style="0" pen.width="5" pen.color="12632256"  background.mode="2" background.color="33554432" )
+column(band=detail id=1 alignment="1" tabsequence=32766 border="0" color="33554432" x="59" y="4" height="56" width="274" format="[general]" html.valueishtml="0"  name=folio visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="33554432" x="352" y="4" height="56" width="1170" format="[general]" html.valueishtml="0"  name=solicitantenombre visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="2" tabsequence=32766 border="0" color="33554432" x="1975" y="4" height="56" width="448" format="DD/MM/YYYY" html.valueishtml="0"  name=fecha_solicitud visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="2" tabsequence=32766 border="0" color="33554432" x="2437" y="4" height="56" width="535" format="DD/MM/YYYY hh:mm" html.valueishtml="0"  name=fecha_inicio visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="2" tabsequence=32766 border="0" color="33554432" x="2990" y="4" height="56" width="535" format="DD/MM/YYYY hh:mm" html.valueishtml="0"  name=fecha_fin visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="2" tabsequence=32766 border="0" color="33554432" x="1536" y="4" height="56" width="425" format="[general]" html.valueishtml="0"  name=desc_status visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=11 alignment="2" tabsequence=32766 border="0" color="33554432" x="3543" y="4" height="56" width="480" format="[general]" html.valueishtml="0"  name=req_autorizacion visible="1" checkbox.text="" checkbox.on="1" checkbox.off="0" checkbox.scale=no checkbox.threed=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

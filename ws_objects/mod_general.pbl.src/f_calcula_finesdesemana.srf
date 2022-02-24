@@ -1,0 +1,23 @@
+﻿$PBExportHeader$f_calcula_finesdesemana.srf
+global type f_calcula_finesdesemana from function_object
+end type
+
+forward prototypes
+global function integer f_calcula_finesdesemana (date p_fecha1, date p_fecha2)
+end prototypes
+
+global function integer f_calcula_finesdesemana (date p_fecha1, date p_fecha2);integer li_cuenta=0
+date ld_fecha
+
+ld_fecha=p_fecha1
+
+do while ld_fecha<=p_fecha2
+
+	if DayNumber(ld_fecha) = 1 or DayNumber(ld_fecha) = 7 then li_cuenta=li_cuenta+1
+	ld_fecha=RelativeDate(ld_fecha,1)
+	
+loop
+
+return (li_cuenta)
+end function
+

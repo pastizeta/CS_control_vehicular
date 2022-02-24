@@ -1,0 +1,51 @@
+﻿$PBExportHeader$f_insert_reservacion_cambio.srf
+global type f_insert_reservacion_cambio from function_object
+end type
+
+forward prototypes
+global function integer f_insert_reservacion_cambio (str_csal_salones_reservacion pstr_reservacion)
+end prototypes
+
+global function integer f_insert_reservacion_cambio (str_csal_salones_reservacion pstr_reservacion);integer li_num_asignacion
+pstr_reservacion.fecha_movimiento=today()
+
+
+select max(dbo.spre_reserva_salon_cambios.num_asignacion)
+into :li_num_asignacion
+from dbo.spre_reserva_salon_cambios
+using gtr_sumuia; 
+
+if gtr_sumuia.SQLCode = -1 then 
+	messagebox("Error al reservar salon, código ", gtr_sumuia.SQLErrText)	
+else
+	
+	if IsNull(li_num_asignacion) then li_num_asignacion=0
+	li_num_asignacion=li_num_asignacion+1
+	  
+	insert into dbo.spre_reserva_salon_cambios
+	(cvedepto, cvearea, cveperiodo, anio, cve_salon, cve_materia, 
+	cve_profesor, cve_dia, hora_inicio, hora_final, 
+	fecha_movimiento, num_asignacion, usuario, cve_grupo, observaciones)
+	 
+	values
+	(:gi_depto, :gi_area, :pstr_reservacion.periodo, :pstr_reservacion.anio, :pstr_reservacion.salon_anterior, :pstr_reservacion.cve_materia, 
+	:pstr_reservacion.cve_profesor, :pstr_reservacion.cve_dia, :pstr_reservacion.hora_inicio, :pstr_reservacion.hora_final,
+	:pstr_reservacion.fecha_movimiento, :li_num_asignacion,:gs_usuario, :pstr_reservacion.grupo, :pstr_reservacion.observaciones)
+	
+	using gtr_sumuia;	
+	
+	if gtr_sumuia.sqlcode<>0 then
+		messagebox("Error al reservar salon, código "+string(gtr_sumuia.sqlcode), gtr_sumuia.SQLErrText)
+		rollback using gtr_sumuia;
+	else
+		commit using gtr_sumuia;	
+	end if		
+	
+end if
+
+return(li_num_asignacion)
+
+
+
+end function
+

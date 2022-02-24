@@ -1,0 +1,28 @@
+﻿$PBExportHeader$f_psi_fecha_inhabil.srf
+global type f_psi_fecha_inhabil from function_object
+end type
+
+forward prototypes
+global function date f_psi_fecha_inhabil (date p_fecha,integer p_dias)
+end prototypes
+
+global function date f_psi_fecha_inhabil (date p_fecha,  integer p_dias);date ld_fecha
+integer li_inhabil, li_fin, li_dias=-1
+
+ld_fecha=RelativeDate(p_fecha,-1)
+
+do 
+
+	ld_fecha=RelativeDate(ld_fecha,1)
+	li_inhabil=f_select_psi_cuenta_inhabil(ld_fecha,ld_fecha)
+	li_fin=f_calcula_psi_finesdesemana(ld_fecha,ld_fecha)
+	
+	if li_inhabil=0 and li_fin=0 then li_dias=li_dias+1	
+
+loop while li_dias<p_dias
+
+
+return(ld_fecha)
+
+end function
+

@@ -1,0 +1,49 @@
+﻿$PBExportHeader$d_controls_mat_multa.srd
+$PBExportComments$Muestra el material prestado para una solicitud determinada
+release 10;
+datawindow(units=0 timer_interval=0 color=29534863 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=84 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=72 color="536870912" )
+table(column=(type=long update=yes updatewhereclause=yes key=yes name=spre_multas_folio dbname="spre_multas.folio" )
+ column=(type=decimal(4) update=yes updatewhereclause=yes name=spre_multas_importe dbname="spre_multas.importe" )
+ column=(type=decimal(4) update=yes updatewhereclause=yes name=spre_multas_saldo dbname="spre_multas.saldo" )
+ column=(type=long update=yes updatewhereclause=yes name=spre_multas_cvedepto dbname="spre_multas.cvedepto" )
+ column=(type=long update=yes updatewhereclause=yes key=yes name=spre_multas_folio_multa dbname="spre_multas.folio_multa" )
+ column=(type=long updatewhereclause=yes name=spre_solicitud_solicitanteid dbname="spre_solicitud.solicitanteid" )
+ column=(type=long updatewhereclause=yes name=saldo0 dbname="compute_0007" values="No	0/Si	1/" )
+ retrieve="  SELECT dbo.spre_multas.folio,   
+         dbo.spre_multas.importe,   
+         dbo.spre_multas.saldo,   
+         dbo.spre_multas.cvedepto,   
+         dbo.spre_multas.folio_multa,   
+         dbo.spre_solicitud.solicitanteid,
+			case dbo.spre_multas.saldo when 0 then 1 else 0 end  
+    FROM dbo.spre_solicitud,   
+         dbo.spre_multas  
+   WHERE ( dbo.spre_multas.cvedepto = dbo.spre_solicitud.cvedepto ) and  
+         ( dbo.spre_multas.folio = dbo.spre_solicitud.folio ) and  
+         (dbo.spre_solicitud.solicitanteid = :arglsolid ) AND  
+		(dbo.spre_multas.cvedepto = 5 ) and
+         (dbo.spre_multas.saldo > 0 )    
+" update="spre_multas" updatewhere=0 updatekeyinplace=no arguments=(("arglsolid", number)) )
+text(band=header alignment="2" text="Importe" border="0" color="0" x="375" y="12" height="56" width="398" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="276856960" )
+text(band=header alignment="2" text="Folio" border="0" color="0" x="14" y="12" height="56" width="352" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="276856960" )
+text(band=header alignment="2" text="Adeuda" border="0" color="0" x="782" y="12" height="56" width="398" html.valueishtml="0"  name=t_4 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="276856960" )
+text(band=header alignment="2" text="Pagada" border="0" color="0" x="1189" y="12" height="56" width="398" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="276856960" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="5" color="0" x="375" y="4" height="56" width="393" format="[currency]" html.valueishtml="0"  name=spre_multas_importe visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.displayonly=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="5" color="0" x="14" y="4" height="56" width="347" format="[general]" html.valueishtml="0"  name=spre_multas_folio visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.displayonly=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="5" color="255" x="782" y="4" height="56" width="393" format="[currency]" html.valueishtml="0"  name=spre_multas_saldo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.displayonly=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=7 alignment="0" tabsequence=10 border="5" color="0" x="1189" y="4" height="56" width="384" format="[general]" html.valueishtml="0"  name=saldo0 visible="1" ddlb.limit=0 ddlb.allowedit=no ddlb.case=any  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

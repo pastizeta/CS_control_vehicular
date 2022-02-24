@@ -1,0 +1,52 @@
+﻿$PBExportHeader$d_controls_sol_act_ori.srd
+$PBExportComments$Muestra las solicitudes de material prestado para un alumno o profesor siempre y cuando estas se encuentren en los estatus de activa, parcial o multa
+release 10;
+datawindow(units=0 timer_interval=0 color=29534863 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=72 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=72 color="536870912" )
+table(column=(type=long update=yes updatewhereclause=yes key=yes name=spre_solicitud_folio dbname="spre_solicitud.folio" )
+ column=(type=long update=yes updatewhereclause=yes key=yes name=spre_solicitud_solicitanteid dbname="spre_solicitud.solicitanteid" )
+ column=(type=long update=yes updatewhereclause=yes key=yes name=spre_solicitud_status dbname="spre_solicitud.status" values="Activa	0/Cerrada	1/Multa	3/	/" )
+ column=(type=long update=yes updatewhereclause=yes name=cveperiodo dbname="spre_solicitud.cveperiodo" )
+ column=(type=long update=yes updatewhereclause=yes name=condicion dbname="spre_solicitud.condicion" )
+ column=(type=datetime update=yes updatewhereclause=yes name=fecha_fin dbname="spre_solicitud.fecha_fin" )
+ column=(type=datetime update=yes updatewhereclause=yes name=fecha_inicio dbname="spre_solicitud.fecha_inicio" )
+ column=(type=long update=yes updatewhereclause=yes name=cvedepto dbname="spre_solicitud.cvedepto" )
+ column=(type=datetime update=yes updatewhereclause=yes name=fecha_solicitud dbname="spre_solicitud.fecha_solicitud" )
+ retrieve="  SELECT dbo.spre_solicitud.folio,   
+         dbo.spre_solicitud.solicitanteid,   
+         dbo.spre_solicitud.status,   
+         dbo.spre_solicitud.cveperiodo,   
+         dbo.spre_solicitud.condicion,   
+         dbo.spre_solicitud.fecha_fin,   
+         dbo.spre_solicitud.fecha_inicio,   
+         dbo.spre_solicitud.cvedepto,   
+         dbo.spre_solicitud.fecha_solicitud  
+    FROM dbo.spre_solicitud, dbo.spre_prestamo_material  
+   WHERE ( dbo.spre_solicitud.solicitanteid = dbo.spre_prestamo_material.solicitanteid) AND
+			( dbo.spre_solicitud.folio = dbo.spre_prestamo_material.folio) AND
+			( dbo.spre_solicitud.solicitanteid = :arglIdSol) AND  
+         ( dbo.spre_solicitud.status in (0,2,3) ) AND  
+         dbo.spre_solicitud.cvedepto = 5    
+" update="spre_solicitud" updatewhere=1 updatekeyinplace=yes arguments=(("arglIdSol", number)) )
+text(band=header alignment="2" text="Folio" border="0" color="0" x="5" y="8" height="60" width="219" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="276856960" )
+text(band=header alignment="2" text="Estatus" border="0" color="0" x="229" y="8" height="60" width="805" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="276856960" )
+text(band=header alignment="2" text="Fecha prestamo" border="0" color="0" x="1038" y="8" height="60" width="485" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="276856960" )
+text(band=header alignment="2" text="Fecha entrega" border="0" color="0" x="1527" y="8" height="60" width="475" html.valueishtml="0"  name=t_4 visible="1"  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="276856960" )
+column(band=detail id=1 alignment="2" tabsequence=10 border="5" color="0" x="5" y="4" height="60" width="219" format="[general]" html.valueishtml="0"  name=spre_solicitud_folio visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.displayonly=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=3 alignment="2" tabsequence=20 border="5" color="0" x="238" y="4" height="60" width="791" format="[general]" html.valueishtml="0"  name=spre_solicitud_status visible="1" ddlb.limit=0 ddlb.allowedit=no ddlb.case=any ddlb.useasborder=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="1090519039~tcase( spre_solicitud_status when 0  then rgb(255,255,255) when 1 then rgb(255,255,255) when 2 then rgb(0,255,255)  when 3 then rgb(252,0,0))" )
+column(band=detail id=7 alignment="0" tabsequence=32766 border="5" color="0" x="1047" y="4" height="60" width="466" format="[shortdate]" html.valueishtml="0"  name=fecha_inicio visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="5" color="0" x="1531" y="4" height="60" width="462" format="[shortdate]" html.valueishtml="0"  name=fecha_fin visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

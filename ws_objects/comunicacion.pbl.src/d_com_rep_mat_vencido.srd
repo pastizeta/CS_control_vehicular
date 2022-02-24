@@ -1,0 +1,65 @@
+﻿$PBExportHeader$d_com_rep_mat_vencido.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=820 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=168 color="536870912" )
+detail(height=76 color="536870912" )
+table(column=(type=long updatewhereclause=yes name=solicitanteid dbname="solicitanteid" )
+ column=(type=char(80) updatewhereclause=yes name=solicitantenombre dbname="solicitantenombre" )
+ column=(type=long updatewhereclause=yes name=folio dbname="folio" )
+ column=(type=long updatewhereclause=yes name=status dbname="status" values="Prestamo Activo	0/Reservado	5/" )
+ column=(type=datetime updatewhereclause=yes name=fecha_fin dbname="fecha_fin" )
+ retrieve=" SELECT DISTINCT
+			spre_solicitud.solicitanteid,
+			spre_prestamo_material.solicitantenombre,
+			spre_solicitud.folio,
+			spre_solicitud.status,
+			spre_solicitud.fecha_fin
+    FROM         spre_solicitud INNER JOIN
+                      spre_prestamo_material ON spre_solicitud.folio = spre_prestamo_material.folio AND 
+                      spre_solicitud.solicitanteid = spre_prestamo_material.solicitanteid INNER JOIN
+                      spre_sol_materiales ON spre_solicitud.folio = spre_sol_materiales.folio AND 
+					spre_solicitud.status = spre_sol_materiales.status AND
+					spre_solicitud.cvedepto = spre_sol_materiales.cvedepto AND
+					spre_sol_materiales.cvedepto = spre_prestamo_material.cvedepto 
+WHERE    ( spre_sol_materiales.cvedepto = 4 ) and 
+				( spre_sol_materiales.cvearea = 1 ) and
+				( spre_sol_materiales.status in(0,5)) and
+				( spre_solicitud.status in(0,5)) and
+				( spre_sol_materiales.cvegrupo <> 8) and
+				( spre_solicitud.fecha_fin < getdate())
+		
+	group by spre_sol_materiales.cvedepto,
+			spre_solicitud.solicitanteid,
+			spre_prestamo_material.solicitantenombre,
+			spre_solicitud.folio,
+			spre_solicitud.status,
+			spre_solicitud.fecha_fin "  sort="fecha_fin A " )
+compute(band=header alignment="1" expression="today()"border="0" color="0" x="2770" y="40" height="60" width="485" format="dd/mm/yyyy" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="No.Cuenta" border="0" color="0" x="23" y="724" height="56" width="347" html.valueishtml="0"  name=solicitanteid_t visible="1"  font.face="Tahoma" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=header x1="37" y1="796" x2="3328" y2="796"  name=l_1 visible="1" pen.style="1" pen.width="5" pen.color="12632256"  background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Solicitantenombre" border="0" color="0" x="389" y="724" height="56" width="1253" html.valueishtml="0"  name=solicitantenombre_t visible="1"  font.face="Tahoma" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Folio Soliictud" border="0" color="0" x="1655" y="724" height="56" width="411" html.valueishtml="0"  name=folio_t visible="1"  font.face="Tahoma" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Status" border="0" color="0" x="2089" y="724" height="56" width="617" html.valueishtml="0"  name=status_t visible="1"  font.face="Tahoma" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Fecha Fin" border="0" color="0" x="2711" y="724" height="56" width="603" html.valueishtml="0"  name=fecha_fin_t visible="1"  font.face="Tahoma" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+bitmap(band=header filename="esclat.gif" x="1042" y="52" height="352" width="1143" border="0"  name=p_1 visible="1" )
+text(band=header alignment="2" text="Reporte de Material Vencido" border="0" color="0" x="704" y="500" height="76" width="1915" html.valueishtml="0"  name=t_1 visible="1"  font.face="Tahoma" font.height="-12" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=1 alignment="2" tabsequence=32766 border="0" color="0" x="27" y="8" height="64" width="329" format="[general]" html.valueishtml="0"  name=solicitanteid visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="393" y="8" height="64" width="1248" format="[general]" html.valueishtml="0"  name=solicitantenombre visible="1" edit.limit=80 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="2" tabsequence=32766 border="0" color="0" x="1650" y="8" height="64" width="421" format="[general]" html.valueishtml="0"  name=folio visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="2" tabsequence=32766 border="0" color="0" x="2085" y="8" height="64" width="622" format="[general]" html.valueishtml="0"  name=status visible="1" ddlb.limit=0 ddlb.allowedit=no ddlb.case=any  font.face="Tahoma" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="0" color="0" x="2720" y="8" height="64" width="590" format="[shortdate] [time]" html.valueishtml="0"  name=fecha_fin visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=footer alignment="1" expression="count(  folio  for all )"border="0" color="0" x="2953" y="84" height="76" width="320" format="[GENERAL]" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Tahoma" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=footer alignment="1" text="Total Solicitudes:" border="0" color="0" x="2231" y="84" height="76" width="626" html.valueishtml="0"  name=t_2 visible="1"  font.face="Tahoma" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

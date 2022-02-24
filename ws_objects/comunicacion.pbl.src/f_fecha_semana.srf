@@ -1,0 +1,56 @@
+﻿$PBExportHeader$f_fecha_semana.srf
+global type f_fecha_semana from function_object
+end type
+
+forward prototypes
+global function any f_fecha_semana (date adt_fecha)
+end prototypes
+
+global function any f_fecha_semana (date adt_fecha);//	Function:  f_fecha_semana
+//	Arguments:
+//	date adt_fecha
+//
+//	Returns:
+//	any
+//
+//	Description:
+//	Dada una fecha, determina la semana del año en la que cae y devuelve la
+//	fecha del primer día de la semana (domingo) y la fecha del último día de
+//	la semana (sábado) para formar un rango de fechas.
+
+
+date ldt_resultado[]
+any la_resultado
+integer li_dia
+	
+li_dia =	DayNumber(adt_fecha)
+
+CHOOSE CASE li_dia
+	CASE 1
+		ldt_resultado[1] = RelativeDate (adt_fecha, 0)
+		ldt_resultado[2] = RelativeDate (adt_fecha, 6)
+	CASE 2
+		ldt_resultado[1] = RelativeDate (adt_fecha, -1)
+		ldt_resultado[2] = RelativeDate (adt_fecha, 5)
+	CASE 3
+		ldt_resultado[1] = RelativeDate (adt_fecha, - 2)
+		ldt_resultado[2] = RelativeDate (adt_fecha, 4)
+	CASE 4
+		ldt_resultado[1] = RelativeDate (adt_fecha, - 3)
+		ldt_resultado[2] = RelativeDate (adt_fecha, 3)
+	CASE 5
+		ldt_resultado[1] = RelativeDate (adt_fecha, - 4)
+		ldt_resultado[2] = RelativeDate (adt_fecha, 2)
+	CASE 6
+		ldt_resultado[1] = RelativeDate (adt_fecha, - 5)
+		ldt_resultado[2] = RelativeDate (adt_fecha, 1)
+	CASE 7
+		ldt_resultado[1] = RelativeDate (adt_fecha, - 6)
+		ldt_resultado[2] = RelativeDate (adt_fecha, 0)
+END CHOOSE
+
+la_resultado = ldt_resultado
+
+return la_resultado
+end function
+

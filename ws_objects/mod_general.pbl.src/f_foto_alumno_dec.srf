@@ -1,0 +1,56 @@
+﻿$PBExportHeader$f_foto_alumno_dec.srf
+global type f_foto_alumno_dec from function_object
+end type
+
+forward prototypes
+global function blob f_foto_alumno_dec (long al_cuenta)
+end prototypes
+
+global function blob f_foto_alumno_dec (long al_cuenta);
+Blob lblob_foto
+transaction ltr_creden_fotos
+
+ltr_creden_fotos = CREATE transaction
+ltr_creden_fotos.DBMS       = ProfileString("sispre.ini","credenciales","dbms","");
+ltr_creden_fotos.database   = ProfileString("sispre.ini","credenciales","database","");
+ltr_creden_fotos.logid      = gs_usuario
+ltr_creden_fotos.logpass    = gs_pass
+ltr_creden_fotos.servername = ProfileString("sispre.ini","credenciales","servername","");
+ltr_creden_fotos.DbParm= ProfileString("sispre.ini","credenciales","dbparm","");
+
+if (gtr_sumuia.servername='sybcesdes') then
+	ltr_creden_fotos.logid = 'sa'
+	ltr_creden_fotos.logpass = 'desarrollo'
+end if
+
+// Conexion a la base de datos de credenciales de alumnos
+CONNECT USING ltr_creden_fotos;
+if ltr_creden_fotos.sqlcode <> 0 then
+     MessageBox ('No hay conexión a credenciales_bd', ltr_creden_fotos.sqlerrtext,StopSign!)
+     SetNull(lblob_foto)
+end if
+
+// Seleccion del blob de foto del alumno segun el argumrnto 'al_cuenta'
+SELECTBLOB foto
+INTO :lblob_foto 
+FROM fotos_alumnos_dec
+WHERE fotos_alumnos_dec.cuenta = :al_cuenta
+Using ltr_creden_fotos;
+IF ltr_creden_fotos.sqlcode = 100 THEN
+	MessageBox ('No existe foto','N° de cuenta: '+string(al_cuenta),EXclamation!)
+	SetNull(lblob_foto)
+ELSEIF ltr_creden_fotos.sqlcode = -1 THEN
+	MessageBox ('Error Obteniendo foto','N° de cuenta: '+string(al_cuenta)+'~nError: '+&
+					ltr_creden_fotos.sqlerrtext,StopSign!)
+	SetNull(lblob_foto)
+ELSEIF ltr_creden_fotos.sqlcode = 0 AND IsNull(lblob_foto) THEN
+	MessageBox ('Foto Nula','El N° de cuenta: '+string(al_cuenta)+'~n,tiene una foto vacia.'+&
+					ltr_creden_fotos.sqlerrtext,Information!)
+	SetNull(lblob_foto)	
+END IF
+DISCONNECT Using ltr_creden_fotos;
+
+//Si el resultado fue exitoso entrega blob, sino un nulo
+Return lblob_foto
+end function
+

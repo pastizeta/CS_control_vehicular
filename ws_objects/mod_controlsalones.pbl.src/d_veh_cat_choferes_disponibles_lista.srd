@@ -1,0 +1,38 @@
+﻿$PBExportHeader$d_veh_cat_choferes_disponibles_lista.srd
+release 12;
+datawindow(units=0 timer_interval=0 color=1073741824 brushmode=0 transparency=0 gradient.angle=0 gradient.color=8421504 gradient.focus=0 gradient.repetition.count=0 gradient.repetition.length=100 gradient.repetition.mode=0 gradient.scale=100 gradient.spread=100 gradient.transparency=0 picture.blur=0 picture.clip.bottom=0 picture.clip.left=0 picture.clip.right=0 picture.clip.top=0 picture.mode=0 picture.scale.x=100 picture.scale.y=100 picture.transparency=0 processing=1 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes print.background=no print.preview.background=no print.preview.outline=yes hidegrayline=no showbackcoloronxp=no picture.file="" grid.lines=0 )
+header(height=90 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+summary(height=0 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+footer(height=0 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+detail(height=90 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+table(column=(type=long update=yes updatewhereclause=yes key=yes name=id dbname="via_cat_choferes.id" dbalias=".id" )
+ column=(type=char(152) update=yes updatewhereclause=yes name=descripcion dbname="descripcion" )
+ retrieve="SELECT id,   
+ltrim(rtrim(isnull(nombre,'')+' '+isnull(paterno,'')+' '+isnull(materno,''))) as descripcion
+FROM via_cat_choferes
+WHERE estatus = 1
+and id not in (
+    select id_chofer
+    from via_sol_vehiculos a
+    join via_solicitud_interna b on a.sol_id = b.sol_id
+    where b.estatus = 4
+    and a.sol_id <> :p_sol_id
+    and ((DateAdd(mi,-isnull((select minutos from via_cat_parametros where id = 1),0),b.fecha_estimada_entrega) between DateAdd(mi,-isnull((select minutos from via_cat_parametros where id = 1),0),:p_fecha_inicio) and DateAdd(mi,isnull((select minutos from via_cat_parametros where id = 2),0),:p_fecha_final)) or (DateAdd(mi,isnull((select minutos from via_cat_parametros where id = 2),0),fecha_estimada_devolucion) between DateAdd(mi,-isnull((select minutos from via_cat_parametros where id = 1),0),:p_fecha_inicio) and DateAdd(mi,isnull((select minutos from via_cat_parametros where id = 2),0),:p_fecha_final))
+    or (DateAdd(mi,-isnull((select minutos from via_cat_parametros where id = 1),0),:p_fecha_inicio) between DateAdd(mi,-isnull((select minutos from via_cat_parametros where id = 1),0),b.fecha_estimada_entrega) and DateAdd(mi,isnull((select minutos from via_cat_parametros where id = 2),0),fecha_estimada_devolucion)) or (DateAdd(mi,isnull((select minutos from via_cat_parametros where id = 2),0),:p_fecha_final) between DateAdd(mi,-isnull((select minutos from via_cat_parametros where id = 1),0),b.fecha_estimada_entrega) and DateAdd(mi,isnull((select minutos from via_cat_parametros where id = 2),0),fecha_estimada_devolucion)))
+    and DateAdd(mi,isnull((select minutos from via_cat_parametros where id = 2),0),fecha_estimada_devolucion) <> DateAdd(mi,-isnull((select minutos from via_cat_parametros where id = 1),0),:p_fecha_inicio) and DateAdd(mi,-isnull((select minutos from via_cat_parametros where id = 1),0),b.fecha_estimada_entrega) <> DateAdd(mi,isnull((select minutos from via_cat_parametros where id = 2),0),:p_fecha_final)
+)
+ORDER BY descripcion ASC   
+" update="via_cat_choferes" updatewhere=0 updatekeyinplace=no arguments=(("p_sol_id", number),("p_fecha_inicio", datetime),("p_fecha_final", datetime)) )
+text(band=header alignment="0" text="Descripción" border="0" color="16777215" x="7" y="6" height="80" width="1818" html.valueishtml="0"  name=descripcion_t visible="1"  font.face="Verdana" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="29079919" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=2 alignment="0" tabsequence=20 border="0" color="33554432" x="7" y="6" height="80" width="1818" format="[general]" html.valueishtml="0"  name=descripcion visible="1" edit.limit=100 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Verdana" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="15793151~tif(getrow()=currentRow(), RGB(230,230,230), RGB(255,251,240))" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" pagingmethod=0 generatedddwframes="1" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

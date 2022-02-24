@@ -1,0 +1,48 @@
+﻿$PBExportHeader$f_valida_alumno_intercambio.srf
+global type f_valida_alumno_intercambio from function_object
+end type
+
+forward prototypes
+global function integer f_valida_alumno_intercambio (long p_cuenta, ref string p_nombre, integer p_anio, integer p_periodo)
+end prototypes
+
+global function integer f_valida_alumno_intercambio (long p_cuenta, ref string p_nombre, integer p_anio, integer p_periodo);integer li_existe, li_valor
+long ll_cuenta
+string ls_nombre
+
+
+select  dbo.dca_alumnos_ext.no_folio_inter,   
+dbo.dca_alumnos_ext.s_lastname+' '+ dbo.dca_alumnos_ext.s_name as nombre_completo,
+dbo.dcaPeriodoEstancia.anio
+into :ll_cuenta, :ls_nombre, :li_valor
+
+from dbo.dca_alumnos_ext   
+left join dbo.dcaPeriodoEstancia on dbo.dca_alumnos_ext.no_folio_inter = dbo.dcaPeriodoEstancia.noFolioCuenta 
+
+where  dbo.dca_alumnos_ext.no_folio_inter = :p_cuenta
+and  ((dbo.dcaPeriodoEstancia.anio = :p_anio and
+dbo.dcaPeriodoEstancia.periodo = :p_periodo) or(dbo.dcaPeriodoEstancia.anio is null))
+
+using gtr_sumuia; 
+
+if gtr_sumuia.SQLCode = -1 then  
+		messagebox("Error SUMUIA: Validación de alumno de intercambio.", gtr_sumuia.SQLErrText)	
+		li_existe=-1
+		rollback using gtr_sumuia;
+else
+	commit using gtr_sumuia;
+	if isnull(ll_cuenta) or ll_cuenta=0 then
+		li_existe=-1
+	else
+		if li_valor=p_anio then
+			p_nombre=ls_nombre
+			li_existe=1	
+		else
+			p_nombre=ls_nombre
+			li_existe=0			
+		end if
+	end if
+end if
+return (li_existe)
+end function
+

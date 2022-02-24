@@ -1,0 +1,24 @@
+﻿$PBExportHeader$f_select_clase_aula_salon.srf
+global type f_select_clase_aula_salon from function_object
+end type
+
+forward prototypes
+global function string f_select_clase_aula_salon (string ps_salon)
+end prototypes
+
+global function string f_select_clase_aula_salon (string ps_salon);string ls_clase_aula
+
+select dbo.salon.clase_aula
+into :ls_clase_aula
+from dbo.salon
+where dbo.salon.cve_salon=:ps_salon
+using gtr_escolar; 
+
+
+if gtr_escolar.SQLCode = -1 then 
+		messagebox("Error ESCOLAR: Selección de aula", gtr_escolar.SQLErrText)	
+end if
+
+return (ls_clase_aula) 
+end function
+

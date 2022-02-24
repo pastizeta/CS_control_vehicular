@@ -1,0 +1,36 @@
+﻿$PBExportHeader$f_select_solicitante_retraso.srf
+global type f_select_solicitante_retraso from function_object
+end type
+
+forward prototypes
+global function integer f_select_solicitante_retraso (integer p_cvedepto, integer p_cvearea, integer p_anio, integer p_periodo, long p_solicitanteid, integer p_tipo_usuario)
+end prototypes
+
+global function integer f_select_solicitante_retraso (integer p_cvedepto, integer p_cvearea, integer p_anio, integer p_periodo, long p_solicitanteid, integer p_tipo_usuario);integer li_dias, li_i,li_row, li_inhabil, li_total=0, li_fines
+datetime ldt_fecha_final, ldt_fecha_entrega
+date ld_fecha_final, ld_fecha_entrega
+
+datastore ids_entregas_usuarios
+
+ids_entregas_usuarios = create datastore 
+ids_entregas_usuarios.dataobject ='d_gen_entregas_usuario'
+ids_entregas_usuarios.settransobject(gtr_sumuia)
+ids_entregas_usuarios.retrieve(p_cvedepto,p_cvearea,p_anio,p_periodo,p_solicitanteid,p_tipo_usuario)
+	
+li_row=ids_entregas_usuarios.rowcount()
+
+for li_i=1 to li_row
+	ld_fecha_final=Date(ids_entregas_usuarios.GetItemDateTime(li_i,"spre_sol_materiales_fecha_final"))
+	ld_fecha_entrega=Date(ids_entregas_usuarios.GetItemDateTime(li_i,"spre_sol_materiales_fecha_entrega"))
+	li_inhabil=f_select_cuenta_inhabil(ld_fecha_final,ld_fecha_entrega,p_cvedepto,p_cvearea)
+	li_fines=f_calcula_finesdesemana(ld_fecha_final,ld_fecha_entrega)
+	li_dias=DaysAfter(ld_fecha_final,ld_fecha_entrega) - li_inhabil - li_fines
+	li_total=li_total + li_dias
+next
+
+if isNull(li_total) then li_total=0
+
+
+return(li_total)
+end function
+

@@ -1,0 +1,28 @@
+﻿$PBExportHeader$f_select_cuenta_inhabil.srf
+global type f_select_cuenta_inhabil from function_object
+end type
+
+forward prototypes
+global function integer f_select_cuenta_inhabil (date p_fecha1, date p_fecha2, integer p_depto, integer p_area)
+end prototypes
+
+global function integer f_select_cuenta_inhabil (date p_fecha1, date p_fecha2, integer p_depto, integer p_area);integer li_dias
+
+select count(*)
+into :li_dias
+from dbo.spre_fecha_inhabil
+where fecha between :p_fecha1 and :p_fecha2
+and cvedepto=:p_depto
+and cvearea=:p_area
+
+using gtr_sumuia; 
+
+if gtr_sumuia.SQLCode = -1 then 
+		messagebox("Error SUMUIA: Selección de Cuenta Inhabil.", gtr_sumuia.SQLErrText)	
+end if
+
+if gi_depto<>2 then li_dias=0
+
+return(li_dias)
+end function
+

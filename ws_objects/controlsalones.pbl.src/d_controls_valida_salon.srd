@@ -1,0 +1,77 @@
+﻿$PBExportHeader$d_controls_valida_salon.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=72 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=88 color="536870912" )
+table(column=(type=long update=yes updatewhereclause=yes key=yes name=cvedepto dbname="spre_sol_materiales.cvedepto" )
+ column=(type=long update=yes updatewhereclause=yes key=yes name=folio dbname="spre_sol_materiales.folio" )
+ column=(type=long update=yes updatewhereclause=yes key=yes name=consecutivo dbname="spre_sol_materiales.consecutivo" )
+ column=(type=long update=yes updatewhereclause=yes name=cvearea dbname="spre_sol_materiales.cvearea" )
+ column=(type=char(15) update=yes updatewhereclause=yes name=cvematerial dbname="spre_sol_materiales.cvematerial" )
+ column=(type=long update=yes updatewhereclause=yes name=cvegrupo dbname="spre_sol_materiales.cvegrupo" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=num_serie dbname="spre_sol_materiales.num_serie" )
+ column=(type=long update=yes updatewhereclause=yes name=status dbname="spre_sol_materiales.status" )
+ column=(type=datetime update=yes updatewhereclause=yes name=fecha_inicio dbname="spre_sol_materiales.fecha_inicio" )
+ column=(type=datetime update=yes updatewhereclause=yes name=fecha_final dbname="spre_sol_materiales.fecha_final" )
+ column=(type=char(5) update=yes updatewhereclause=yes name=cve_salon dbname="spre_sol_materiales.cve_salon" )
+ column=(type=long update=yes updatewhereclause=yes name=hora_inicio dbname="spre_sol_materiales.hora_inicio" )
+ column=(type=long update=yes updatewhereclause=yes name=hora_final dbname="spre_sol_materiales.hora_final" )
+ retrieve="  SELECT spre_sol_materiales.cvedepto,   
+         spre_sol_materiales.folio,   
+         spre_sol_materiales.consecutivo,   
+         spre_sol_materiales.cvearea,   
+         spre_sol_materiales.cvematerial,   
+         spre_sol_materiales.cvegrupo,   
+         spre_sol_materiales.num_serie,   
+         spre_sol_materiales.status,   
+         spre_sol_materiales.fecha_inicio,   
+         spre_sol_materiales.fecha_final,   
+         spre_sol_materiales.cve_salon,   
+         spre_sol_materiales.hora_inicio,   
+         spre_sol_materiales.hora_final  
+    FROM spre_sol_materiales  
+WHERE	spre_sol_materiales.cvedepto = 5  AND
+		     spre_sol_materiales.cvearea = 1 AND
+			spre_sol_materiales.status = 0
+
+
+" update="spre_sol_materiales" updatewhere=1 updatekeyinplace=no )
+text(band=header alignment="2" text="Cvedepto" border="0" color="33554432" x="5" y="4" height="64" width="329" html.valueishtml="0"  name=cvedepto_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Folio" border="0" color="33554432" x="338" y="4" height="64" width="329" html.valueishtml="0"  name=folio_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Consecutivo" border="0" color="33554432" x="672" y="4" height="64" width="329" html.valueishtml="0"  name=consecutivo_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cvearea" border="0" color="33554432" x="1006" y="4" height="64" width="329" html.valueishtml="0"  name=cvearea_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cvematerial" border="0" color="33554432" x="1339" y="4" height="64" width="439" html.valueishtml="0"  name=cvematerial_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cvegrupo" border="0" color="33554432" x="1783" y="4" height="64" width="329" html.valueishtml="0"  name=cvegrupo_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Num Serie" border="0" color="33554432" x="2121" y="4" height="64" width="576" html.valueishtml="0"  name=num_serie_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Status" border="0" color="33554432" x="2702" y="4" height="64" width="329" html.valueishtml="0"  name=status_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Fecha Inicio" border="0" color="33554432" x="3035" y="4" height="64" width="603" html.valueishtml="0"  name=fecha_inicio_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Fecha Final" border="0" color="33554432" x="3643" y="4" height="64" width="603" html.valueishtml="0"  name=fecha_final_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cve Salon" border="0" color="33554432" x="4251" y="4" height="64" width="325" html.valueishtml="0"  name=cve_salon_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Hora Inicio" border="0" color="33554432" x="4581" y="4" height="64" width="279" html.valueishtml="0"  name=hora_inicio_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Hora Final" border="0" color="33554432" x="4864" y="4" height="64" width="270" html.valueishtml="0"  name=hora_final_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="2" tabsequence=10 border="0" color="33554432" x="5" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=cvedepto visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="2" tabsequence=20 border="0" color="33554432" x="338" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=folio visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="2" tabsequence=30 border="0" color="33554432" x="672" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=consecutivo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="2" tabsequence=40 border="0" color="33554432" x="1006" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=cvearea visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="2" tabsequence=50 border="0" color="33554432" x="1339" y="4" height="76" width="439" format="[general]" html.valueishtml="0"  name=cvematerial visible="1" edit.limit=15 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="2" tabsequence=60 border="0" color="33554432" x="1783" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=cvegrupo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="2" tabsequence=70 border="0" color="33554432" x="2121" y="4" height="76" width="576" format="[general]" html.valueishtml="0"  name=num_serie visible="1" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="2" tabsequence=80 border="0" color="33554432" x="2702" y="4" height="76" width="329" format="[general]" html.valueishtml="0"  name=status visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=9 alignment="2" tabsequence=90 border="0" color="33554432" x="3035" y="4" height="76" width="603" format="[shortdate] [time]" html.valueishtml="0"  name=fecha_inicio visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=10 alignment="2" tabsequence=100 border="0" color="33554432" x="3643" y="4" height="76" width="603" format="[shortdate] [time]" html.valueishtml="0"  name=fecha_final visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=11 alignment="2" tabsequence=110 border="0" color="33554432" x="4251" y="4" height="64" width="325" format="[general]" html.valueishtml="0"  name=cve_salon  tag=" " visible="1" edit.limit=15 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=12 alignment="2" tabsequence=120 border="0" color="33554432" x="4581" y="4" height="64" width="165" format="[General]" html.valueishtml="0"  name=hora_inicio  tag=" " visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=13 alignment="2" tabsequence=130 border="0" color="33554432" x="4864" y="4" height="64" width="165" format="[General]" html.valueishtml="0"  name=hora_final  tag=" " visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

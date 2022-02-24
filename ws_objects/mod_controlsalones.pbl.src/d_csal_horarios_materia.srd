@@ -1,0 +1,35 @@
+﻿$PBExportHeader$d_csal_horarios_materia.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=1 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no grid.lines=0 )
+header(height=109 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=86 color="536870912" )
+table(column=(type=long updatewhereclause=yes name=dias_cve_dia dbname="dias.cve_dia" )
+ column=(type=char(9) updatewhereclause=yes name=dias_dia dbname="dias.dia" )
+ column=(type=long updatewhereclause=yes name=horario_hora_inicio dbname="horario.hora_inicio" )
+ column=(type=long updatewhereclause=yes name=horario_hora_final dbname="horario.hora_final" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"dbo.horario~" )  TABLE(NAME=~"dbo.dias~" ) COLUMN(NAME=~"dbo.dias.cve_dia~") COLUMN(NAME=~"dbo.dias.dia~") COLUMN(NAME=~"dbo.horario.hora_inicio~") COLUMN(NAME=~"dbo.horario.hora_final~")    JOIN (LEFT=~"dbo.horario.cve_dia~"    OP =~"=~"RIGHT=~"dbo.dias.cve_dia~" )WHERE(    EXP1 =~"dbo.horario.anio~"   OP =~"=~"    EXP2 =~":p_anio~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"dbo.horario.periodo~"   OP =~"=~"    EXP2 =~":p_periodo~"    LOGIC =~"And~" ) WHERE(    EXP1 =~"dbo.horario.cve_mat~"   OP =~"=~"    EXP2 =~":p_cvemat~"    LOGIC =~"And~" ) WHERE(    EXP1 =~"dbo.horario.gpo~"   OP =~"=~"    EXP2 =~":p_grupo~" ) ) ORDER(NAME=~"dbo.dias.dia~" ASC=yes )  ORDER(NAME=~"dbo.horario.hora_inicio~" ASC=yes ) ARG(NAME = ~"p_anio~" TYPE = number)  ARG(NAME = ~"p_periodo~" TYPE = number)  ARG(NAME = ~"p_cvemat~" TYPE = number)  ARG(NAME = ~"p_grupo~" TYPE = string) " arguments=(("p_anio", number),("p_periodo", number),("p_cvemat", number),("p_grupo", string)) )
+text(band=header alignment="2" text="Dias
+Cve Dia" border="0" color="33554432" x="7" y="6" height="102" width="647" html.valueishtml="0"  name=dias_cve_dia_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Dias
+Dia" border="0" color="33554432" x="662" y="6" height="102" width="293" html.valueishtml="0"  name=dias_dia_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Horario
+Hora Inicio" border="0" color="33554432" x="962" y="6" height="102" width="351" html.valueishtml="0"  name=horario_hora_inicio_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Horario
+Hora Final" border="0" color="33554432" x="1320" y="6" height="102" width="351" html.valueishtml="0"  name=horario_hora_final_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="1" tabsequence=32766 border="0" color="33554432" x="7" y="6" height="74" width="647" format="[general]" html.valueishtml="0"  name=dias_cve_dia visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="33554432" x="662" y="6" height="74" width="293" format="[general]" html.valueishtml="0"  name=dias_dia visible="1" edit.limit=9 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="1" tabsequence=32766 border="0" color="33554432" x="962" y="6" height="74" width="351" format="[general]" html.valueishtml="0"  name=horario_hora_inicio visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="1" tabsequence=32766 border="0" color="33554432" x="1320" y="6" height="74" width="351" format="[general]" html.valueishtml="0"  name=horario_hora_final visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

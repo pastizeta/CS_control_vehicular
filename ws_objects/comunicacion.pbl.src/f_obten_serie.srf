@@ -1,0 +1,32 @@
+﻿$PBExportHeader$f_obten_serie.srf
+global type f_obten_serie from function_object
+end type
+
+forward prototypes
+global function string f_obten_serie (long al_folio, string as_cvematerial, string as_serie)
+end prototypes
+
+global function string f_obten_serie (long al_folio, string as_cvematerial, string as_serie); string NumSerie
+ 
+	SELECT distinct(dbo.spre_sol_materiales.num_serie)
+	into:  NumSerie
+	FROM dbo.spre_sol_materiales 
+			
+	WHERE  
+			( dbo.spre_sol_materiales.folio = :al_folio ) and   
+			( dbo.spre_sol_materiales.cvematerial = :as_cvematerial ) AND
+			( dbo.spre_sol_materiales.num_serie = :as_serie ) AND 
+			( dbo.spre_sol_materiales.cvedepto = 4 ) 
+	USING gtr_sumuia;
+
+	IF gtr_sumuia.SQLCode = 100 THEN
+		return NumSerie
+	ELSEIF gtr_sumuia.SQLCode > 0 then
+		Return NumSerie
+	END IF
+	
+	
+	
+return NumSerie
+end function
+

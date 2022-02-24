@@ -1,0 +1,37 @@
+﻿$PBExportHeader$f_select_asignacion_maxima.srf
+global type f_select_asignacion_maxima from function_object
+end type
+
+forward prototypes
+global function integer f_select_asignacion_maxima (integer p_tabla)
+end prototypes
+
+global function integer f_select_asignacion_maxima (integer p_tabla);integer li_num_asignacion
+
+if p_tabla=1 then
+
+	select max(spre_reserva_salon_permanente.num_asignacion)
+	into :li_num_asignacion
+	from spre_reserva_salon_permanente
+	using gtr_sumuia; 
+	
+	if gtr_sumuia.SQLCode = -1 then 
+			messagebox("SQL error", gtr_sumuia.SQLErrText)	
+	end if
+
+else
+	
+	select max(spre_reserva_salon_temporal.num_asignacion)
+	into :li_num_asignacion
+	from spre_reserva_salon_temporal
+	using gtr_sumuia; 
+
+if gtr_sumuia.SQLCode = -1 then 
+		messagebox("SQL error", gtr_sumuia.SQLErrText)	
+end if
+	
+end if
+
+return (li_num_asignacion)
+end function
+

@@ -1,0 +1,18 @@
+﻿$PBExportHeader$d_com_cursos_prope.srd
+$PBExportComments$Catalogo utilizado para la captura de cursos
+release 7;
+datawindow(units=0 timer_interval=0 color=29534863 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=72 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=108 color="536870912"  height.autosize=yes)
+table(column=(type=long update=yes updatewhereclause=yes key=yes name=id_curso dbname="spre_cursospropalum.id_curso" )
+ column=(type=char(50) update=yes updatewhereclause=yes name=des_curso dbname="spre_cursospropalum.des_curso" )
+ retrieve="PBSELECT(TABLE(NAME=~"spre_cursospropalum~") COLUMN(NAME=~"spre_cursospropalum.id_curso~")COLUMN(NAME=~"spre_cursospropalum.des_curso~"))" update="spre_cursospropalum" updatewhere=1 updatekeyinplace=yes )
+text(band=header alignment="2" text="Curso" border="6" color="0" x="5" y="4" height="60" width="329"  name=id_curso_t  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524"  height.autosize=yes)
+text(band=header alignment="2" text="Descripcion Curso" border="6" color="0" x="352" y="4" height="60" width="1006"  name=des_curso_t  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524"  height.autosize=yes)
+line(band=detail x1="14" y1="92" x2="1362" y2="92"  name=l_1 pen.style="0" pen.width="9" pen.color="255"  background.mode="2" background.color="16777215" )
+column(band=detail id=1 alignment="2" tabsequence=10 border="5" color="0" x="14" y="4" height="76" width="320" format="[general]"  name=id_curso edit.limit=0 edit.case=upper edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=2 alignment="0" tabsequence=20 border="5" color="0" x="352" y="4" height="76" width="1001" format="[general]"  name=des_curso edit.limit=50 edit.case=upper edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

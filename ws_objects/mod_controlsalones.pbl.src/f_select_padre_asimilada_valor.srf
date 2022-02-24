@@ -1,0 +1,30 @@
+﻿$PBExportHeader$f_select_padre_asimilada_valor.srf
+global type f_select_padre_asimilada_valor from function_object
+end type
+
+forward prototypes
+global subroutine f_select_padre_asimilada_valor (long pl_materia, string ps_grupo, ref long pl_padre_materia, ref string ps_padre_grupo, integer pi_periodo, integer pi_anio)
+end prototypes
+
+global subroutine f_select_padre_asimilada_valor (long pl_materia, string ps_grupo, ref long pl_padre_materia, ref string ps_padre_grupo, integer pi_periodo, integer pi_anio);
+select dbo.grupos.cve_asimilada, dbo.grupos.gpo_asimilado
+into :pl_padre_materia, :ps_padre_grupo
+from dbo.grupos,
+dbo.materias
+where dbo.grupos.periodo=:pi_periodo
+and dbo.grupos.anio=:pi_anio
+and dbo.grupos.cve_mat=:pl_materia
+and dbo.grupos.gpo=:ps_grupo
+and dbo.grupos.cve_asimilada is not null
+and dbo.grupos.gpo_asimilado is not null
+and dbo.grupos.cve_asimilada=dbo.materias.cve_mat
+using gtr_escolar; 
+
+
+if gtr_escolar.SQLCode = -1 then 
+		messagebox("Error ESCOLAR: Selección de clase padre asimilada", gtr_escolar.SQLErrText)	
+end if
+
+ 
+end subroutine
+

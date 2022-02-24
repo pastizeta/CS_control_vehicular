@@ -1,0 +1,157 @@
+﻿$PBExportHeader$f_select_folio_lista_usuario.srf
+global type f_select_folio_lista_usuario from function_object
+end type
+
+forward prototypes
+global function integer f_valida_mat_alumno_depto (long p_cuenta, ref string p_nombre)
+global function integer f_select_folio_lista_usuario (long p_cuenta, long p_depto, long p_area, integer p_tipo_usuario, datetime p_fecha_inicio, datetime p_fecha_final, integer p_modo)
+global function long f_select_folio_lista_usuario (long p_cuenta, long p_depto, long p_area, integer p_tipo_usuario, datetime p_fecha_inicio, datetime p_fecha_final)
+end prototypes
+
+global function integer f_valida_mat_alumno_depto (long p_cuenta, ref string p_nombre);integer li_existe
+long ll_cuenta
+string ls_nombre
+
+
+select dbo.v_sce_banderas_inscrito.cuenta,   
+dbo.v_sce_alumnos.nombre+ ' ' + dbo.v_sce_alumnos.apaterno+' ' +dbo.v_sce_alumnos.amaterno 
+into :ll_cuenta, :ls_nombre
+
+from dbo.v_sce_alumnos	 
+inner join	dbo.v_sce_academicos on dbo.v_sce_alumnos.cuenta = dbo.v_sce_academicos.cuenta
+inner join	dbo.v_sce_carreras on dbo.v_sce_academicos.cve_carrera = dbo.v_sce_carreras.cve_carrera 
+left outer join dbo.v_sce_banderas_inscrito on dbo.v_sce_alumnos.cuenta = dbo.v_sce_banderas_inscrito.cuenta
+
+where dbo.v_sce_alumnos.cuenta = :p_cuenta
+using gtr_sumuia; 
+
+if gtr_sumuia.SQLCode = -1 then 
+		messagebox("Error SUMUIA: Validación de alumno.", gtr_sumuia.SQLErrText)	
+		li_existe=-1
+else
+	if isnull(ll_cuenta) then
+		if isnull(ls_nombre) or ls_nombre='' then
+			li_existe=-1
+		else
+		p_nombre=ls_nombre
+		li_existe=0	
+	end if
+	else
+		p_nombre=ls_nombre
+		li_existe=1	
+	end if
+end if
+
+return (li_existe)
+end function
+
+global function integer f_select_folio_lista_usuario (long p_cuenta, long p_depto, long p_area, integer p_tipo_usuario, datetime p_fecha_inicio, datetime p_fecha_final, integer p_modo);integer li_prestamos=0
+
+choose case p_modo
+	case -1
+		//Lista de espera
+		select count(*)
+		into :li_prestamos
+		from dbo.spre_pre_sol_materiales a 
+		join dbo.spre_pre_solicitud b on b.cvedepto=a.cvedepto and b.folio=a.folio
+		
+		where 
+		((b.fecha_inicio between :p_fecha_inicio and :p_fecha_final) or (b.fecha_fin between :p_fecha_inicio and :p_fecha_final)
+		or (:p_fecha_inicio between b.fecha_inicio and b.fecha_fin) or (:p_fecha_final between b.fecha_inicio and b.fecha_fin))
+		and b.fecha_fin<>:p_fecha_inicio and b.fecha_inicio<>:p_fecha_final
+		and b.solicitanteid=:p_cuenta
+		and b.cvedepto=:p_depto
+		and a.cvearea=:p_area
+		and b.tipo_prestamo=:p_tipo_usuario
+		and a.status in (0)
+		and b.autorizada=0
+		
+		using gtr_sumuia; 
+
+	case 0
+		//Presolicitudes
+		select count(*)
+		into :li_prestamos
+		from dbo.spre_pre_sol_materiales a 
+		join dbo.spre_pre_solicitud b on b.cvedepto=a.cvedepto and b.folio=a.folio
+		
+		where 
+		((b.fecha_inicio between :p_fecha_inicio and :p_fecha_final) or (b.fecha_fin between :p_fecha_inicio and :p_fecha_final)
+		or (:p_fecha_inicio between b.fecha_inicio and b.fecha_fin) or (:p_fecha_final between b.fecha_inicio and b.fecha_fin))
+		and b.fecha_fin<>:p_fecha_inicio and b.fecha_inicio<>:p_fecha_final
+		and b.solicitanteid=:p_cuenta
+		and b.cvedepto=:p_depto
+		and a.cvearea=:p_area
+		and b.tipo_prestamo=:p_tipo_usuario
+		and a.status in (0,1)
+		and b.autorizada=1
+		
+		using gtr_sumuia; 
+
+	case 1
+		//Préstamos activos
+		select count(*)
+		into :li_prestamos
+		from dbo.spre_sol_materiales a 
+		join dbo.spre_solicitud b on b.cvedepto=a.cvedepto and b.folio=a.folio
+		join dbo.spre_prestamo_material c on c.cvedepto=a.cvedepto and c.folio=a.folio
+		
+		where 
+		((b.fecha_inicio between :p_fecha_inicio and :p_fecha_final) or (b.fecha_fin between :p_fecha_inicio and :p_fecha_final)
+		or (:p_fecha_inicio between b.fecha_inicio and b.fecha_fin) or (:p_fecha_final between b.fecha_inicio and b.fecha_fin))
+		and b.fecha_fin<>:p_fecha_inicio and b.fecha_inicio<>:p_fecha_final
+		and b.solicitanteid=:p_cuenta
+		and b.cvedepto=:p_depto
+		and a.cvearea=:p_area
+		and c.tipo_prestamo=:p_tipo_usuario
+		and a.status in (0,2,3)
+		and b.status in (0,2,3)
+		
+		using gtr_sumuia; 
+
+end choose
+
+
+if gtr_sumuia.SQLCode = -1 then 
+	messagebox("Error SUMUIA: Conteo de prestamos por usuario.", gtr_sumuia.SQLErrText)	
+	rollback using gtr_sumuia;
+else
+	commit using gtr_sumuia;
+end if
+
+return (li_prestamos)
+end function
+
+global function long f_select_folio_lista_usuario (long p_cuenta, long p_depto, long p_area, integer p_tipo_usuario, datetime p_fecha_inicio, datetime p_fecha_final);long ll_folio=0
+
+
+select max(b.folio)
+into :ll_folio
+from dbo.spre_pre_sol_materiales a 
+join dbo.spre_pre_solicitud b on b.cvedepto=a.cvedepto and b.folio=a.folio
+
+where 
+((b.fecha_inicio between :p_fecha_inicio and :p_fecha_final) or (b.fecha_fin between :p_fecha_inicio and :p_fecha_final)
+or (:p_fecha_inicio between b.fecha_inicio and b.fecha_fin) or (:p_fecha_final between b.fecha_inicio and b.fecha_fin))
+and b.fecha_fin<>:p_fecha_inicio and b.fecha_inicio<>:p_fecha_final
+and b.solicitanteid=:p_cuenta
+and b.cvedepto=:p_depto
+and a.cvearea=:p_area
+and b.tipo_prestamo=:p_tipo_usuario
+and a.status in (0)
+and b.autorizada=0
+
+using gtr_sumuia; 
+
+if isNull(ll_folio) then ll_folio=0 
+
+if gtr_sumuia.SQLCode = -1 then 
+	messagebox("Error SUMUIA: Conteo de prestamos por usuario.", gtr_sumuia.SQLErrText)	
+	rollback using gtr_sumuia;
+else
+	commit using gtr_sumuia;
+end if
+
+return (ll_folio)
+end function
+

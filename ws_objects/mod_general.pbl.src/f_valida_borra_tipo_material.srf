@@ -1,0 +1,59 @@
+﻿$PBExportHeader$f_valida_borra_tipo_material.srf
+global type f_valida_borra_tipo_material from function_object
+end type
+
+forward prototypes
+global function str_disp_categoria f_valida_borra_tipo_material (long p_depto, long p_area, long p_grupo, string p_material, long p_tipo)
+end prototypes
+
+global function str_disp_categoria f_valida_borra_tipo_material (long p_depto, long p_area, long p_grupo, string p_material, long p_tipo);integer li_existe
+long ll_cuenta
+string ls_nombre
+
+str_disp_categoria lstr_disp_categoria
+
+//Tamaño
+select count(*)
+into :lstr_disp_categoria.tamano
+from dbo.spre_tamano_materiales
+where cvedepto=:p_depto
+and cvearea=:p_area
+and cvegrupo=:p_grupo
+and cvematerial=:p_material
+and cvetipo=:p_tipo
+and activo=1
+using gtr_sumuia; 
+
+if gtr_sumuia.SQLCode = -1 then 
+	messagebox("Error SUMUIA: Valida Borra Tipo Material-Tamaño.", gtr_sumuia.SQLErrText)	
+	lstr_disp_categoria.tamano=-1
+	rollback using gtr_sumuia;
+else
+	commit using gtr_sumuia;
+end if
+
+
+//Inventario
+select count(*)
+into :lstr_disp_categoria.inventario
+from dbo.spre_inventario
+where cvedepto=:p_depto
+and cvearea=:p_area
+and cvegrupo=:p_grupo
+and cvematerial=:p_material
+and cvetipo=:p_tipo
+and stauts>0
+using gtr_sumuia; 
+
+if gtr_sumuia.SQLCode = -1 then 
+	messagebox("Error SUMUIA: Valida Borra Tipo Material-Inventario.", gtr_sumuia.SQLErrText)	
+	lstr_disp_categoria.inventario=-1
+	rollback using gtr_sumuia;
+else
+	commit using gtr_sumuia;
+end if
+
+	
+return (lstr_disp_categoria)
+end function
+

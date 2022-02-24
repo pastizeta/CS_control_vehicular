@@ -1,0 +1,37 @@
+﻿$PBExportHeader$f_conectarbd_tesoreria.srf
+global type f_conectarbd_tesoreria from function_object
+end type
+
+forward prototypes
+global subroutine f_conectarbd_tesoreria ()
+end prototypes
+
+global subroutine f_conectarbd_tesoreria ();/********************** DATOS TESORERIA ***************************/
+
+gtr_tesoreria = CREATE transaction
+gtr_tesoreria.DBMS = ProfileString("control_vehicular.ini","tesoreria","dbms","");
+gtr_tesoreria.database = ProfileString("control_vehicular.ini","tesoreria","database","");
+gtr_tesoreria.logid = gs_usuario
+gtr_tesoreria.logpass = gs_pass
+gtr_tesoreria.userid = gs_usuario
+gtr_tesoreria.dbpass = gs_pass
+gtr_tesoreria.servername = ProfileString("control_vehicular.ini","tesoreria","servername","");
+gtr_tesoreria.dbparm = ProfileString("control_vehicular.ini","tesoreria","dbparm","");
+
+
+if (gtr_tesoreria.servername='sybfindes') then
+	//Desarrollo
+	gtr_tesoreria.logid = 'sa'
+	gtr_tesoreria.logpass = 'desarrollo'
+	gtr_tesoreria.userid = 'sa'
+	gtr_tesoreria.dbpass = 'desarrollo'
+end if
+
+connect using gtr_tesoreria;
+
+if gtr_tesoreria.sqlcode <> 0 then
+	messagebox("Error de Conexión BD Tesorería: "+string(gtr_tesoreria.sqlcode),gtr_tesoreria.sqlerrtext)
+end if
+
+end subroutine
+

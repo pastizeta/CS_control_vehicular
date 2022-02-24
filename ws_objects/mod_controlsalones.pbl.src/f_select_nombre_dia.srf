@@ -1,0 +1,24 @@
+﻿$PBExportHeader$f_select_nombre_dia.srf
+global type f_select_nombre_dia from function_object
+end type
+
+forward prototypes
+global function string f_select_nombre_dia (integer pi_cve_dia)
+end prototypes
+
+global function string f_select_nombre_dia (integer pi_cve_dia);string ls_dia
+
+select dbo.dias.dia
+into :ls_dia
+from dbo.dias
+where dbo.dias.cve_dia=:pi_cve_dia
+using gtr_escolar; 
+
+
+if gtr_escolar.SQLCode = -1 then 
+		messagebox("Error ESCOLAR: Selección de nombre de día", gtr_escolar.SQLErrText)	
+end if
+
+return (ls_dia) 
+end function
+

@@ -1,0 +1,7 @@
+﻿$PBExportHeader$str_disp_categoria.srs
+global type str_disp_categoria from structure
+	integer		tamano
+	integer		inventario
+	integer		prestamo
+end type
+

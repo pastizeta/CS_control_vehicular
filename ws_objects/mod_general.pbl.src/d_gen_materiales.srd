@@ -1,0 +1,67 @@
+﻿$PBExportHeader$d_gen_materiales.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=32096431 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=72 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=100 color="536870912" )
+table(column=(type=char(15) update=yes updatewhereclause=yes key=yes name=cvematerial dbname="spre_materiales.cvematerial" )
+ column=(type=long update=yes updatewhereclause=yes key=yes name=cvegrupo dbname="spre_materiales.cvegrupo" )
+ column=(type=char(100) update=yes updatewhereclause=yes name=descripcion dbname="spre_materiales.descripcion" )
+ column=(type=decimal(4) update=yes updatewhereclause=yes name=multa dbname="spre_materiales.multa" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=cod_barra dbname="spre_materiales.cod_barra" )
+ column=(type=long update=yes updatewhereclause=yes key=yes name=cvedepto dbname="spre_materiales.cvedepto" )
+ column=(type=long update=yes updatewhereclause=yes key=yes name=cvearea dbname="spre_materiales.cvearea" )
+ column=(type=char(50) updatewhereclause=yes name=marca dbname="spre_materiales.marca" )
+ column=(type=char(50) updatewhereclause=yes name=modelo dbname="spre_materiales.modelo" )
+ column=(type=long updatewhereclause=yes name=tipo_aula dbname="spre_materiales.tipo_aula" )
+ column=(type=char(4) updatewhereclause=yes name=edificio dbname="spre_materiales.edificio" )
+ column=(type=char(4) updatewhereclause=yes name=nivel dbname="spre_materiales.nivel" )
+ column=(type=long updatewhereclause=yes name=cupo dbname="spre_materiales.cupo" )
+ retrieve="  SELECT spre_materiales.cvematerial,   
+         spre_materiales.cvegrupo,   
+         spre_materiales.descripcion,   
+         spre_materiales.multa,   
+         spre_materiales.cod_barra,   
+         spre_materiales.cvedepto,   
+         spre_materiales.cvearea,   
+         spre_materiales.marca,   
+         spre_materiales.modelo,   
+         spre_materiales.tipo_aula,   
+         spre_materiales.edificio,   
+         spre_materiales.nivel,   
+         spre_materiales.cupo  
+    FROM spre_materiales  
+   WHERE ( spre_materiales.cvedepto = :li_depto ) AND  
+         ( spre_materiales.cvearea = :li_area )    
+" update="spre_materiales" updatewhere=0 updatekeyinplace=yes arguments=(("li_depto", number),("li_area", number))  sort="cvegrupo A descripcion A " )
+text(band=header alignment="2" text="Cve Material" border="6" color="0" x="9" y="8" height="60" width="370" html.valueishtml="0"  name=cvematerial_t visible="1"  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="2" text="Descripción material" border="6" color="0" x="402" y="8" height="60" width="1618" html.valueishtml="0"  name=descripcion_t visible="1"  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="2" text="Codigo barras" border="6" color="0" x="2043" y="8" height="60" width="453" html.valueishtml="0"  name=cod_barra_t visible="1"  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="2" text="Grupo material" border="6" color="0" x="2519" y="8" height="60" width="654" html.valueishtml="0"  name=cvegrupo_t visible="1"  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="2" text="Multa" border="6" color="0" x="3191" y="8" height="60" width="187" html.valueishtml="0"  name=multa_t visible="1"  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+line(band=detail x1="5" y1="88" x2="3383" y2="92"  name=l_1 visible="1" pen.style="0" pen.width="9" pen.color="255"  background.mode="2" background.color="16777215" )
+column(band=detail id=1 alignment="2" tabsequence=10 border="5" color="0" x="9" y="4" height="68" width="370" format="[general]" html.valueishtml="0"  name=cvematerial visible="1" edit.limit=15 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=3 alignment="0" tabsequence=20 border="5" color="0" x="402" y="4" height="68" width="1618" format="[general]" html.valueishtml="0"  name=descripcion visible="1" edit.limit=100 edit.case=upper edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=5 alignment="0" tabsequence=30 border="5" color="0" x="2043" y="4" height="68" width="453" format="[general]" html.valueishtml="0"  name=cod_barra visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=4 alignment="0" tabsequence=50 border="5" color="0" x="3191" y="4" height="68" width="187" format="$#,##0.00;[RED]($#,##0.00)" html.valueishtml="0"  name=multa visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="0" color="0" x="2935" y="8" height="60" width="233" format="[general]" html.valueishtml="0"  name=cvedepto visible="1~t0" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=7 alignment="0" tabsequence=32766 border="0" color="0" x="2935" y="8" height="60" width="233" format="[general]" html.valueishtml="0"  name=cvearea visible="1~t0" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=8 alignment="0" tabsequence=32766 border="0" color="0" x="2935" y="8" height="60" width="233" format="[general]" html.valueishtml="0"  name=marca visible="1~t0" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=9 alignment="0" tabsequence=32766 border="0" color="0" x="2935" y="8" height="60" width="233" format="[general]" html.valueishtml="0"  name=modelo visible="1~t0" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=10 alignment="0" tabsequence=32766 border="0" color="0" x="2935" y="8" height="60" width="233" format="[general]" html.valueishtml="0"  name=tipo_aula visible="1~t0" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=11 alignment="0" tabsequence=32766 border="0" color="0" x="2935" y="8" height="60" width="233" format="[general]" html.valueishtml="0"  name=edificio visible="1~t0" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=12 alignment="0" tabsequence=32766 border="0" color="0" x="2935" y="8" height="60" width="233" format="[general]" html.valueishtml="0"  name=nivel visible="1~t0" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=13 alignment="0" tabsequence=32766 border="0" color="0" x="2935" y="8" height="60" width="233" format="[general]" html.valueishtml="0"  name=cupo visible="1~t0" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=2 alignment="0" tabsequence=40 border="5" color="0" x="2519" y="4" height="68" width="654" format="[general]" html.valueishtml="0"  name=cvegrupo visible="1" dddw.name=d_dlb_grupos_mat dddw.displaycolumn=descripcion dddw.datacolumn=cvegrupo dddw.percentwidth=0 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=no dddw.case=any dddw.autoretrieve=no  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

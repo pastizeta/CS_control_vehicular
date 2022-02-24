@@ -1,0 +1,65 @@
+﻿$PBExportHeader$d_spre_materiales_solrecal.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=32096431 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=80 color="536870912" )
+summary(height=4 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=100 color="536870912" )
+table(column=(type=long update=yes updatewhereclause=yes key=yes name=cvedepto dbname="spre_sol_materiales.cvedepto" )
+ column=(type=long update=yes updatewhereclause=yes key=yes name=consecutivo dbname="spre_sol_materiales.consecutivo" )
+ column=(type=long update=yes updatewhereclause=yes name=cvearea dbname="spre_sol_materiales.cvearea" )
+ column=(type=char(15) update=yes updatewhereclause=yes name=cvematerial dbname="spre_sol_materiales.cvematerial" )
+ column=(type=long update=yes updatewhereclause=yes key=yes name=folio dbname="spre_sol_materiales.folio" )
+ column=(type=long update=yes updatewhereclause=yes name=status dbname="spre_sol_materiales.status" )
+ column=(type=datetime update=yes updatewhereclause=yes name=fecha_inicio1 dbname="spre_sol_materiales.fecha_inicio" )
+ column=(type=datetime update=yes updatewhereclause=yes name=fecha_final1 dbname="spre_sol_materiales.fecha_final" )
+ column=(type=char(100) updatewhereclause=yes name=descripcion dbname="spre_materiales.descripcion" )
+ column=(type=long update=yes updatewhereclause=yes name=cvegrupo dbname="spre_sol_materiales.cvegrupo" )
+ retrieve="  SELECT dbo.spre_sol_materiales.cvedepto,   
+         dbo.spre_sol_materiales.consecutivo,   
+         dbo.spre_sol_materiales.cvearea,   
+         dbo.spre_sol_materiales.cvematerial,   
+         dbo.spre_sol_materiales.folio,   
+         dbo.spre_sol_materiales.status,   
+         dbo.spre_sol_materiales.fecha_inicio,   
+         dbo.spre_sol_materiales.fecha_final,   
+         dbo.spre_materiales.descripcion,   
+         dbo.spre_sol_materiales.cvegrupo  
+    FROM dbo.spre_sol_materiales INNER JOIN 
+         dbo.spre_materiales  
+  	ON dbo.spre_sol_materiales.cvedepto = dbo.spre_materiales.cvedepto  and  
+          dbo.spre_sol_materiales.cvearea = dbo.spre_materiales.cvearea  and  
+          dbo.spre_sol_materiales.cvematerial = dbo.spre_materiales.cvematerial  and  
+		 dbo.spre_sol_materiales.cvegrupo = dbo.spre_materiales.cvegrupo
+    WHERE   ( ( dbo.spre_sol_materiales.folio = :li_folio ) AND  
+         ( dbo.spre_sol_materiales.cvedepto = :li_depto ) AND  
+         ( dbo.spre_sol_materiales.cvearea = :li_area ) AND
+		( dbo.spre_sol_materiales.cvegrupo) =:li_grupo)    
+" update="spre_sol_materiales" updatewhere=1 updatekeyinplace=no arguments=(("li_folio", number),("li_depto", number),("li_area", number),("li_grupo", number)) )
+text(band=header alignment="2" text="Clave" border="2" color="0" x="9" y="4" height="64" width="265" html.valueishtml="0"  name=cvematerial_t visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="2" text="Espacio" border="2" color="0" x="297" y="4" height="64" width="1371" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="2" text="Status" border="2" color="0" x="1687" y="4" height="64" width="722" html.valueishtml="0"  name=status_t visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="2" text="Fecha y Hora de Apartado" border="2" color="0" x="2423" y="4" height="64" width="754" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+line(band=detail x1="5" y1="88" x2="3177" y2="88"  name=l_1 visible="1" pen.style="0" pen.width="9" pen.color="255"  background.mode="2" background.color="16777215" )
+column(band=detail id=4 alignment="2" tabsequence=32766 border="5" color="0" x="9" y="12" height="60" width="265" format="[general]" html.valueishtml="0"  name=cvematerial visible="1" edit.limit=15 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=9 alignment="0" tabsequence=32766 border="5" color="0" x="297" y="12" height="60" width="1367" format="[general]" html.valueishtml="0"  name=descripcion visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=6 alignment="0" tabsequence=10 border="5" color="0" x="1687" y="12" height="60" width="718" format="[general]" html.valueishtml="0"  name=status visible="1" dddw.name=dddw_estatus_sol dddw.displaycolumn=desc_estatus_sol dddw.datacolumn=id_estatus_sol dddw.percentwidth=0 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=no dddw.case=any  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=8 alignment="0" tabsequence=32766 border="5" color="0" x="2578" y="140" height="60" width="635" format="dd/mm/yyyy" html.valueishtml="0"  name=fecha_final visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=8 alignment="0" tabsequence=32766 border="5" color="0" x="1856" y="148" height="60" width="594" format="hh:mm:ss" html.valueishtml="0"  name=fecha_final1 visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=7 alignment="0" tabsequence=32766 border="5" color="0" x="2423" y="12" height="60" width="288" format="dd/mm/yyyy" html.valueishtml="0"  name=fecha_inicio visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+text(band=detail alignment="2" text="A" border="2" color="0" x="2912" y="12" height="60" width="69" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+column(band=detail id=7 alignment="0" tabsequence=32766 border="5" color="0" x="2734" y="12" height="60" width="160" format="hh:mm" html.valueishtml="0"  name=fecha_inicio1 visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=8 alignment="0" tabsequence=32766 border="5" color="0" x="2999" y="12" height="60" width="178" format="hh:mm" html.valueishtml="0"  name=fecha_final1_1 visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=7 alignment="0" tabsequence=32766 border="5" color="0" x="265" y="148" height="60" width="750" format="[shortdate] [time]" html.valueishtml="0"  name=fecha_inicio1_1 visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=8 alignment="0" tabsequence=32766 border="5" color="0" x="1083" y="152" height="60" width="635" format="[shortdate] [time]" html.valueishtml="0"  name=fecha_final1_2 visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

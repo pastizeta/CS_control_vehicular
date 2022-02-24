@@ -1,0 +1,100 @@
+﻿$PBExportHeader$f_calcula_fecha_entrega.srf
+$PBExportComments$Calcula la fecha de entrega
+global type f_calcula_fecha_entrega from function_object
+end type
+
+forward prototypes
+global function datetime f_calcula_fecha_entrega (date argd_fecha_inicio)
+end prototypes
+
+global function datetime f_calcula_fecha_entrega (date argd_fecha_inicio);//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:		f_calcula_fecha_entrega
+//	Arguments:		argd_fecha_inicio
+//	Returns:			Fecha
+//	Description:	Calcula la fecha de entrega para un material
+//						
+//////////////////////////////////////////////////////////////////////////////
+
+date  liDiasol
+datetime liDiaHora, liDiaHoraip, liDiaHorafp, ldFecha
+integer li_dia, li_mes, li_año, li_periodo
+long ll_TotDias, llck
+string daynameinicio
+time ltHora
+datastore lds_DiasAd
+
+li_dia =day(Today ( ))
+li_mes = month(Today ( ))
+li_año = year(Today ( ))
+ltHora = now()
+ liDiasol= Date(li_año, li_mes, li_dia) 
+ liDiaHora= DateTime(Date(li_año, li_mes, li_dia), time('00:00:00'))
+ liDiaHoraip= DateTime(liDiasol, (ltHora))
+ daynameinicio = DayName(liDiasol)
+
+	choose case daynameinicio		
+		case 'Sunday'			
+			liDiaHorafp= DateTime(RelativeDate(liDiasol, 4),  time('23:59:59'))	
+		case 'Monday'
+			liDiaHorafp= DateTime(RelativeDate(liDiasol, 3), time('23:59:59'))
+	 	case 'Tuesday'			
+			liDiaHorafp= DateTime(RelativeDate(liDiasol, 3), time('23:59:59'))
+			
+	 	case 'Wednesday'			
+			liDiaHorafp= DateTime(RelativeDate(liDiasol, 5), time('23:59:59'))
+			
+		case 'Thursday'			
+ 			liDiaHorafp= DateTime(RelativeDate(liDiasol, 5), time('23:59:59'))
+			 
+		case 'Friday'			
+			liDiaHorafp= DateTime(RelativeDate(liDiasol, 5), time('23:59:59'))
+			
+		case 'Saturday'			
+			liDiaHorafp= DateTime(RelativeDate(liDiasol, 5), time('23:59:59'))	
+	end choose
+
+		lds_DiasAd =  create datastore 
+		
+		lds_DiasAd.dataobject ='d_psi_dias_desc'
+		lds_DiasAd.settransobject(gtr_sumuia)	
+		lds_DiasAd.Retrieve( liDiaHoraip, liDiaHorafp )
+ 		ll_TotDias = lds_DiasAd.Rowcount()		
+		if lds_DiasAd.Rowcount() > 0 then
+			ll_TotDias=0
+			for llck =1 to lds_DiasAd.Rowcount()
+				ldFecha =lds_DiasAd.GetItemDateTime(llck,'fecha')
+				if (  DayName(date(ldFecha)) ='Monday' or DayName(date(ldFecha)) ='Tuesday' or DayName(date(ldFecha)) ='Wednesday' or DayName(date(ldFecha)) ='Thursday' or DayName(date(ldFecha)) ='Friday'    )then
+					ll_TotDias = ll_TotDias + 1
+					
+				end if
+			next 
+			choose case daynameinicio		
+				case 'Sunday'			
+					liDiaHorafp= DateTime(RelativeDate(liDiasol, 4 + ll_TotDias), time('23:59:59'))	
+					
+				case 'Monday'
+					liDiaHorafp= DateTime(RelativeDate(liDiasol, 3 + ll_TotDias), time('23:59:59'))
+				case 'Tuesday'			
+					liDiaHorafp= DateTime(RelativeDate(liDiasol, 3 + ll_TotDias), time('23:59:59'))
+					
+				case 'Wednesday'			
+					liDiaHorafp= DateTime(RelativeDate(liDiasol, 5 + ll_TotDias), time('23:59:59'))
+					
+				case 'Thursday'			
+					liDiaHorafp= DateTime(RelativeDate(liDiasol, 5 + ll_TotDias), time('23:59:59'))
+					 
+				case 'Friday'			
+					liDiaHorafp= DateTime(RelativeDate(liDiasol, 5 + ll_TotDias), time('23:59:59'))
+					
+				case 'Saturday'			
+					liDiaHorafp= DateTime(RelativeDate(liDiasol, 5 + ll_TotDias), time('23:59:59'))	
+			end choose			
+		end if
+			
+		Destroy lds_DiasAd
+		 f_fecha_valida(liDiaHorafp)
+		
+		 return liDiaHorafp
+end function
+

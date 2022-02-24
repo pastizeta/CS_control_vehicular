@@ -1,0 +1,159 @@
+﻿$PBExportHeader$f_valida_cuenta_controls.srf
+global type f_valida_cuenta_controls from function_object
+end type
+
+forward prototypes
+global function integer f_valida_cuenta_controls (long argl_cuenta)
+end prototypes
+
+global function integer f_valida_cuenta_controls (long argl_cuenta); decimal lcSaldo
+	SELECT dbo.spre_multas.saldo
+	into:  lcSaldo
+	FROM dbo.spre_multas,   
+			dbo.spre_solicitud  
+	WHERE ( dbo.spre_solicitud.cvedepto = dbo.spre_multas.cvedepto ) and  
+			( dbo.spre_solicitud.folio = dbo.spre_multas.folio ) and  
+			( dbo.spre_multas.saldo > 0 ) AND  
+			( dbo.spre_solicitud.solicitanteid = :argl_cuenta ) AND
+			( dbo.spre_solicitud.cvedepto = 5 ) 
+	USING gtr_sumuia;
+
+	IF gtr_sumuia.SQLCode = 100 THEN
+		return 0
+	ELSEIF gtr_sumuia.SQLCode > 0 then
+			MessageBox("Mensaje del Sistema", &
+			gtr_sumuia.SQLErrText, Exclamation!)
+			Return 1
+	END IF
+	MessageBox("Mensaje del Sistema", "La clave ingresada presenta una multa por: " + string(lcSaldo) ,stopsign!)
+	return 1
+	
+
+
+
+//integer Adeudo, i, liCont = 0, liNulo=0, liRegresa, li_row
+//long lt_adeudo, liFolio, liExisteFolio, llStatus
+//datastore lds_DiasAd
+//
+//
+//lds_DiasAd =  create datastore 
+//lds_DiasAd.dataobject ='d_controls_consulta_adeudos'
+//lds_DiasAd.settransobject(gtr_sumuia)	
+//lds_DiasAd.Retrieve(argl_cuenta)
+//li_row = lds_DiasAd.Rowcount()
+//
+//SELECT count(*)  
+//INTO :lt_adeudo
+//FROM spre_solicitud
+//WHERE
+//solicitanteid = :argl_cuenta and cvedepto = 5 and
+//status = 0 and
+//fecha_fin < getdate() 
+//using gtr_sumuia;
+//			
+//if lt_adeudo >= 1 then
+////	li_row = lds_DiasAd.Retrieve(argl_cuenta)
+//	if li_row > 0 then
+//		for i =1 to lds_DiasAd.Rowcount()
+//			liFolio = lds_DiasAd.GetItemNumber(i,'folio')
+//			
+//			Setnull(liExisteFolio)
+//			SELECT dbo.spre_com_multas.folio
+//			INTO : liExisteFolio
+//			FROM dbo.spre_com_multas     
+//			WHERE ( dbo.spre_com_multas.folio = :liFolio ) 
+//			USING gtr_sumuia;
+//			
+//			if isnull (liExisteFolio) then
+//				liNulo = liNulo + 1
+//			elseif liExisteFolio = 0 then
+//				
+//			elseif liExisteFolio > 0 then
+//				
+//				SELECT dbo.spre_com_multas.status
+//				into:  llStatus
+//				FROM dbo.spre_com_multas,   
+//					  dbo.spre_solicitud  
+//				WHERE  
+//					( dbo.spre_solicitud.folio = dbo.spre_com_multas.folio ) and  
+//					( dbo.spre_solicitud.solicitanteid = :argl_cuenta ) AND
+//					( dbo.spre_solicitud.folio = :liFolio) AND
+//					( dbo.spre_solicitud.cvedepto =:gi_depto ) 
+//				USING gtr_sumuia;
+//				if llStatus = 0 then
+//					liCont = liCont + 1
+//				end if
+//			end if
+//		next 
+//		if liNulo > 0 and liCont > 0 then
+//			MessageBox("Mensaje del Sistema", "La clave ingresada presenta Multa y Adeudo")
+//			liRegresa = 1
+//		elseif liNulo > 0 and liCont = 0 then
+//			MessageBox("Mensaje del Sistema", "La clave ingresada presenta Adeudo, sin multa generada")
+//			liRegresa = 1
+//		elseif liNulo = 0 and liCont > 0 then
+//			MessageBox("Mensaje del Sistema", "La clave ingresada presenta Multa")
+//			liRegresa = 1
+//		elseif liNulo = 0 and liCont = 0 then
+//			liRegresa = 0
+//		end if
+//
+//	end if
+//else 
+//	liRegresa = 0
+//end if
+//
+//Return liRegresa
+//
+//		
+//		
+//			
+//// -----------------------------------------------			
+////	SELECT dbo.spre_com_multas.status
+////	SELECT count(*)
+////	into:  Adeudo
+////	FROM dbo.spre_com_multas,   
+////			dbo.spre_solicitud  
+////	WHERE  
+////			( dbo.spre_solicitud.folio = dbo.spre_com_multas.folio ) and  
+////			( dbo.spre_com_multas.status = 0 ) AND  
+////			( dbo.spre_solicitud.solicitanteid = :argl_cuenta ) AND
+////			( dbo.spre_solicitud.cvedepto =:gi_depto ) 
+////	USING gtr_sumuia;
+////	
+////	messagebox("code",string(gtr_sumuia.SQLCode))
+////	messagebox("estatus",string(Adeudo))
+////
+////	IF gtr_sumuia.SQLCode = 0 THEN
+////		if Adeudo > 0 then
+////			MessageBox("Mensaje del Sistema", "La clave ingresada presenta multa")
+////			lt_adeudo = 1
+////		else
+////			
+////			SELECT count(*)  
+////			INTO :lt_adeudo
+////				FROM spre_solicitud
+////				WHERE
+////				solicitanteid = :argl_cuenta and cvedepto = 4 and
+////				status = 0 and
+////				fecha_fin < getdate() 
+////				using gtr_sumuia;
+////			
+////			if lt_adeudo >= 1 then
+////				lt_adeudo = 1			// Si es igual a 1 el material tiene multa
+////			else 
+////				lt_adeudo = 0
+////			end if
+////		end if
+////		
+////	ELSEIF gtr_sumuia.SQLCode > 0 then
+////			MessageBox("Mensaje del Sistema", &
+////			gtr_sumuia.SQLErrText, Exclamation!)
+////			lt_adeudo =  -1
+////	END IF
+////	
+//	Return lt_adeudo
+////	
+////	
+end function
+

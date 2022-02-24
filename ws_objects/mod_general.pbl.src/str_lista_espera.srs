@@ -1,0 +1,8 @@
+﻿$PBExportHeader$str_lista_espera.srs
+global type str_lista_espera from structure
+	integer 	cvedepto
+	integer 	cvearea
+	datetime	fecha_inicio
+	datetime	fecha_final
+end type
+

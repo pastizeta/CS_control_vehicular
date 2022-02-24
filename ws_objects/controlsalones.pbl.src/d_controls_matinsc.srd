@@ -1,0 +1,40 @@
+﻿$PBExportHeader$d_controls_matinsc.srd
+$PBExportComments$Muestra las materias incritas para tomar el grupo y profesor
+release 10;
+datawindow(units=0 timer_interval=0 color=1090519039 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=64 color="536870912"  height.autosize=yes)
+table(column=(type=long updatewhereclause=yes name=v_sce_mat_inscritas_cuenta dbname="v_sce_mat_inscritas.cuenta" )
+ column=(type=long updatewhereclause=yes name=v_sce_mat_inscritas_cve_mat dbname="v_sce_mat_inscritas.cve_mat" )
+ retrieve="  SELECT dbo.v_sce_mat_inscritas.cuenta,   
+         dbo.v_sce_mat_inscritas.cve_mat
+    FROM dbo.v_sce_grupos,   
+         dbo.v_sce_mat_inscritas,   
+         dbo.v_sce_materias,   
+         dbo.v_sce_profesor  
+   WHERE ( dbo.v_sce_grupos.cve_mat = dbo.v_sce_mat_inscritas.cve_mat ) and  
+         ( dbo.v_sce_mat_inscritas.cve_mat = dbo.v_sce_materias.cve_mat ) and  
+         ( dbo.v_sce_grupos.cve_profesor = dbo.v_sce_profesor.cve_profesor ) and  
+         ( dbo.v_sce_grupos.periodo = dbo.v_sce_mat_inscritas.periodo ) and  
+         ( dbo.v_sce_grupos.gpo = dbo.v_sce_mat_inscritas.gpo ) and  
+         ( dbo.v_sce_grupos.anio = dbo.v_sce_mat_inscritas.anio )  and  
+			( dbo.v_sce_materias.cve_coordinacion in (   SELECT dbo.v_sce_coordinaciones.cve_coordinacion  
+																		 FROM dbo.v_sce_departamentos,   
+																				dbo.v_sce_coordinaciones  
+																		WHERE ( dbo.v_sce_departamentos.cve_depto = dbo.v_sce_coordinaciones.cve_depto ) )) and  
+																			
+         ( dbo.v_sce_mat_inscritas.cuenta = :liCuenta )    
+" arguments=(("liCuenta", number)) )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="5" y="4" height="56" width="389" format="[general]" html.valueishtml="0"  name=v_sce_mat_inscritas_cve_mat visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

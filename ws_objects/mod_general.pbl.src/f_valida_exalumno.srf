@@ -1,0 +1,35 @@
+﻿$PBExportHeader$f_valida_exalumno.srf
+global type f_valida_exalumno from function_object
+end type
+
+forward prototypes
+global function integer f_valida_exalumno (long p_cuenta, ref string p_nombre)
+end prototypes
+
+global function integer f_valida_exalumno (long p_cuenta, ref string p_nombre);integer li_existe
+long ll_cuenta
+string ls_nombre
+
+
+select  
+dbo.exuia_exal_donadores.nombre+ ' ' + dbo.exuia_exal_donadores.apaterno+' ' +dbo.exuia_exal_donadores.amaterno 
+into :ls_nombre
+
+from dbo.exuia_exal_donadores
+
+where dbo.exuia_exal_donadores.num_cuenta = :p_cuenta
+using gtr_sumuia; 
+
+if gtr_sumuia.SQLCode = -1 then 
+	messagebox("Error SUMUIA: Validación de exalumno.", gtr_sumuia.SQLErrText)	
+	li_existe=-1
+	rollback using gtr_sumuia;
+else
+	commit using gtr_sumuia;	
+	p_nombre=ls_nombre
+	li_existe=1	
+end if
+
+return (li_existe)
+end function
+

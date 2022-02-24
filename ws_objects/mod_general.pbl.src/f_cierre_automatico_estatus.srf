@@ -1,0 +1,97 @@
+﻿$PBExportHeader$f_cierre_automatico_estatus.srf
+global type f_cierre_automatico_estatus from function_object
+end type
+
+forward prototypes
+global subroutine f_cierre_automatico_estatus ()
+end prototypes
+
+global subroutine f_cierre_automatico_estatus ();//Buscar si tiene solicitudes abiertas con material todo entregado
+
+datetime ldt_fecha, ldt_ahorita
+integer li_row, li_i, ll_id_multa=0
+long ll_folio, ll_folioan=0, ll_folio_multa=0, ll_solicitante, ll_consec
+integer li_cvegrupo=0, li_tipo_usuario
+string ls_num_serie='', ls_cvematerial=''
+
+ldt_fecha= datetime(today(),time('00:00:00'))
+ldt_ahorita=datetime(today(),now())
+
+
+//Dar cierre automático a Solicitudes
+
+	update dbo.spre_solicitud
+	set status=1
+	where cvedepto=:gi_depto
+	and folio in (select folio from (
+		select  spre_solicitud.folio, min(spre_sol_materiales.status) as minimo, max(spre_sol_materiales.status) as maximo
+		from spre_sol_materiales
+		join spre_solicitud on (spre_sol_materiales.cvedepto=spre_solicitud.cvedepto
+		and spre_sol_materiales.folio=spre_solicitud.folio)
+		
+		where spre_sol_materiales.cvedepto=:gi_depto
+		and spre_sol_materiales.cvearea=:gi_area
+		and spre_solicitud.status=0
+		and  spre_sol_materiales.fecha_final =(select max(cast(b.fecha_final as date))
+		from spre_sol_materiales b
+		where b.cvedepto=:gi_depto and b.cvearea=:gi_area and CAST(b.fecha_final as date) < :ldt_fecha) 
+		group by spre_solicitud.folio ) as tabla
+		where minimo=1 and maximo=1)
+	using gtr_sumuia;	
+	
+	if gtr_sumuia.sqlcode<>0 then
+		messagebox("Error al dar cierre de solicitud"+string(gtr_sumuia.sqlcode), gtr_sumuia.SQLErrText)
+		rollback using gtr_sumuia;
+		goto salir
+	else
+		commit using gtr_sumuia;
+	end if	
+	
+
+//Dar cierre automático a PreSolicitudes
+
+	update dbo.spre_pre_solicitud
+	set status=3
+	where cvedepto=:gi_depto
+	and cvearea=:gi_area
+	and folio_prestamo is not null
+	and status=1
+	and fecha_fin<:ldt_fecha
+	
+	using gtr_sumuia;	
+	
+	if gtr_sumuia.sqlcode<>0 then
+		messagebox("Error al dar cierre de PreSolicitud"+string(gtr_sumuia.sqlcode), gtr_sumuia.SQLErrText)
+		rollback using gtr_sumuia;
+		goto salir
+	else
+		commit using gtr_sumuia;
+	end if	
+
+
+//Dar cierre automático a PreSolicitudes Materiales
+
+	update dbo.spre_pre_sol_materiales
+	set status=3
+	where cvedepto=:gi_depto 
+	and status=1
+	and folio in (select folio from dbo.spre_pre_solicitud
+	where cvedepto=:gi_depto
+	and cvearea=:gi_area
+	and folio_prestamo is not null
+	and status=1
+	and fecha_fin<:ldt_fecha)
+	
+	using gtr_sumuia;	
+	
+	if gtr_sumuia.sqlcode<>0 then
+		messagebox("Error al dar cierre de PreSolicitud"+string(gtr_sumuia.sqlcode), gtr_sumuia.SQLErrText)
+		rollback using gtr_sumuia;
+		goto salir
+	else
+		commit using gtr_sumuia;
+	end if	
+
+salir:
+end subroutine
+

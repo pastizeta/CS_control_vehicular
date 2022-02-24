@@ -1,0 +1,35 @@
+﻿$PBExportHeader$f_update_estatus_reservacion.srf
+global type f_update_estatus_reservacion from function_object
+end type
+
+forward prototypes
+global function integer f_update_estatus_reservacion (integer p_estatus, integer p_num_asignacion)
+end prototypes
+
+global function integer f_update_estatus_reservacion (integer p_estatus, integer p_num_asignacion);date ld_hoy
+
+ld_hoy=today()
+
+
+	update dbo.spre_reserva_salon_temporal
+	set estatus=:p_estatus,
+	dbo.spre_reserva_salon_temporal.usuario=:gs_usuario,
+	dbo.spre_reserva_salon_temporal.fecha_movimiento=:ld_hoy
+	
+	where dbo.spre_reserva_salon_temporal.num_asignacion=:p_num_asignacion
+	using gtr_sumuia;
+	
+
+
+if gtr_sumuia.sqlcode<>0 then
+	messagebox("Error al cambiar salón, código "+string(gtr_sumuia.sqlcode), gtr_sumuia.SQLErrText)
+	rollback using gtr_sumuia;
+	return 0
+else
+	commit using gtr_sumuia;	
+end if		
+
+return 1
+							
+end function
+

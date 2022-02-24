@@ -1,0 +1,74 @@
+﻿$PBExportHeader$d_csal_rep_materialdesc.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=520 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=96 color="536870912" )
+table(column=(type=long updatewhereclause=yes name=spre_solicitud_solicitanteid dbname="spre_solicitud.solicitanteid" )
+ column=(type=char(80) updatewhereclause=yes name=spre_prestamo_material_solicitantenombre dbname="spre_prestamo_material.solicitantenombre" )
+ column=(type=char(20) updatewhereclause=yes name=spre_sol_materiales_num_serie dbname="spre_sol_materiales.num_serie" )
+ column=(type=char(100) updatewhereclause=yes name=spre_materiales_descripcion dbname="spre_materiales.descripcion" )
+ column=(type=long updatewhereclause=yes name=spre_sol_materiales_status dbname="spre_sol_materiales.status" values="Activo	0/Entregado	1/Multa	3/" )
+ column=(type=datetime updatewhereclause=yes name=spre_solicitud_fecha_fin dbname="spre_solicitud.fecha_fin" )
+ column=(type=datetime updatewhereclause=yes name=fecha_generaion_rep dbname="Fecha_generaion_rep" )
+ retrieve="  SELECT dbo.spre_solicitud.solicitanteid, 
+			dbo.spre_prestamo_material.solicitantenombre,
+			dbo.spre_sol_materiales.num_serie,
+		 	dbo.spre_materiales.descripcion,
+			dbo.spre_sol_materiales.status,
+		 	dbo.spre_solicitud.fecha_fin,
+			getdate() as Fecha_generaion_rep
+    FROM dbo.spre_materiales,   
+         dbo.spre_prestamo_material,   
+         dbo.spre_sol_materiales,   
+         dbo.spre_solicitud  
+   WHERE ( dbo.spre_solicitud.solicitanteid = dbo.spre_prestamo_material.solicitanteid ) and
+		 ( dbo.spre_solicitud.folio = dbo.spre_prestamo_material.folio ) and
+		 ( dbo.spre_solicitud.folio = dbo.spre_sol_materiales.folio ) and
+		 ( dbo.spre_sol_materiales.cvematerial = dbo.spre_materiales.cvematerial ) and
+		 ( dbo.spre_sol_materiales.cvedepto= dbo.spre_materiales.cvedepto ) and
+		 ( dbo.spre_sol_materiales.cvegrupo = dbo.spre_materiales.cvegrupo ) and
+		 ( dbo.spre_prestamo_material.cvedepto= dbo.spre_materiales.cvedepto ) and
+		 ( dbo.spre_sol_materiales.cvearea = dbo.spre_materiales.cvearea ) and
+		 ( dbo.spre_materiales.descripcion like :arg_mat ) and
+		 ( dbo.spre_materiales.cvedepto = :cvedepto ) and
+		 ( dbo.spre_materiales.cvearea = :cvearea ) and
+		 ( dbo.spre_materiales.cvematerial = :cvematerial ) and
+		 ( dbo.spre_materiales.cvegrupo = :cvegrupo )
+	 
+GROUP BY dbo.spre_solicitud.solicitanteid, 
+			dbo.spre_prestamo_material.solicitantenombre,
+			dbo.spre_sol_materiales.num_serie,
+		 	dbo.spre_materiales.descripcion,
+			dbo.spre_sol_materiales.status,
+		 	dbo.spre_solicitud.fecha_fin" arguments=(("arg_mat", string),("cvedepto", number),("cvearea", number),("cvematerial", string),("cvegrupo", number))  sort="spre_solicitud_fecha_fin A " )
+rectangle(band=header x="5" y="408" height="104" width="3461"  name=r_1 visible="1" brush.hatch="6" brush.color="80269524" pen.style="0" pen.width="5" pen.color="33554432"  background.mode="2" background.color="0" )
+text(band=header alignment="0" text="Nombre Usuario" border="0" color="0" x="270" y="432" height="56" width="910" html.valueishtml="0"  name=t_2 visible="1"  font.face="Tahoma" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="2" text="Usuario" border="0" color="0" x="14" y="432" height="56" width="233" html.valueishtml="0"  name=t_1 visible="1"  font.face="Tahoma" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="0" text="No. Serie" border="0" color="0" x="1943" y="436" height="56" width="251" html.valueishtml="0"  name=t_7 visible="1"  font.face="Tahoma" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="0" text="Nombre Material" border="0" color="0" x="1257" y="432" height="56" width="553" html.valueishtml="0"  name=t_3 visible="1"  font.face="Tahoma" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="2" text="Fecha Entrega" border="0" color="0" x="2624" y="436" height="56" width="416" html.valueishtml="0"  name=t_4 visible="1"  font.face="Tahoma" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="2" text="Universidad Iberoamericana, A.C." border="0" color="0" x="878" y="60" height="92" width="1673" html.valueishtml="0"  name=t_5 visible="1"  font.face="Arial" font.height="-14" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="Reporte de Material " border="0" color="0" x="1051" y="180" height="72" width="1303" html.valueishtml="0"  name=t_6 visible="1"  font.face="Arial" font.height="-11" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="text" border="0" color="0" x="846" y="256" height="72" width="1737" html.valueishtml="0"  name=t_depto visible="1"  font.face="Arial" font.height="-11" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=header id=7 alignment="0" tabsequence=32766 border="0" color="0" x="3145" y="68" height="56" width="261" format="[shortdate] [time]" html.valueishtml="0"  name=fecha_generaion_rep visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=header id=7 alignment="1" tabsequence=32766 border="0" color="0" x="3058" y="68" height="56" width="50" format="dd-mm-yyyy" html.valueishtml="0"  name=fecha_generaion_rep_1 visible="0" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Estatus" border="0" color="0" x="3173" y="432" height="56" width="210" html.valueishtml="0"  name=t_8 visible="1"  font.face="Tahoma" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="18" y="4" height="76" width="233" format="[general]" html.valueishtml="0"  name=spre_solicitud_solicitanteid visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="270" y="4" height="76" width="965" format="[general]" html.valueishtml="0"  name=spre_prestamo_material_solicitantenombre visible="1" edit.limit=80 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="0" x="1938" y="4" height="76" width="672" format="[general]" html.valueishtml="0"  name=spre_sol_materiales_num_serie visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="0" x="1262" y="4" height="76" width="654" format="[general]" html.valueishtml="0"  name=spre_materiales_descripcion visible="1" edit.limit=100 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="0" color="0" x="3173" y="4" height="76" width="302" format="[general]" html.valueishtml="0"  name=spre_sol_materiales_status visible="1" ddlb.limit=0 ddlb.allowedit=no ddlb.case=any  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="0" color="0" x="2633" y="4" height="76" width="526" format="[shortdate] [time]" html.valueishtml="0"  name=spre_solicitud_fecha_fin visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

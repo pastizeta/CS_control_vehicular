@@ -1,0 +1,62 @@
+﻿$PBExportHeader$d_psi_cal_prestamo_ficha.srd
+release 12;
+datawindow(units=0 timer_interval=0 color=1073741824 brushmode=0 transparency=0 gradient.angle=0 gradient.color=8421504 gradient.focus=0 gradient.repetition.count=0 gradient.repetition.length=100 gradient.repetition.mode=0 gradient.scale=100 gradient.spread=100 gradient.transparency=0 picture.blur=0 picture.clip.bottom=0 picture.clip.left=0 picture.clip.right=0 picture.clip.top=0 picture.mode=0 picture.scale.x=100 picture.scale.y=100 picture.transparency=0 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes print.background=no print.preview.background=no print.preview.outline=yes hidegrayline=no showbackcoloronxp=no picture.file="" )
+header(height=80 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+summary(height=0 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+footer(height=118 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+detail(height=218 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+table(column=(type=long updatewhereclause=yes name=spre_sol_materiales_folio dbname="spre_sol_materiales.folio" )
+ column=(type=long updatewhereclause=yes name=spre_sol_materiales_cvedepto dbname="spre_sol_materiales.cvedepto" )
+ column=(type=long updatewhereclause=yes name=spre_sol_materiales_cvearea dbname="spre_sol_materiales.cvearea" )
+ column=(type=long updatewhereclause=yes name=spre_sol_materiales_cvegrupo dbname="spre_sol_materiales.cvegrupo" )
+ column=(type=char(15) updatewhereclause=yes name=spre_sol_materiales_cvematerial dbname="spre_sol_materiales.cvematerial" )
+ column=(type=char(20) updatewhereclause=yes name=spre_sol_materiales_num_serie dbname="spre_sol_materiales.num_serie" )
+ column=(type=char(10) updatewhereclause=yes name=fecha_inicio dbname="fecha_inicio" )
+ column=(type=char(5) updatewhereclause=yes name=hora_inicio dbname="hora_inicio" )
+ column=(type=char(10) updatewhereclause=yes name=fecha_final dbname="fecha_final" )
+ column=(type=char(5) updatewhereclause=yes name=hora_final dbname="hora_final" )
+ column=(type=long updatewhereclause=yes name=spre_sol_materiales_status dbname="spre_sol_materiales.status" )
+ column=(type=long updatewhereclause=yes name=spre_solicitud_solicitanteid dbname="spre_solicitud.solicitanteid" )
+ column=(type=datetime updatewhereclause=yes name=spre_solicitud_fecha_solicitud dbname="spre_solicitud.fecha_solicitud" )
+ column=(type=datetime updatewhereclause=yes name=spre_sol_materiales_fecha_entrega dbname="spre_sol_materiales.fecha_entrega" )
+ column=(type=char(80) updatewhereclause=yes name=spre_prestamo_material_solicitantenombre dbname="spre_prestamo_material.solicitantenombre" )
+ column=(type=long updatewhereclause=yes name=spre_solicitud_tipo_solicitud dbname="spre_solicitud.tipo_solicitud" )
+ column=(type=char(255) updatewhereclause=yes name=spre_solicitud_observaciones dbname="spre_solicitud.observaciones" )
+ retrieve="select a.folio,a.cvedepto, a.cvearea, a.cvegrupo, a.cvematerial, a.num_serie,
+convert(char(10),a.fecha_inicio,112) as fecha_inicio,
+convert(char(5),a.fecha_inicio,37) as hora_inicio,
+convert(char(10),a.fecha_final,112) as fecha_final,
+convert(char(5),a.fecha_final,37) as hora_final,
+a.status, b.solicitanteid, b.fecha_solicitud, a.fecha_entrega,
+c.solicitantenombre,b.tipo_solicitud,
+b.observaciones
+from dbo.spre_sol_materiales a 
+join dbo.spre_solicitud b on a.cvedepto=b.cvedepto and a.folio=b.folio
+join dbo.spre_prestamo_material c on a.cvedepto=c.cvedepto and a.folio=c.folio
+where 
+a.cvedepto =:p_depto
+and a.cvearea =:p_area
+and a.cvegrupo = 6
+and a.num_serie =:p_numserie
+and ((((b.fecha_inicio between :p_fecha_inicio and :p_fecha_final) or (b.fecha_fin between :p_fecha_inicio and :p_fecha_final)
+	  or (:p_fecha_inicio between b.fecha_inicio and b.fecha_fin) or (:p_fecha_final between b.fecha_inicio and b.fecha_fin))
+and b.fecha_fin<>:p_fecha_inicio and b.fecha_inicio<>:p_fecha_final))
+and ((a.status=0) or (a.status=1 and b.fecha_inicio < a.fecha_entrega))
+ORDER BY a.fecha_inicio" arguments=(("p_depto", number),("p_area", number),("p_numserie", string),("p_fecha_inicio", datetime),("p_fecha_final", datetime)) )
+text(band=header alignment="0" text="Detalle" border="0" color="0" x="33" y="10" height="51" width="483" html.valueishtml="0"  name=t_1 visible="1"  font.face="Verdana" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+line(band=detail x1="40" y1="186" x2="3924" y2="186"  name=l_1 visible="1" pen.style="2" pen.width="4" pen.color="8421376"  background.mode="2" background.color="16777215" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" )
+compute(band=detail alignment="0" expression="if(spre_solicitud_tipo_solicitud=1,'Alumno:  ','Empleado:  ')+spre_prestamo_material_solicitantenombre+'  ('+string(spre_solicitud_solicitanteid)+')'"border="0" color="33554432" x="29" y="13" height="74" width="2008" format="[GENERAL]" html.valueishtml="0"  name=compute_tipo visible="1"  font.face="Verdana" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+compute(band=detail alignment="0" expression="'Folio: '+string(spre_sol_materiales_folio)"border="0" color="33554432" x="2121" y="13" height="74" width="355" format="[GENERAL]" html.valueishtml="0"  name=compute_folio visible="1"  font.face="Verdana" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+compute(band=detail alignment="0" expression="mid(string(fecha_inicio),7,2)+'-'+mid(string(fecha_inicio),5,2)+'-'+mid(string(fecha_inicio),1,4)+' '+string(hora_inicio)+'  a  '+mid(string(fecha_final),7,2)+'-'+mid(string(fecha_final),5,2)+'-'+mid(string(fecha_final),1,4)+' '+string(hora_final)"border="0" color="33554432" x="2505" y="13" height="74" width="1434" format="[GENERAL]" html.valueishtml="0"  name=compute_fecha visible="1"  font.face="Verdana" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=17 alignment="0" tabsequence=32766 border="0" color="0" x="29" y="96" height="64" width="3913" format="[general]" html.valueishtml="0"  name=spre_solicitud_observaciones visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Verdana" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" pagingmethod=0 generatedddwframes="1" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

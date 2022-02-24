@@ -1,0 +1,51 @@
+﻿$PBExportHeader$d_controls_consulta_adeudos.srd
+release 7;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=72 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=84 color="536870912" )
+table(column=(type=long update=yes updatewhereclause=yes key=yes name=cvedepto dbname="spre_solicitud.cvedepto" )
+ column=(type=long update=yes updatewhereclause=yes key=yes name=folio dbname="spre_solicitud.folio" )
+ column=(type=long update=yes updatewhereclause=yes name=solicitanteid dbname="spre_solicitud.solicitanteid" )
+ column=(type=long update=yes updatewhereclause=yes name=status dbname="spre_solicitud.status" )
+ column=(type=long update=yes updatewhereclause=yes name=cveperiodo dbname="spre_solicitud.cveperiodo" )
+ column=(type=long update=yes updatewhereclause=yes name=condicion dbname="spre_solicitud.condicion" )
+ column=(type=datetime update=yes updatewhereclause=yes name=fecha_solicitud dbname="spre_solicitud.fecha_solicitud" )
+ column=(type=datetime update=yes updatewhereclause=yes name=fecha_inicio dbname="spre_solicitud.fecha_inicio" )
+ column=(type=datetime update=yes updatewhereclause=yes name=fecha_fin dbname="spre_solicitud.fecha_fin" )
+ retrieve="  SELECT dbo.spre_solicitud.cvedepto,   
+         dbo.spre_solicitud.folio,   
+         dbo.spre_solicitud.solicitanteid,   
+         dbo.spre_solicitud.status,   
+         dbo.spre_solicitud.cveperiodo,   
+         dbo.spre_solicitud.condicion,   
+         dbo.spre_solicitud.fecha_solicitud,   
+         dbo.spre_solicitud.fecha_inicio,   
+         dbo.spre_solicitud.fecha_fin  
+    FROM dbo.spre_solicitud  
+WHERE  dbo.spre_solicitud.solicitanteid = :al_cuenta AND
+		 dbo.spre_solicitud.cvedepto = 4 AND
+		 dbo.spre_solicitud.status = 0 AND
+		 dbo.spre_solicitud.fecha_fin < getdate()
+" update="dbo.spre_solicitud" updatewhere=1 updatekeyinplace=no arguments=(("al_cuenta", number)) )
+text(band=header alignment="2" text="Cvedepto" border="0" color="0" x="5" y="4" height="64" width="329"  name=cvedepto_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Folio" border="0" color="0" x="338" y="4" height="64" width="329"  name=folio_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Solicitanteid" border="0" color="0" x="672" y="4" height="64" width="329"  name=solicitanteid_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Status" border="0" color="0" x="1006" y="4" height="64" width="329"  name=status_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cveperiodo" border="0" color="0" x="1339" y="4" height="64" width="329"  name=cveperiodo_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Condicion" border="0" color="0" x="1673" y="4" height="64" width="329"  name=condicion_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Fecha Solicitud" border="0" color="0" x="2007" y="4" height="64" width="603"  name=fecha_solicitud_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Fecha Inicio" border="0" color="0" x="2615" y="4" height="64" width="603"  name=fecha_inicio_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Fecha Fin" border="0" color="0" x="3223" y="4" height="64" width="603"  name=fecha_fin_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="1" tabsequence=10 border="0" color="0" x="5" y="4" height="76" width="329" format="[general]"  name=cvedepto edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="1" tabsequence=20 border="0" color="0" x="338" y="4" height="76" width="329" format="[general]"  name=folio edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="1" tabsequence=30 border="0" color="0" x="672" y="4" height="76" width="329" format="[general]"  name=solicitanteid edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="1" tabsequence=40 border="0" color="0" x="1006" y="4" height="76" width="329" format="[general]"  name=status edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="1" tabsequence=50 border="0" color="0" x="1339" y="4" height="76" width="329" format="[general]"  name=cveperiodo edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="1" tabsequence=60 border="0" color="0" x="1673" y="4" height="76" width="329" format="[general]"  name=condicion edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="0" tabsequence=70 border="0" color="0" x="2007" y="4" height="76" width="603" format="[shortdate] [time]"  name=fecha_solicitud edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="0" tabsequence=80 border="0" color="0" x="2615" y="4" height="76" width="603" format="[shortdate] [time]"  name=fecha_inicio edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=9 alignment="0" tabsequence=90 border="0" color="0" x="3223" y="4" height="76" width="603" format="[shortdate] [time]"  name=fecha_fin edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

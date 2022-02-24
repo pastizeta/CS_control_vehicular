@@ -1,0 +1,69 @@
+﻿$PBExportHeader$d_psi_rep_renovaciones.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=134217730 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=448 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=76 color="536870912" )
+table(column=(type=long updatewhereclause=yes name=cvedepto dbname="spre_renovaciones.cvedepto" )
+ column=(type=long updatewhereclause=yes name=folio_origen dbname="spre_renovaciones.folio_origen" )
+ column=(type=long updatewhereclause=yes name=folio_destino dbname="spre_renovaciones.folio_destino" )
+ column=(type=long updatewhereclause=yes name=num_renovacion dbname="spre_renovaciones.num_renovacion" )
+ column=(type=datetime updatewhereclause=yes name=fecha_renovacion dbname="spre_renovaciones.fecha_renovacion" )
+ column=(type=datetime updatewhereclause=yes name=fecha_entrega dbname="spre_renovaciones.fecha_entrega" )
+ column=(type=long updatewhereclause=yes name=folio_origen0 dbname="folio_origen0" )
+ column=(type=long updatewhereclause=yes name=solicitanteid dbname="spre_solicitud.solicitanteid" )
+ column=(type=char(80) updatewhereclause=yes name=solicitantenombre dbname="spre_prestamo_material.solicitantenombre" )
+ retrieve="SELECT r.cvedepto,
+	   	   r.folio_origen,
+	   	   r.folio_destino,
+	   	   r.num_renovacion,
+	   	   r.fecha_renovacion,
+	   	   r.fecha_entrega,
+	   	   ( SELECT r1.folio_origen
+	   	       FROM spre_renovaciones r1
+		      WHERE r1.cvedepto = r.cvedepto
+		          AND r1.folio_destino = r.folio_origen ) as folio_origen0,
+	   	   s.solicitanteid,
+		   m.solicitantenombre
+ FROM spre_renovaciones r, spre_solicitud s INNER JOIN	 spre_prestamo_material m ON
+										s.cvedepto = m.cvedepto and
+										s.folio		   = m.folio
+WHERE r.cvedepto = s.cvedepto
+    AND r.folio_destino = s.folio
+    AND convert(varchar(08),r.fecha_renovacion, 112) = :fecha_renovacion
+ORDER BY r.fecha_renovacion, r.folio_destino
+
+" arguments=(("fecha_renovacion", string)) )
+text(band=header alignment="2" text="Renovaciones de Préstamos de Materiales" border="0" color="33554432" x="1710" y="28" height="80" width="1477" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-12" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=header id=5 alignment="2" tabsequence=32766 border="0" color="33554432" x="2057" y="112" height="64" width="782" format="DD/MM/YYYY" html.valueishtml="0"  name=fecha_renovacion_1 visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-11" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header alignment="0" expression="'Departamento:'"border="0" color="33554432" x="37" y="284" height="64" width="411" format="[GENERAL]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header alignment="0" expression=" if( cvedepto = 2, 'Psicología', '' )"border="0" color="33554432" x="462" y="284" height="64" width="1248" format="[GENERAL]" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+rectangle(band=header x="27" y="364" height="84" width="4507"  name=r_1 visible="1" brush.hatch="6" brush.color="80269524" pen.style="0" pen.width="5" pen.color="33554432"  background.mode="2" background.color="0" )
+text(band=header alignment="2" text="Solicitante" border="0" color="33554432" x="55" y="372" height="64" width="1381" html.valueishtml="0"  name=spre_solicitud_solicitanteid_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Folio Ultima Renov" border="0" color="33554432" x="1435" y="372" height="64" width="498" html.valueishtml="0"  name=spre_renovaciones_folio_destino_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Folio Anterior" border="0" color="33554432" x="1979" y="372" height="64" width="416" html.valueishtml="0"  name=spre_renovaciones_folio_origen_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Folio Anterior" border="0" color="33554432" x="2418" y="372" height="64" width="416" html.valueishtml="0"  name=folio_origen0_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Num Renovacion" border="0" color="33554432" x="2857" y="372" height="64" width="443" html.valueishtml="0"  name=spre_renovaciones_num_renovacion_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Fecha Entrega" border="0" color="33554432" x="3968" y="372" height="64" width="539" html.valueishtml="0"  name=spre_renovaciones_fecha_entrega_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Fecha Renovación" border="0" color="33554432" x="3333" y="372" height="64" width="594" html.valueishtml="0"  name=spre_renovaciones_fecha_renovacion_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=detail x1="50" y1="72" x2="4530" y2="72"  name=l_1 visible="1" pen.style="0" pen.width="5" pen.color="255"  background.mode="2" background.color="16777215" )
+column(band=detail id=8 alignment="1" tabsequence=10 border="0" color="33554432" x="41" y="4" height="60" width="274" format="[general]" html.valueishtml="0"  name=solicitanteid visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.displayonly=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=9 alignment="0" tabsequence=32766 border="0" color="33554432" x="329" y="4" height="60" width="1088" format="[general]" html.valueishtml="0"  name=solicitantenombre visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="2" tabsequence=32766 border="0" color="33554432" x="1435" y="4" height="60" width="498" format="[general]" html.valueishtml="0"  name=folio_destino visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="2" tabsequence=32766 border="0" color="33554432" x="1979" y="4" height="60" width="416" format="[general]" html.valueishtml="0"  name=folio_origen visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="2" tabsequence=32766 border="0" color="33554432" x="2418" y="4" height="60" width="416" format="[general]" html.valueishtml="0"  name=folio_origen0 visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="2" tabsequence=32766 border="0" color="33554432" x="2857" y="4" height="60" width="443" format="[general]" html.valueishtml="0"  name=num_renovacion visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="2" tabsequence=32766 border="0" color="33554432" x="3968" y="4" height="60" width="539" format="[shortdate] [time]" html.valueishtml="0"  name=fecha_entrega visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="2" tabsequence=32766 border="0" color="33554432" x="3333" y="4" height="60" width="594" format="[shortdate] [time]" html.valueishtml="0"  name=fecha_renovacion visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

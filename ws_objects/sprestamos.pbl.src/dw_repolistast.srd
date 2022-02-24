@@ -1,0 +1,82 @@
+﻿$PBExportHeader$dw_repolistast.srd
+release 7;
+datawindow(units=0 timer_interval=0 color=1090519039 processing=1 HTMLDW=no print.documentname="" print.orientation = 1 print.margin.left = 56 print.margin.right = 56 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no grid.lines=1 grid.columnmove=no )
+header(height=624 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=68 color="536870912" )
+detail(height=72 color="536870912"  height.autosize=yes)
+table(column=(type=char(4) updatewhereclause=yes name=codigo_alumno dbname="dca_alumnos_ext.codigo_alumno" )
+ column=(type=long updatewhereclause=yes name=no_folio_inter dbname="dca_alumnos_ext.no_folio_inter" )
+ column=(type=char(30) updatewhereclause=yes name=s_name dbname="dca_alumnos_ext.s_name" )
+ column=(type=char(30) updatewhereclause=yes name=s_lastname dbname="dca_alumnos_ext.s_lastname" )
+ column=(type=char(60) updatewhereclause=yes name=major dbname="dca_alumnos_ext.major" )
+ column=(type=char(35) updatewhereclause=yes name=citizenship dbname="dca_alumnos_ext.citizenship" )
+ column=(type=char(15) updatewhereclause=yes name=telephone_in_mexico dbname="dca_alumnos_ext.telephone_in_mexico" )
+ column=(type=char(30) updatewhereclause=yes name=e_mail dbname="dca_alumnos_ext.e_mail" )
+ column=(type=char(100) updatewhereclause=yes name=dca_universidades_universidad_inter dbname="dca_universidades.universidad_inter" )
+ column=(type=char(30) updatewhereclause=yes name=dca_alumnos_ext_place_of_birth dbname="dca_alumnos_ext.place_of_birth" )
+ column=(type=datetime updatewhereclause=yes name=dca_alumnos_ext_date_of_birth dbname="dca_alumnos_ext.date_of_birth" )
+ column=(type=char(60) updatewhereclause=yes name=dca_alumnos_ext_pasportnbr dbname="dca_alumnos_ext.pasportnbr" )
+ column=(type=char(60) updatewhereclause=yes name=dca_alumnos_ext_insuranceco dbname="dca_alumnos_ext.insuranceco" )
+ column=(type=char(60) updatewhereclause=yes name=dca_alumnos_ext_insurancenbr dbname="dca_alumnos_ext.insurancenbr" )
+ column=(type=char(60) updatewhereclause=yes name=dca_alumnos_ext_insuramceval dbname="dca_alumnos_ext.insuramceval" )
+ column=(type=char(20) updatewhereclause=yes name=dca_alumnos_ext_creditcardnbr dbname="dca_alumnos_ext.creditcardnbr" )
+ retrieve="  SELECT dbo.dca_alumnos_ext.codigo_alumno,   
+         dbo.dca_alumnos_ext.no_folio_inter,   
+         dbo.dca_alumnos_ext.s_name,   
+         dbo.dca_alumnos_ext.s_lastname,   
+         dbo.dca_alumnos_ext.major,   
+         dbo.dca_alumnos_ext.citizenship,   
+         dbo.dca_alumnos_ext.telephone_in_mexico,   
+         dbo.dca_alumnos_ext.e_mail,   
+         dbo.dca_universidades.universidad_inter,   
+         dbo.dca_alumnos_ext.place_of_birth,   
+         dbo.dca_alumnos_ext.date_of_birth,
+			dbo.dca_alumnos_ext.pasportnbr,   
+         dbo.dca_alumnos_ext.insuranceco,   
+         dbo.dca_alumnos_ext.insurancenbr,   
+         dbo.dca_alumnos_ext.insuramceval,   
+         dbo.dca_alumnos_ext.creditcardnbr   
+    FROM dbo.dca_alumnos_ext,   
+         dbo.dca_universidades  
+    WHERE dbo.dca_alumnos_ext.no_folio_inter in (select dbo.dcaPeriodoEstancia.noFolioCuenta from dbo.dcaPeriodoEstancia WHERE dbo.dcaPeriodoEstancia.anio =:arg_anio AND   
+         dbo.dcaPeriodoEstancia.periodo =:arg_periodo ) AND 
+							( dbo.dca_alumnos_ext.cve_universidad_inter = dbo.dca_universidades.cve_universidad_inter )    
+" arguments=(("arg_anio", number),("arg_periodo", number))  sort="s_lastname A " )
+text(band=header alignment="2" text="No. Folio" border="0" color="0" x="155" y="572" height="48" width="251"  name=no_folio_inter_t  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79741120" )
+text(band=header alignment="2" text="Apellidos" border="0" color="0" x="416" y="572" height="48" width="571"  name=s_lastname_t  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79741120" )
+text(band=header alignment="2" text="Clave " border="0" color="0" x="9" y="572" height="48" width="137"  name=codigo_alumno_t  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79741120" )
+text(band=header alignment="2" text="Nombres" border="0" color="0" x="997" y="572" height="48" width="576"  name=s_name_t  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79741120" )
+text(band=header alignment="2" text="Teléfono" border="0" color="0" x="3342" y="572" height="48" width="357"  name=telephone_in_mexico_t  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79741120" )
+text(band=header alignment="2" text="Universidad" border="0" color="0" x="1582" y="572" height="48" width="1042"  name=dca_universidades_universidad_inter_t  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79741120" )
+text(band=header alignment="2" text="Carrera" border="0" color="0" x="2633" y="572" height="48" width="430"  name=major_t  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79741120" )
+text(band=header alignment="2" text="País- Estado" border="0" color="0" x="3072" y="572" height="48" width="261"  name=dca_alumnos_ext_place_of_birth_t  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79741120" )
+bitmap(band=header filename="lobos.bmp" x="73" y="8" height="464" width="498" border="0"  name=p_13 )
+text(band=header alignment="2" text="E- Mail" border="0" color="0" x="3707" y="572" height="48" width="864"  name=e_mail_t  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79741120" )
+text(band=header alignment="2" text="No. pasporte " border="0" color="0" x="4581" y="572" height="48" width="654"  name=t_1  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79741120" )
+text(band=header alignment="2" text="Aseguradora" border="0" color="0" x="5243" y="572" height="48" width="631"  name=t_2  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79741120" )
+text(band=header alignment="2" text="No. poliza" border="0" color="0" x="5883" y="572" height="48" width="347"  name=t_3  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79741120" )
+text(band=header alignment="2" text="Vigencia seguro" border="0" color="0" x="6240" y="572" height="48" width="320"  name=t_4  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79741120" )
+text(band=header alignment="2" text="Tarjeta Credito" border="0" color="0" x="6569" y="572" height="48" width="352"  name=t_5  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="0" text="Fecha nacimiento" border="0" color="0" x="6930" y="572" height="48" width="375"  name=t_6  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+column(band=detail id=1 alignment="2" tabsequence=10 border="0" color="0" x="9" y="8" height="48" width="137" format="[general]"  name=codigo_alumno height.autosize=yes edit.limit=4 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=3 alignment="0" tabsequence=30 border="0" color="0" x="997" y="8" height="48" width="576" format="[general]"  name=s_name height.autosize=yes edit.limit=30 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=7 alignment="0" tabsequence=50 border="0" color="0" x="3342" y="8" height="48" width="357" format="[general]"  name=telephone_in_mexico height.autosize=yes edit.limit=15 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=9 alignment="0" tabsequence=32766 border="0" color="0" x="1582" y="8" height="48" width="1042" format="[general]"  name=dca_universidades_universidad_inter height.autosize=yes edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=2 alignment="1" tabsequence=20 border="0" color="0" x="155" y="8" height="48" width="251" format="[general]"  name=no_folio_inter height.autosize=yes edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="0" x="416" y="8" height="48" width="571" format="[general]"  name=s_lastname height.autosize=yes edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=5 alignment="0" tabsequence=40 border="0" color="0" x="2633" y="8" height="48" width="430" format="[general]"  name=major height.autosize=yes edit.limit=60 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=10 alignment="0" tabsequence=32766 border="0" color="0" x="3072" y="8" height="48" width="261" format="[general]"  name=dca_alumnos_ext_place_of_birth height.autosize=yes edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=8 alignment="0" tabsequence=60 border="0" color="0" x="3707" y="8" height="48" width="864" format="[general]"  name=e_mail height.autosize=yes edit.limit=30 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=12 alignment="0" tabsequence=32766 border="0" color="0" x="4581" y="8" height="48" width="654" format="[general]"  name=dca_alumnos_ext_pasportnbr edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=13 alignment="0" tabsequence=32766 border="0" color="0" x="5243" y="8" height="48" width="631" format="[general]"  name=dca_alumnos_ext_insuranceco edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=14 alignment="0" tabsequence=32766 border="0" color="0" x="5883" y="8" height="48" width="347" format="[general]"  name=dca_alumnos_ext_insurancenbr edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=15 alignment="0" tabsequence=32766 border="0" color="0" x="6240" y="8" height="48" width="320" format="[general]"  name=dca_alumnos_ext_insuramceval edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=16 alignment="0" tabsequence=32766 border="0" color="0" x="6569" y="8" height="48" width="352" format="[general]"  name=dca_alumnos_ext_creditcardnbr edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=11 alignment="0" tabsequence=32766 border="0" color="0" x="6930" y="8" height="48" width="375" format="[shortdate]"  name=dca_alumnos_ext_date_of_birth edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+compute(band=foreground alignment="0" expression="'Pagina ' + page() + ' de ' + pageCount()"border="0" color="0" x="3067" y="384" height="48" width="942" format="[general]"  name=page_1  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=foreground alignment="2" expression="case(  arg_periodo  when 0 then 'Primavera' when 1 then 'Verano' else 'Otoño')+' - '+string( arg_anio )"border="0" color="0" x="1330" y="252" height="76" width="1984" format="[GENERAL]"  name=compute_1  slideup=allabove  font.face="Arial" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=foreground alignment="2" text="Reporte Alumnos " border="0" color="0" x="1330" y="144" height="76" width="1984"  name=t_hdr1  slideup=allabove  font.face="Arial" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" font.underline="1" background.mode="1" background.color="536870912" )
+text(band=foreground alignment="2" text="UNIVERSIDAD IBEROAMERICANA" border="0" color="0" x="1321" y="24" height="76" width="1989"  name=t_ib1  slideup=allabove  font.face="Arial" font.height="-16" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

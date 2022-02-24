@@ -1,0 +1,22 @@
+﻿$PBExportHeader$f_select_lapso_completo_max.srf
+global type f_select_lapso_completo_max from function_object
+end type
+
+forward prototypes
+global function integer f_select_lapso_completo_max ()
+end prototypes
+
+global function integer f_select_lapso_completo_max ();integer li_lapso
+
+	select max(dbo.spre_reserva_salon_temporal.lapso_completo)
+	into :li_lapso
+	from dbo.spre_reserva_salon_temporal
+	using gtr_sumuia; 
+
+	if gtr_sumuia.SQLCode = -1 then 
+			messagebox("Error SUMUIA: Selección de lapso", gtr_sumuia.SQLErrText)	
+	end if
+
+return (li_lapso)
+end function
+

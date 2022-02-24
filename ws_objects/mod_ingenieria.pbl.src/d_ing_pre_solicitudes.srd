@@ -1,0 +1,64 @@
+﻿$PBExportHeader$d_ing_pre_solicitudes.srd
+$PBExportComments$Muestra las solicitudes para un departamento y solicitante
+release 10;
+datawindow(units=0 timer_interval=0 color=29534863 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=83 color="536870912"  height.autosize=yes)
+table(column=(type=long updatewhereclause=yes key=yes name=cvedepto dbname="spre_pre_solicitud.cvedepto" )
+ column=(type=long updatewhereclause=yes key=yes name=folio dbname="spre_pre_solicitud.folio" )
+ column=(type=long updatewhereclause=yes name=solicitanteid dbname="spre_pre_solicitud.solicitanteid" )
+ column=(type=long updatewhereclause=yes name=status dbname="spre_pre_solicitud.status" )
+ column=(type=datetime updatewhereclause=yes name=fecha_solicitud dbname="spre_pre_solicitud.fecha_solicitud" )
+ column=(type=datetime updatewhereclause=yes name=fecha_inicio dbname="spre_pre_solicitud.fecha_inicio" )
+ column=(type=datetime updatewhereclause=yes name=fecha_fin dbname="spre_pre_solicitud.fecha_fin" )
+ column=(type=long updatewhereclause=yes name=tipo_prestamo dbname="spre_pre_solicitud.tipo_prestamo" )
+ column=(type=char(80) updatewhereclause=yes name=solicitantenombre dbname="spre_pre_solicitud.solicitantenombre" )
+ column=(type=long updatewhereclause=yes name=autorizada dbname="spre_pre_solicitud.autorizada" values="	1/	0" )
+ retrieve="
+select spre_pre_solicitud.cvedepto,
+       spre_pre_solicitud.folio,
+       spre_pre_solicitud.solicitanteid,
+       spre_pre_solicitud.status,
+       spre_pre_solicitud.fecha_solicitud,
+       spre_pre_solicitud.fecha_inicio,
+       spre_pre_solicitud.fecha_fin,
+       spre_pre_solicitud.tipo_prestamo,
+       spre_pre_solicitud.solicitantenombre,
+       spre_pre_solicitud.autorizada
+  from spre_pre_solicitud
+ where cvedepto =:ai_cvedepto
+   and cvearea =:ai_cvearea
+   and solicitanteid =:ai_solicitanteid
+   and status = 0   --Pendiente
+   and convert(varchar(08), fecha_inicio,112)  =  :ai_fecha
+
+" update="spre_pre_solicitud" updatewhere=0 updatekeyinplace=no arguments=(("ai_cvedepto", number),("ai_cvearea", number),("ai_solicitanteid", number),("ai_fecha", string))  sort="folio A " )
+group(level=1 header.height=458 trailer.height=0 by=("ai_solicitanteid" ) header.color="536870912" trailer.color="536870912" )
+groupbox(band=header.1 text="Solicitante"border="2" color="0" x="15" y="13" height="301" width="1854"  name=gb_1 visible="1"  font.face="Tahoma" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="29534863" )
+text(band=header.1 alignment="1" text="Id:" border="0" color="0" x="51" y="109" height="61" width="271" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="29534863" )
+text(band=header.1 alignment="1" text="Nombre:" border="0" color="0" x="51" y="189" height="61" width="271" html.valueishtml="0"  name=t_4 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="29534863" )
+column(band=header.1 id=9 alignment="0" tabsequence=32766 border="0" color="0" x="351" y="189" height="64" width="1477" format="[general]" html.valueishtml="0"  name=solicitantenombre visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=header.1 id=3 alignment="0" tabsequence=32766 border="0" color="0" x="351" y="112" height="64" width="336" format="[general]" html.valueishtml="0"  name=solicitanteid visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header.1 alignment="2" text="Folio" border="0" color="0" x="0" y="384" height="61" width="329" html.valueishtml="0"  name=v_sce_mat_inscritas_gpo_t visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+text(band=header.1 alignment="2" text="Fecha Captura" border="0" color="0" x="344" y="384" height="61" width="497" html.valueishtml="0"  name=t_5 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+text(band=header.1 alignment="2" text="Fecha Inicio" border="0" color="0" x="848" y="384" height="61" width="446" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+text(band=header.1 alignment="2" text="Autorizada" border="0" color="0" x="1766" y="384" height="61" width="336" html.valueishtml="0"  name=t_6 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+text(band=header.1 alignment="2" text="Fecha Fin" border="0" color="0" x="1306" y="384" height="61" width="446" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+line(band=detail x1="0" y1="76" x2="2114" y2="76"  name=l_1 visible="1"  slideup=allabove pen.style="0" pen.width="7" pen.color="255"  background.mode="2" background.color="16777215" )
+column(band=detail id=2 alignment="2" tabsequence=10 border="2" color="0" x="0" y="0" height="61" width="329" format="[general]" html.valueishtml="0"  name=folio visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=5 alignment="2" tabsequence=32766 border="2" color="0" x="344" y="0" height="61" width="494" format="DD/MM/YYYY" html.valueishtml="0"  name=fecha_solicitud visible="1" edit.limit=0 edit.case=any edit.format="" edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=6 alignment="2" tabsequence=32766 border="2" color="0" x="848" y="0" height="61" width="446" format="dd/mm/yyyy hh:mm" html.valueishtml="0"  name=fecha_inicio visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=10 alignment="2" tabsequence=32766 border="2" color="0" x="1766" y="0" height="61" width="336" format="[general]" html.valueishtml="0"  name=autorizada visible="1" checkbox.text="" checkbox.on="1" checkbox.off="0" checkbox.scale=no checkbox.threed=no  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=7 alignment="2" tabsequence=32766 border="2" color="0" x="1306" y="0" height="61" width="446" format="dd/mm/yyyy hh:mm" html.valueishtml="0"  name=fecha_fin visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

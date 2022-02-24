@@ -1,0 +1,122 @@
+﻿$PBExportHeader$d_gen_rep_presol_fecha.srd
+release 12;
+datawindow(units=0 timer_interval=0 color=1073741824 brushmode=0 transparency=0 gradient.angle=0 gradient.color=8421504 gradient.focus=0 gradient.repetition.count=0 gradient.repetition.length=100 gradient.repetition.mode=0 gradient.scale=100 gradient.spread=100 gradient.transparency=0 picture.blur=0 picture.clip.bottom=0 picture.clip.left=0 picture.clip.right=0 picture.clip.top=0 picture.mode=0 picture.scale.x=100 picture.scale.y=100 picture.transparency=0 processing=1 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes print.background=no print.preview.background=no print.preview.outline=yes hidegrayline=no showbackcoloronxp=no picture.file="" grid.lines=0 )
+header(height=64 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+summary(height=0 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+footer(height=0 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+detail(height=86 color="536870912" transparency="0" gradient.color="8421504" gradient.transparency="0" gradient.angle="0" brushmode="0" gradient.repetition.mode="0" gradient.repetition.count="0" gradient.repetition.length="100" gradient.focus="0" gradient.scale="100" gradient.spread="100" )
+table(column=(type=long update=yes updatewhereclause=yes name=folio dbname="folio" )
+ column=(type=long update=yes updatewhereclause=yes name=solicitanteid dbname="solicitanteid" )
+ column=(type=datetime update=yes updatewhereclause=yes name=fecha_inicio dbname="fecha_inicio" )
+ column=(type=datetime update=yes updatewhereclause=yes name=fecha_fin dbname="fecha_fin" )
+ column=(type=long update=yes updatewhereclause=yes name=tipo_prestamo dbname="tipo_prestamo" )
+ column=(type=char(80) update=yes updatewhereclause=yes name=solicitantenombre dbname="solicitantenombre" )
+ column=(type=long update=yes updatewhereclause=yes name=folio_origen dbname="folio_origen" )
+ column=(type=long update=yes updatewhereclause=yes name=folio_prestamo dbname="folio_prestamo" )
+ retrieve="select distinct folio, solicitanteid, fecha_inicio, fecha_fin, tipo_prestamo, solicitantenombre, folio_origen, folio_prestamo from 
+(
+SELECT a.folio,   
+         a.solicitanteid,   
+         a.fecha_inicio,   
+         a.fecha_fin,   
+         a.tipo_prestamo,   
+         a.solicitantenombre,   
+         isNull(a.folio_origen,0) as folio_origen,   
+         isNull(a.folio_prestamo,0) as folio_prestamo
+    FROM spre_pre_solicitud  a
+    join spre_periodos f on f.cvedepto=a.cvedepto
+    where  a.cvedepto = :p_cvedepto
+    and a.cvearea = :p_cvearea
+    and f.anio=:p_anio and f.cveperiodo=:p_periodo and a.fecha_inicio between f.fecha_inicio and f.fecha_fin
+    and ((a.fecha_inicio between :p_fecha_inicio and :p_fecha_fin) or (a.fecha_fin between :p_fecha_inicio and :p_fecha_fin) or (:p_fecha_inicio between a.fecha_inicio and a.fecha_fin) or (:p_fecha_fin between a.fecha_inicio and a.fecha_fin))
+
+union all 
+
+SELECT b.folio,   
+         b.solicitanteid,   
+         b.fecha_inicio,   
+         b.fecha_fin,   
+         b.tipo_prestamo,   
+         b.solicitantenombre,   
+         isNull(b.folio_origen,0) as folio_origen,   
+         isNull(b.folio_prestamo,0) as folio_prestamo
+    FROM spre_pre_solicitud  b
+    where b.folio_origen in (select a.folio_prestamo FROM spre_pre_solicitud  a join spre_periodos f on f.cvedepto=a.cvedepto where  a.cvedepto = :p_cvedepto and  a.cvearea = :p_cvearea and f.anio=:p_anio and f.cveperiodo=:p_periodo and a.fecha_inicio between f.fecha_inicio and f.fecha_fin
+    and ((a.fecha_inicio between :p_fecha_inicio and :p_fecha_fin) or (a.fecha_fin between :p_fecha_inicio and :p_fecha_fin) or (:p_fecha_inicio between a.fecha_inicio and a.fecha_fin) or (:p_fecha_fin between a.fecha_inicio and a.fecha_fin)))
+
+union all
+
+SELECT c.folio,   
+         c.solicitanteid,   
+         c.fecha_inicio,   
+         c.fecha_fin,   
+         c.tipo_prestamo,   
+         c.solicitantenombre,   
+         isNull(c.folio_origen,0) as folio_origen,   
+         isNull(c.folio_prestamo,0) as folio_prestamo
+    FROM spre_pre_solicitud  c
+    where c.folio_origen in (select b.folio_prestamo FROM spre_pre_solicitud  b where b.folio_origen in (select a.folio_prestamo FROM spre_pre_solicitud  a join spre_periodos f on f.cvedepto=a.cvedepto where  a.cvedepto = :p_cvedepto and  a.cvearea = :p_cvearea and f.anio=:p_anio and f.cveperiodo=:p_periodo and a.fecha_inicio between f.fecha_inicio and f.fecha_fin
+    and ((a.fecha_inicio between :p_fecha_inicio and :p_fecha_fin) or (a.fecha_fin between :p_fecha_inicio and :p_fecha_fin) or (:p_fecha_inicio between a.fecha_inicio and a.fecha_fin) or (:p_fecha_fin between a.fecha_inicio and a.fecha_fin))))
+
+union all 
+
+SELECT b.folio,   
+         b.solicitanteid,   
+         b.fecha_inicio,   
+         b.fecha_fin,   
+         b.tipo_prestamo,   
+         b.solicitantenombre,   
+         isNull(b.folio_origen,0) as folio_origen,   
+         isNull(b.folio_prestamo,0) as folio_prestamo
+    FROM spre_pre_solicitud  b
+    where b.folio_prestamo in (select a.folio_origen FROM spre_pre_solicitud  a join spre_periodos f on f.cvedepto=a.cvedepto where  a.cvedepto = :p_cvedepto and  a.cvearea = :p_cvearea and f.anio=:p_anio and f.cveperiodo=:p_periodo and a.fecha_inicio between f.fecha_inicio and f.fecha_fin
+    and ((a.fecha_inicio between :p_fecha_inicio and :p_fecha_fin) or (a.fecha_fin between :p_fecha_inicio and :p_fecha_fin) or (:p_fecha_inicio between a.fecha_inicio and a.fecha_fin) or (:p_fecha_fin between a.fecha_inicio and a.fecha_fin)))
+
+union all
+
+SELECT c.folio,   
+         c.solicitanteid,   
+         c.fecha_inicio,   
+         c.fecha_fin,   
+         c.tipo_prestamo,   
+         c.solicitantenombre,   
+         isNull(c.folio_origen,0) as folio_origen,   
+         isNull(c.folio_prestamo,0) as folio_prestamo
+    FROM spre_pre_solicitud  c
+    where c.folio_prestamo in (select b.folio_origen FROM spre_pre_solicitud  b where b.folio_prestamo in (select a.folio_origen FROM spre_pre_solicitud  a join spre_periodos f on f.cvedepto=a.cvedepto where  a.cvedepto = :p_cvedepto and  a.cvearea = :p_cvearea and f.anio=:p_anio and f.cveperiodo=:p_periodo and a.fecha_inicio between f.fecha_inicio and f.fecha_fin
+    and ((a.fecha_inicio between :p_fecha_inicio and :p_fecha_fin) or (a.fecha_fin between :p_fecha_inicio and :p_fecha_fin) or (:p_fecha_inicio between a.fecha_inicio and a.fecha_fin) or (:p_fecha_fin between a.fecha_inicio and a.fecha_fin))))
+
+) as tabla
+
+
+
+
+
+" arguments=(("p_cvedepto", number),("p_cvearea", number),("p_fecha_inicio", datetime),("p_fecha_fin", datetime),("p_anio", number),("p_periodo", number)) )
+text(band=header alignment="2" text="Folio" border="0" color="33554432" x="11" y="6" height="51" width="351" html.valueishtml="0"  name=folio_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+text(band=header alignment="2" text="Solicitanteid" border="0" color="33554432" x="373" y="6" height="51" width="351" html.valueishtml="0"  name=solicitanteid_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+text(band=header alignment="2" text="Fecha Inicio" border="0" color="33554432" x="735" y="6" height="51" width="644" html.valueishtml="0"  name=fecha_inicio_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+text(band=header alignment="2" text="Fecha Fin" border="0" color="33554432" x="1390" y="6" height="51" width="644" html.valueishtml="0"  name=fecha_fin_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+text(band=header alignment="2" text="Tipo Prestamo" border="0" color="33554432" x="2044" y="6" height="51" width="384" html.valueishtml="0"  name=tipo_prestamo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+text(band=header alignment="2" text="Solicitantenombre" border="0" color="33554432" x="2439" y="6" height="51" width="2370" html.valueishtml="0"  name=solicitantenombre_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+text(band=header alignment="2" text="Folio Origen" border="0" color="33554432" x="4820" y="6" height="51" width="351" html.valueishtml="0"  name=folio_origen_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+text(band=header alignment="2" text="Folio Prestamo" border="0" color="33554432" x="5182" y="6" height="51" width="399" html.valueishtml="0"  name=folio_prestamo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=1 alignment="1" tabsequence=20 border="0" color="33554432" x="11" y="6" height="74" width="351" format="[general]" html.valueishtml="0"  name=folio visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=2 alignment="1" tabsequence=30 border="0" color="33554432" x="373" y="6" height="74" width="351" format="[general]" html.valueishtml="0"  name=solicitanteid visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=3 alignment="0" tabsequence=40 border="0" color="33554432" x="735" y="6" height="74" width="644" format="[shortdate] [time]" html.valueishtml="0"  name=fecha_inicio visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=4 alignment="0" tabsequence=50 border="0" color="33554432" x="1390" y="6" height="74" width="644" format="[shortdate] [time]" html.valueishtml="0"  name=fecha_fin visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=5 alignment="1" tabsequence=60 border="0" color="33554432" x="2044" y="6" height="74" width="384" format="[general]" html.valueishtml="0"  name=tipo_prestamo visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=6 alignment="0" tabsequence=70 border="0" color="33554432" x="2439" y="6" height="74" width="2370" format="[general]" html.valueishtml="0"  name=solicitantenombre visible="1" edit.limit=80 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=7 alignment="1" tabsequence=80 border="0" color="33554432" x="4820" y="6" height="74" width="351" format="[general]" html.valueishtml="0"  name=folio_origen visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+column(band=detail id=8 alignment="1" tabsequence=90 border="0" color="33554432" x="5182" y="6" height="74" width="399" format="[general]" html.valueishtml="0"  name=folio_prestamo visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" background.transparency="0" background.gradient.color="8421504" background.gradient.transparency="0" background.gradient.angle="0" background.brushmode="0" background.gradient.repetition.mode="0" background.gradient.repetition.count="0" background.gradient.repetition.length="100" background.gradient.focus="0" background.gradient.scale="100" background.gradient.spread="100" tooltip.backcolor="134217752" tooltip.delay.initial="0" tooltip.delay.visible="32000" tooltip.enabled="0" tooltip.hasclosebutton="0" tooltip.icon="0" tooltip.isbubble="0" tooltip.maxwidth="0" tooltip.textcolor="134217751" tooltip.transparency="0" transparency="0" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" pagingmethod=0 generatedddwframes="1" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

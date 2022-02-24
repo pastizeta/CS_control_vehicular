@@ -1,0 +1,36 @@
+﻿$PBExportHeader$uf_conectar.srf
+global type uf_conectar from function_object
+end type
+
+forward prototypes
+global function boolean uf_conectar (boolean lb_accion, string ls_conexion)
+end prototypes
+
+global function boolean uf_conectar (boolean lb_accion, string ls_conexion);boolean regreso
+
+
+if lb_accion then
+	uo_sqlca uo_conectar
+	
+	uo_conectar = create uo_sqlca
+	
+	SQLCA = uo_conectar.uf_conectar(ls_conexion)
+	
+	connect using SQLCA;
+	
+	if SQLCA.SQLCode <> 0 then
+		MessageBox("Base de datos", "No se pudo conectar a la base de datos", StopSign!)
+		regreso = false
+	else
+		regreso = true
+	end if
+	
+	destroy uo_conectar
+	
+	return regreso
+else
+	disconnect using SQLCA;
+	return true
+end if
+end function
+

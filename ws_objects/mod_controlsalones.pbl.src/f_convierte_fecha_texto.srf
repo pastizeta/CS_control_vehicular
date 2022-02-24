@@ -1,0 +1,47 @@
+﻿$PBExportHeader$f_convierte_fecha_texto.srf
+global type f_convierte_fecha_texto from function_object
+end type
+
+forward prototypes
+global function string f_convierte_fecha_texto (date p_fecha)
+end prototypes
+
+global function string f_convierte_fecha_texto (date p_fecha);integer li_dia, li_mes
+string ls_fecha
+
+li_dia=Day(p_fecha)
+li_mes=Month(p_fecha)
+
+choose case li_mes
+	case 1
+		ls_fecha='ENE'
+	case 2
+		ls_fecha='FEB'
+	case 3
+		ls_fecha='MAR'
+	case 4
+		ls_fecha='ABR'
+	case 5
+		ls_fecha='MAY'
+	case 6
+		ls_fecha='JUN'
+	case 7
+		ls_fecha='JUL'
+	case 8
+		ls_fecha='AGO'	
+	case 9
+		ls_fecha='SEP'		
+	case 10
+		ls_fecha='OCT'	
+	case 11
+		ls_fecha='NOV'		
+	case 12
+		ls_fecha='DIC'	
+		
+end choose
+
+ls_fecha=string(li_dia)+' '+ls_fecha
+
+return(ls_fecha)
+end function
+

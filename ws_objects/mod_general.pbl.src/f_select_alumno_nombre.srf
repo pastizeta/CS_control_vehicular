@@ -1,0 +1,26 @@
+﻿$PBExportHeader$f_select_alumno_nombre.srf
+global type f_select_alumno_nombre from function_object
+end type
+
+forward prototypes
+global subroutine f_select_alumno_nombre (long p_cuenta, ref string p_nombre)
+end prototypes
+
+global subroutine f_select_alumno_nombre (long p_cuenta, ref string p_nombre);long ll_cuenta
+string ls_nombre
+
+select dbo.v_sce_alumnos.nombre+ ' ' + dbo.v_sce_alumnos.apaterno+' ' +dbo.v_sce_alumnos.amaterno 
+into :ls_nombre
+from dbo.v_sce_alumnos	 
+where dbo.v_sce_alumnos.cuenta = :p_cuenta
+using gtr_sumuia; 
+
+if gtr_sumuia.SQLCode = -1 then 
+	rollback using gtr_sumuia;
+else
+	commit using gtr_sumuia;	
+	p_nombre=ls_nombre
+end if
+
+end subroutine
+

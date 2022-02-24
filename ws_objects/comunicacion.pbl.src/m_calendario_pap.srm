@@ -1,0 +1,192 @@
+﻿$PBExportHeader$m_calendario_pap.srm
+$PBExportComments$Menu para el Calendario de Pláticas de Atención Preuniversitaria. Vea w_calendario_pap.
+forward
+global type m_calendario_pap from menu
+end type
+type m_archivo from menu within m_calendario_pap
+end type
+type m_abrir from menu within m_archivo
+end type
+type m_imprimir from menu within m_archivo
+end type
+type m_cerrar from menu within m_archivo
+end type
+type m_1 from menu within m_archivo
+end type
+type m_2 from menu within m_archivo
+end type
+type m_3 from menu within m_archivo
+end type
+type m_salir from menu within m_archivo
+end type
+type m_archivo from menu within m_calendario_pap
+m_abrir m_abrir
+m_imprimir m_imprimir
+m_cerrar m_cerrar
+m_1 m_1
+m_2 m_2
+m_3 m_3
+m_salir m_salir
+end type
+global type m_calendario_pap from menu
+m_archivo m_archivo
+end type
+end forward
+
+global type m_calendario_pap from menu
+m_archivo m_archivo
+end type
+global m_calendario_pap m_calendario_pap
+
+on m_calendario_pap.create
+m_calendario_pap=this
+call super::create
+this.text = "m_calendario_pap"
+this.m_archivo=create m_archivo
+this.Item[UpperBound(this.Item)+1]=this.m_archivo
+end on
+
+on m_calendario_pap.destroy
+call super::destroy
+destroy(this.m_archivo)
+end on
+
+type m_archivo from menu within m_calendario_pap
+m_abrir m_abrir
+m_imprimir m_imprimir
+m_cerrar m_cerrar
+m_1 m_1
+m_2 m_2
+m_3 m_3
+m_salir m_salir
+end type
+
+on m_archivo.create
+call super::create
+this.text = "&Archivo"
+this.m_abrir=create m_abrir
+this.m_imprimir=create m_imprimir
+this.m_cerrar=create m_cerrar
+this.m_1=create m_1
+this.m_2=create m_2
+this.m_3=create m_3
+this.m_salir=create m_salir
+this.Item[UpperBound(this.Item)+1]=this.m_abrir
+this.Item[UpperBound(this.Item)+1]=this.m_imprimir
+this.Item[UpperBound(this.Item)+1]=this.m_cerrar
+this.Item[UpperBound(this.Item)+1]=this.m_1
+this.Item[UpperBound(this.Item)+1]=this.m_2
+this.Item[UpperBound(this.Item)+1]=this.m_3
+this.Item[UpperBound(this.Item)+1]=this.m_salir
+end on
+
+on m_archivo.destroy
+call super::destroy
+destroy(this.m_abrir)
+destroy(this.m_imprimir)
+destroy(this.m_cerrar)
+destroy(this.m_1)
+destroy(this.m_2)
+destroy(this.m_3)
+destroy(this.m_salir)
+end on
+
+type m_abrir from menu within m_archivo
+end type
+
+on m_abrir.create
+call super::create
+this.text = "&Abrir...~tCtrl+A"
+this.shortcut = 321
+this.toolbaritemname = "Custom004!"
+end on
+
+on m_abrir.destroy
+call super::destroy
+end on
+
+event clicked;w_com_consulta.event ue_cargar()
+
+end event
+
+type m_imprimir from menu within m_archivo
+end type
+
+event clicked;parent.parentwindow.getactivesheet().dynamic event ue_imprimir()
+end event
+
+on m_imprimir.create
+call super::create
+this.text = "&Imprimir"
+this.toolbaritemname = "Print!"
+end on
+
+on m_imprimir.destroy
+call super::destroy
+end on
+
+type m_cerrar from menu within m_archivo
+end type
+
+on m_cerrar.create
+call super::create
+this.visible = false
+this.text = "&Cerrar"
+this.enabled = false
+end on
+
+on m_cerrar.destroy
+call super::destroy
+end on
+
+type m_1 from menu within m_archivo
+end type
+
+on m_1.create
+call super::create
+this.text = "-"
+end on
+
+on m_1.destroy
+call super::destroy
+end on
+
+type m_2 from menu within m_archivo
+end type
+
+on m_2.create
+call super::create
+this.text = "-"
+end on
+
+on m_2.destroy
+call super::destroy
+end on
+
+type m_3 from menu within m_archivo
+end type
+
+on m_3.create
+call super::create
+this.text = "-"
+end on
+
+on m_3.destroy
+call super::destroy
+end on
+
+type m_salir from menu within m_archivo
+end type
+
+on m_salir.create
+call super::create
+this.text = "&Salir"
+end on
+
+on m_salir.destroy
+call super::destroy
+end on
+
+event clicked;parent.parentwindow.getactivesheet().dynamic event ue_salir()
+end event
+

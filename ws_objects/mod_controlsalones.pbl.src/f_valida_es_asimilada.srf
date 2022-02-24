@@ -1,0 +1,29 @@
+﻿$PBExportHeader$f_valida_es_asimilada.srf
+global type f_valida_es_asimilada from function_object
+end type
+
+forward prototypes
+global function integer f_valida_es_asimilada (integer pi_materia, string ps_grupo, integer pi_periodo, integer pi_anio)
+end prototypes
+
+global function integer f_valida_es_asimilada (integer pi_materia, string ps_grupo, integer pi_periodo, integer pi_anio);integer li_cuenta
+
+select count(dbo.grupos.cve_mat)
+into :li_cuenta
+from dbo.grupos
+where dbo.grupos.periodo=:pi_periodo
+and dbo.grupos.anio=:pi_anio
+and dbo.grupos.cve_mat=:pi_materia
+and dbo.grupos.gpo=:ps_grupo
+and dbo.grupos.cve_asimilada is not null
+and dbo.grupos.gpo_asimilado is not null
+using gtr_escolar; 
+
+
+if gtr_escolar.SQLCode = -1 then 
+		messagebox("Error ESCOLAR: Selección de estatus de asimilada", gtr_escolar.SQLErrText)	
+end if
+
+return (li_cuenta)
+end function
+

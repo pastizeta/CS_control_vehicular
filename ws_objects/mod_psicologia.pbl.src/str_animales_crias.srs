@@ -1,0 +1,15 @@
+﻿$PBExportHeader$str_animales_crias.srs
+$PBExportComments$Permite llamar a la pantalla destalle baja material
+global type str_animales_crias from structure
+	long		id_cria
+	string		nombre
+	string		proveedor
+	string		abreviacion
+	string		sexo
+	long		id_inventario
+	long		solicitanteid
+	integer		tipo_usuario
+	long		folio
+	integer		cvetipo
+end type
+

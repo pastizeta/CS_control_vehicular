@@ -1,0 +1,30 @@
+﻿$PBExportHeader$f_calcula_fecha_habil.srf
+global type f_calcula_fecha_habil from function_object
+end type
+
+forward prototypes
+global function date f_calcula_fecha_habil (date p_fecha, integer p_dias, integer p_depto, integer p_area)
+end prototypes
+
+global function date f_calcula_fecha_habil (date p_fecha, integer p_dias, integer p_depto, integer p_area);date ld_fecha
+integer li_inhabil, li_fin, li_dias=-1
+
+ld_fecha=RelativeDate(p_fecha,-1)
+
+
+do 
+	
+	ld_fecha=RelativeDate(ld_fecha,1)
+	
+	li_inhabil=f_select_cuenta_inhabil(ld_fecha,ld_fecha,p_depto,p_area)
+	li_fin=f_calcula_finesdesemana(ld_fecha,ld_fecha)
+	
+	if li_inhabil=0 and li_fin=0 then li_dias=li_dias+1	
+
+loop while li_dias<p_dias
+
+
+return(ld_fecha)
+
+end function
+

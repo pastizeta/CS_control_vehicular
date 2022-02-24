@@ -1,0 +1,15 @@
+﻿$PBExportHeader$d_rpt_calendario.srd
+release 7;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=5 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=308 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=200 color="536870912"  height.autosize=yes)
+table(column=(type=char(10) updatewhereclause=yes name=a dbname="a" )
+ unbound = "yes")
+report(band=detail dataobject="d_cm_consulta1" x="14" y="20" height="120" width="3433" border="0"  height.autosize=yes criteria="" trail_footer = yes  name=dw_reporte  slideup=directlyabove )
+text(band=foreground alignment="2" text="Departamento de Comunicación" border="0" color="0" x="23" y="36" height="76" width="3415"  name=t_reportarea  slideup=allabove  font.face="Tahoma" font.height="-12" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=foreground alignment="2" text="Calendario de Material y Espacios(Islas)" border="0" color="0" x="23" y="144" height="64" width="3415"  name=t_1  slideup=allabove  font.face="Tahoma" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=foreground alignment="2" text="Semana" border="0" color="0" x="23" y="236" height="56" width="3415"  name=semana_t  slideup=allabove  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

@@ -1,0 +1,36 @@
+﻿$PBExportHeader$f_fechaentrega_com_general.srf
+$PBExportComments$Función utilizada para validar que la entrega de material no se asigne en sabado o domingo
+global type f_fechaentrega_com_general from function_object
+end type
+
+forward prototypes
+global function integer f_fechaentrega_com_general (ref long al_sol)
+end prototypes
+
+global function integer f_fechaentrega_com_general (ref long al_sol);//////////////////////////////////////////////////////////////////////////////
+//	Function:		f_consulta_fechaentrega_com
+//	Arguments:		folio
+//	Returns:			entero 1 si hay fecha vencida, 0 si no hay fecha vencida
+//	Description:	Permite validar la fecha de entrega de material de comunicación. 
+//////////////////////////////////////////////////////////////////////////////
+
+long lt_adeudo
+
+SELECT count(*)  
+	INTO :lt_adeudo
+		FROM spre_solicitud
+			WHERE
+				solicitanteid = :al_sol and cvedepto = 4 and
+				status = 0 and
+				fecha_fin < getdate() 
+using gtr_sumuia;
+
+if lt_adeudo >= 1 then
+	return lt_adeudo // si es igual a 1 el material tiene multa
+else 
+	return 0
+end if
+
+
+end function
+

@@ -1,0 +1,62 @@
+﻿$PBExportHeader$d_com_rep_consultasol_isla.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=796 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=184 color="536870912" )
+detail(height=84 color="536870912" )
+table(column=(type=long updatewhereclause=yes name=cvedepto dbname="cvedepto" )
+ column=(type=long updatewhereclause=yes name=solicitanteid dbname="solicitanteid" )
+ column=(type=char(80) updatewhereclause=yes name=sol_nombre dbname="sol_nombre" )
+ column=(type=long updatewhereclause=yes name=folio dbname="folio" )
+ column=(type=long updatewhereclause=yes name=status dbname="status" values="Prestamo Activo	0/Reservado	5/" )
+ retrieve=" SELECT DISTINCT
+			spre_sol_materiales.cvedepto,
+			spre_solicitud.solicitanteid,
+			spre_com_espacios_islas.sol_nombre,
+			spre_solicitud.folio,
+			spre_solicitud.status
+   FROM         spre_solicitud INNER JOIN
+                    spre_com_espacios_islas ON spre_solicitud.solicitanteid = spre_com_espacios_islas.sol_num AND 
+                    spre_solicitud.folio = spre_com_espacios_islas.folio INNER JOIN
+                    spre_sol_materiales ON spre_solicitud.folio = spre_sol_materiales.folio AND spre_solicitud.status = spre_sol_materiales.status
+
+WHERE   ( spre_sol_materiales.cvedepto = 4 ) and
+			( spre_sol_materiales.status in(0,5)) and
+			( spre_solicitud.status in(0,5)) and
+			( spre_sol_materiales.cvegrupo = 8)
+	
+	group by spre_sol_materiales.cvedepto,
+			spre_solicitud.solicitanteid,
+			spre_com_espacios_islas.sol_nombre,
+			spre_solicitud.folio,
+			spre_solicitud.status
+
+" filter=" status in(0,5)" sort="sol_nombre A " )
+bitmap(band=header filename="esclat.gif" x="1161" y="12" height="352" width="1143" border="0"  name=p_1 visible="1" )
+text(band=header alignment="2" text="Reporte de  Estatus Solicitud Isla" border="0" color="0" x="823" y="460" height="76" width="1915" html.valueishtml="0"  name=t_1 visible="1"  font.face="Tahoma" font.height="-12" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header alignment="1" expression="today()"border="0" color="0" x="2706" y="40" height="60" width="485" format="dd/mm/yyyy" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Número Cuenta" border="0" color="0" x="658" y="700" height="56" width="434" html.valueishtml="0"  name=solicitanteid_t visible="1"  font.face="Tahoma" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Nombre Solicitante" border="0" color="0" x="1175" y="700" height="56" width="1591" html.valueishtml="0"  name=solicitantenombre_t visible="1"  font.face="Tahoma" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Folio Solicitud" border="0" color="0" x="142" y="700" height="56" width="389" html.valueishtml="0"  name=folio_t visible="1"  font.face="Tahoma" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Estatus Solicitud" border="0" color="0" x="2789" y="700" height="56" width="471" html.valueishtml="0"  name=status_t visible="1"  font.face="Tahoma" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=header x1="160" y1="776" x2="3241" y2="776"  name=l_1 visible="1" pen.style="2" pen.width="5" pen.color="12632256"  background.mode="2" background.color="16777215" )
+text(band=detail alignment="2" text="Cvedepto" border="0" color="0" x="2624" y="180" height="64" width="329" html.valueishtml="0"  name=cvedepto_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="1" tabsequence=32766 border="0" color="0" x="3017" y="204" height="76" width="329" format="[general]" html.valueishtml="0"  name=cvedepto visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="663" y="4" height="76" width="411" format="[general]" html.valueishtml="0"  name=solicitanteid visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="2" tabsequence=32766 border="0" color="0" x="142" y="4" height="76" width="375" format="[general]" html.valueishtml="0"  name=folio visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="2" tabsequence=32766 border="0" color="0" x="2793" y="4" height="76" width="475" format="[general]" html.valueishtml="0"  name=status visible="1" ddlb.limit=0 ddlb.allowedit=no ddlb.case=any  font.face="Tahoma" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="0" x="1170" y="4" height="76" width="1600" format="[general]" html.valueishtml="0"  name=sol_nombre visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Tahoma" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=footer alignment="1" expression="count(  folio  for all )"border="0" color="0" x="2798" y="96" height="76" width="453" format="[GENERAL]" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Tahoma" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=footer alignment="1" text="Total Solicitudes:" border="0" color="0" x="1856" y="96" height="56" width="887" html.valueishtml="0"  name=t_2 visible="1"  font.face="Tahoma" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

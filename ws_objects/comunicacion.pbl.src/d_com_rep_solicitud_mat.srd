@@ -1,0 +1,100 @@
+﻿$PBExportHeader$d_com_rep_solicitud_mat.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 2 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=1492 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=752 color="536870912" )
+detail(height=72 color="536870912"  height.autosize=yes)
+table(column=(type=long updatewhereclause=yes name=folio dbname="folio" )
+ column=(type=datetime updatewhereclause=yes name=fecha_solicitud dbname="fecha_solicitud" )
+ column=(type=long updatewhereclause=yes name=solicitanteid dbname="solicitanteid" )
+ column=(type=long updatewhereclause=yes name=tipo_prestamo dbname="tipo_prestamo" )
+ column=(type=char(80) updatewhereclause=yes name=solicitantenombre dbname="solicitantenombre" )
+ column=(type=long updatewhereclause=yes name=cvedepto dbname="cvedepto" )
+ column=(type=char(15) updatewhereclause=yes name=solicitantetel dbname="solicitantetel" )
+ column=(type=char(80) updatewhereclause=yes name=solicitanteprofesor dbname="solicitanteprofesor" )
+ column=(type=char(80) updatewhereclause=yes name=solicitantegrupo dbname="solicitantegrupo" )
+ column=(type=char(15) updatewhereclause=yes name=cvematerial dbname="cvematerial" )
+ column=(type=char(20) updatewhereclause=yes name=num_serie dbname="num_serie" )
+ column=(type=char(100) updatewhereclause=yes name=materiales_descripcion dbname="descripcion" )
+ column=(type=char(1) updatewhereclause=yes name=fecha_inicio dbname="compute_0013" )
+ column=(type=char(1) updatewhereclause=yes name=fecha_fin dbname="compute_0014" )
+ column=(type=char(1) updatewhereclause=yes name=h_ini dbname="compute_0015" )
+ column=(type=char(1) updatewhereclause=yes name=h_fin dbname="compute_0016" )
+ retrieve="SELECT DISTINCT  spre_solicitud.folio ,
+			spre_solicitud.fecha_solicitud ,
+			spre_solicitud.solicitanteid,
+			spre_prestamo_material.tipo_prestamo,
+			spre_prestamo_material.solicitantenombre ,
+			spre_prestamo_material.cvedepto ,
+			spre_prestamo_material.solicitantetel ,
+			spre_prestamo_material.solicitanteprofesor ,
+			spre_prestamo_material.solicitantegrupo ,
+			spre_sol_materiales.cvematerial ,
+			spre_sol_materiales.num_serie,
+			spre_materiales.descripcion, ' ' ,' ',' ',' '
+       FROM       spre_solicitud INNER JOIN
+                      spre_sol_materiales ON spre_solicitud.cvedepto = spre_sol_materiales.cvedepto AND spre_solicitud.folio = spre_sol_materiales.folio INNER JOIN
+                      spre_prestamo_material ON spre_sol_materiales.cvedepto = spre_prestamo_material.cvedepto AND 
+                      spre_sol_materiales.folio = spre_prestamo_material.folio INNER JOIN
+                      spre_materiales ON spre_sol_materiales.cvedepto = spre_materiales.cvedepto AND spre_sol_materiales.cvearea = spre_materiales.cvearea AND 
+                      spre_sol_materiales.cvematerial = spre_materiales.cvematerial AND spre_sol_materiales.cvegrupo = spre_materiales.cvegrupo
+
+WHERE		( ( spre_solicitud.cvedepto = :li_depto ) And
+				( spre_solicitud.folio = :li_folio )  and
+				( spre_materiales.cvegrupo in(:li_grupo)))  " arguments=(("li_depto", number),("li_folio", number),("li_grupo", numberlist)) )
+rectangle(band=header x="1760" y="1380" height="104" width="1490"  name=r_3 visible="1" brush.hatch="6" brush.color="12632256" pen.style="0" pen.width="5" pen.color="255"  background.mode="2" background.color="16777215" )
+rectangle(band=header x="151" y="780" height="556" width="3099"  name=r_2 visible="1" brush.hatch="6" brush.color="16777215" pen.style="0" pen.width="5" pen.color="255"  background.mode="2" background.color="12632256" )
+bitmap(band=header filename="esclat.gif" x="1161" y="12" height="352" width="1143" border="0"  name=p_1 visible="1" )
+text(band=header alignment="2" text="Solicitud de Material" border="0" color="0" x="823" y="460" height="76" width="1915" html.valueishtml="0"  name=t_1 visible="1"  font.face="Tahoma" font.height="-12" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=header id=1 alignment="0" tabsequence=32766 border="0" color="0" x="352" y="696" height="64" width="283" format="[general]" html.valueishtml="0"  name=folio visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=header id=2 alignment="0" tabsequence=32766 border="0" color="0" x="1175" y="696" height="64" width="603" format="dd/mm/yyyy" html.valueishtml="0"  name=fecha_solicitud visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="Fecha Solicitud:" border="0" color="0" x="718" y="696" height="64" width="430" html.valueishtml="0"  name=t_2 visible="1"  font.face="Tahoma" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header alignment="1" expression="if(  tipo_prestamo  =1,'Cuenta Alumno', if (  tipo_prestamo  =3 , 'Núm. Empleado' , if (  tipo_prestamo  =3 , 'Cuenta Alumno Dec', '')) )"border="0" color="0" x="503" y="852" height="64" width="571" format="[GENERAL]" html.valueishtml="0"  name=compute_4 visible="1"  font.face="Tahoma" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="text" border="0" color="0" x="2386" y="696" height="56" width="846" html.valueishtml="0"  name=t_tipo_solicitud visible="1"  font.face="Tahoma" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header alignment="1" expression="today()"border="0" color="0" x="2747" y="16" height="60" width="485" format="dd/mm/yyyy" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Folio:" border="0" color="0" x="169" y="696" height="64" width="146" html.valueishtml="0"  name=t_3 visible="1"  font.face="Tahoma" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Solicitante" border="0" color="0" x="169" y="852" height="64" width="325" html.valueishtml="0"  name=t_4 visible="1"  font.face="Tahoma" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+line(band=header x1="160" y1="1128" x2="3237" y2="1128"  name=l_1 visible="1" pen.style="0" pen.width="5" pen.color="255"  background.mode="2" background.color="255" )
+text(band=header alignment="1" text="Departamento:" border="0" color="0" x="923" y="1036" height="56" width="389" html.valueishtml="0"  name=t_21 visible="1~t0"  font.face="Tahoma" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=header id=7 alignment="0" tabsequence=32766 border="0" color="0" x="517" y="1036" height="60" width="311" format="[general]" html.valueishtml="0"  name=solicitantetel visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Tahoma" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=header id=6 alignment="0" tabsequence=32766 border="0" color="0" x="1367" y="1036" height="60" width="1865" format="[general]" html.valueishtml="0"  name=cvedepto visible="1~t0" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Tahoma" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Nombre :" border="0" color="0" x="169" y="940" height="56" width="288" html.valueishtml="0"  name=t_34 visible="1"  font.face="Tahoma" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Teléfono:" border="0" color="0" x="169" y="1036" height="56" width="288" html.valueishtml="0"  name=t_22 visible="1"  font.face="Tahoma" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Profesor:" border="0" color="0" x="169" y="1172" height="56" width="288" html.valueishtml="0"  name=t_29 visible="1"  font.face="Tahoma" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Grupo:" border="0" color="0" x="169" y="1256" height="56" width="288" html.valueishtml="0"  name=t_24 visible="1"  font.face="Tahoma" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+rectangle(band=header x="146" y="1380" height="104" width="1573"  name=r_1 visible="1" brush.hatch="6" brush.color="12632256" pen.style="0" pen.width="5" pen.color="255"  background.mode="2" background.color="16777215" )
+column(band=header id=9 alignment="0" tabsequence=32766 border="0" color="0" x="512" y="1256" height="60" width="2720" format="[general]" html.valueishtml="0"  name=solicitantegrupo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Tahoma" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=header id=8 alignment="0" tabsequence=32766 border="0" color="0" x="512" y="1172" height="60" width="2720" format="[general]" html.valueishtml="0"  name=solicitanteprofesor visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Tahoma" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=header id=5 alignment="0" tabsequence=32766 border="0" color="0" x="512" y="940" height="64" width="2720" format="[general]" html.valueishtml="0"  name=solicitantenombre visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Tahoma" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=header id=3 alignment="1" tabsequence=32766 border="0" color="0" x="1115" y="852" height="64" width="233" format="[general]" html.valueishtml="0"  name=solicitanteid visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Tahoma" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="-" border="0" color="0" x="1362" y="852" height="64" width="27" html.valueishtml="0"  name=t_6 visible="1"  font.face="Arial" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=header alignment="0" expression="obten_digito( solicitanteid )"border="0" color="0" x="1394" y="852" height="64" width="46" format="[GENERAL]" html.valueishtml="0"  name=compute_6 visible="1"  font.face="Tahoma" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Material " border="0" color="0" x="197" y="1408" height="52" width="969" html.valueishtml="0"  name=t_17 visible="1"  font.face="Tahoma" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+text(band=header alignment="2" text="hasta las:" border="0" color="0" x="2935" y="1408" height="52" width="306" html.valueishtml="0"  name=t_11 visible="1"  font.face="Tahoma" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+text(band=header alignment="2" text="No.Serie" border="0" color="0" x="1189" y="1408" height="52" width="507" html.valueishtml="0"  name=t_5 visible="1"  font.face="Tahoma" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+text(band=header alignment="2" text="Fecha final" border="0" color="0" x="2555" y="1408" height="52" width="366" html.valueishtml="0"  name=t_9 visible="1"  font.face="Tahoma" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+text(band=header alignment="2" text="a partir de las:" border="0" color="0" x="2153" y="1408" height="52" width="389" html.valueishtml="0"  name=t_10 visible="1"  font.face="Tahoma" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+text(band=header alignment="2" text="Fecha Inicial" border="0" color="0" x="1806" y="1408" height="52" width="334" html.valueishtml="0"  name=t_7 visible="1"  font.face="Tahoma" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="0" x="2679" y="300" height="64" width="146" format="[general]" html.valueishtml="0"  name=tipo_prestamo visible="1~t0" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="2" expression="/* f_obten_serie(folio, cvematerial )  */"border="0" color="0" x="2528" y="300" height="64" width="69" format="[GENERAL]" html.valueishtml="0"  name=compute_5 visible="1~t0"  font.face="Tahoma" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=12 alignment="0" tabsequence=32766 border="0" color="0" x="197" y="4" height="56" width="969" format="[general]" html.valueishtml="0"  name=materiales_descripcion visible="1" edit.limit=100 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=11 alignment="0" tabsequence=32766 border="0" color="0" x="1198" y="4" height="56" width="498" format="[general]" html.valueishtml="0"  name=num_serie visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Tahoma" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=16 alignment="1" tabsequence=32766 border="0" color="0" x="2985" y="4" height="56" width="201" format="[general]" html.valueishtml="0"  name=h_fin visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Tahoma" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=14 alignment="2" tabsequence=32766 border="0" color="0" x="2528" y="4" height="56" width="379" format="[general]" html.valueishtml="0"  name=fecha_fin visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Tahoma" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=15 alignment="1" tabsequence=32766 border="0" color="0" x="2240" y="4" height="56" width="201" format="[general]" html.valueishtml="0"  name=h_ini visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Tahoma" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=13 alignment="2" tabsequence=32766 border="0" color="0" x="1806" y="4" height="56" width="329" format="[general]" html.valueishtml="0"  name=fecha_inicio visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Tahoma" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=footer alignment="2" text="Departamento de Comuniación Administración de Material" border="0" color="0" x="288" y="480" height="56" width="2834" html.valueishtml="0"  name=t_39 visible="1"  font.face="Garamond" font.height="-10" font.weight="400"  font.family="1" font.pitch="2" font.charset="0" font.italic="1" background.mode="2" background.color="16777215" )
+line(band=footer x1="1243" y1="652" x2="2208" y2="652"  name=l_2 visible="1" pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+text(band=footer alignment="2" text="Autorización" border="0" color="0" x="1568" y="664" height="60" width="302" html.valueishtml="0"  name=t_40 visible="1"  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

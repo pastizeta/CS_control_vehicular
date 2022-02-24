@@ -1,0 +1,41 @@
+﻿$PBExportHeader$dw_gen_corresponsables_sol.srd
+$PBExportComments$Inserta registros a spre_corresponsables_solicitud
+release 10;
+datawindow(units=0 timer_interval=0 color=29534863 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=152 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=80 color="536870912" )
+table(column=(type=long update=yes updatewhereclause=yes key=yes name=cvedepto dbname="spre_corresponsables_solicitud.cvedepto" )
+ column=(type=long update=yes updatewhereclause=yes key=yes name=folio dbname="spre_corresponsables_solicitud.folio" )
+ column=(type=long update=yes updatewhereclause=yes key=yes name=solicitante_tipo dbname="spre_corresponsables_solicitud.solicitante_tipo" initial="1" values="Alumno	1/Intercambio	2/Profesor	3/" )
+ column=(type=long update=yes updatewhereclause=yes key=yes name=solicitanteid dbname="spre_corresponsables_solicitud.solicitanteid" )
+ column=(type=char(80) update=yes updatewhereclause=yes name=solicitantenombre dbname="spre_corresponsables_solicitud.solicitantenombre" )
+ column=(type=char(10) updatewhereclause=yes name=solicitanteid_char dbname="solicitanteid_char" )
+ retrieve="SELECT	spre_corresponsables_solicitud.cvedepto,
+			spre_corresponsables_solicitud.folio,
+			spre_corresponsables_solicitud.solicitante_tipo,
+			spre_corresponsables_solicitud.solicitanteid,
+			spre_corresponsables_solicitud.solicitantenombre,
+			convert(varchar(10),null) as solicitanteid_char
+FROM		spre_corresponsables_solicitud
+WHERE	spre_corresponsables_solicitud.cvedepto		= :ar_depto
+	AND	spre_corresponsables_solicitud.folio			= :ar_folio" update="spre_corresponsables_solicitud" updatewhere=0 updatekeyinplace=yes arguments=(("ar_depto", number),("ar_folio", number)) )
+text(band=header alignment="2" text="Información de Corresponsables del Préstamo de Material" border="0" color="33554432" x="9" y="4" height="64" width="2377" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="268435456" )
+text(band=header alignment="2" text="Tipo Solicitante" border="0" color="33554432" x="14" y="88" height="56" width="453" html.valueishtml="0"  name=solicitante_tipo_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+text(band=header alignment="2" text="Cuenta/Nómina" border="0" color="33554432" x="485" y="88" height="56" width="434" html.valueishtml="0"  name=solicitanteid_char_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+text(band=header alignment="2" text="Nombre Integrante" border="0" color="33554432" x="937" y="88" height="56" width="1454" html.valueishtml="0"  name=solicitantenombre_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="2" color="33554432" x="937" y="4" height="64" width="1454" format="[general]" html.valueishtml="0"  name=solicitantenombre visible="1" edit.limit=80 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=6 alignment="0" tabsequence=20 border="2" color="33554432" x="485" y="4" height="64" width="434" format="[general]" html.valueishtml="0"  name=solicitanteid_char visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=3 alignment="1" tabsequence=10 border="2" color="33554432" x="14" y="4" height="64" width="453" format="[general]" html.valueishtml="0"  name=solicitante_tipo visible="1" ddlb.limit=0 ddlb.allowedit=no ddlb.case=any ddlb.useasborder=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

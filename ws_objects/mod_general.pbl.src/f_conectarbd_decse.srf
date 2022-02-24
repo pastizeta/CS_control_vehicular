@@ -1,0 +1,32 @@
+﻿$PBExportHeader$f_conectarbd_decse.srf
+global type f_conectarbd_decse from function_object
+end type
+
+forward prototypes
+global subroutine f_conectarbd_decse ()
+end prototypes
+
+global subroutine f_conectarbd_decse ();/********************** DATOS DECSE ***************************/
+
+gtr_decse = CREATE transaction
+gtr_decse.DBMS       = ProfileString("sispre.ini","DECSE","dbms","");
+gtr_decse.database   = ProfileString("sispre.ini","DECSE","database","");
+gtr_decse.logid      = gs_usuario
+gtr_decse.logpass    = gs_pass
+gtr_decse.servername = ProfileString("sispre.ini","DECSE","servername","");
+gtr_decse.DbParm= ProfileString("sispre.ini","DECSE","dbparm","");
+
+if (gtr_decse.servername='sybcesdes') then
+	gtr_decse.logid = 'sa'
+	gtr_decse.logpass = 'desarrollo'
+end if
+
+CONNECT USING gtr_decse;
+
+
+if gtr_decse.sqlcode <> 0 then
+	messagebox("Error de Conexión BD DECSE: "+string(gtr_decse.sqlcode),gtr_decse.sqlerrtext)
+end if
+
+end subroutine
+

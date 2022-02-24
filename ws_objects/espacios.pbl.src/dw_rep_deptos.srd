@@ -1,0 +1,92 @@
+﻿$PBExportHeader$dw_rep_deptos.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 1 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=620 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=92 color="536870912" )
+detail(height=72 color="536870912"  height.autosize=yes)
+table(column=(type=char(100) updatewhereclause=yes name=spre_materiales_descripcion dbname="spre_materiales.descripcion" )
+ column=(type=datetime updatewhereclause=yes name=spre_sol_materiales_fecha_inicio dbname="spre_sol_materiales.fecha_inicio" )
+ column=(type=datetime updatewhereclause=yes name=compute_0003 dbname="compute_0003" )
+ column=(type=char(80) updatewhereclause=yes name=spre_reserva_espacios_nombre_evento dbname="spre_reserva_espacios.nombre_evento" )
+ column=(type=char(50) updatewhereclause=yes name=spre_teventos_espacios_descripcion dbname="spre_teventos_espacios.descripcion" )
+ column=(type=char(80) updatewhereclause=yes name=spre_reserva_espacios_impartido_por dbname="spre_reserva_espacios.impartido_por" )
+ column=(type=char(80) updatewhereclause=yes name=spre_reserva_espacios_resp_nombre dbname="spre_reserva_espacios.resp_nombre" )
+ column=(type=char(255) updatewhereclause=yes name=spre_estatus_sol_desc_estatus_sol dbname="spre_estatus_sol.desc_estatus_sol" initial=" " )
+ column=(type=long updatewhereclause=yes name=spre_reserva_espacios_sol_depto dbname="spre_reserva_espacios.sol_depto" )
+ column=(type=char(1) updatewhereclause=yes name=agrupar dbname="agrupar" )
+ retrieve="SELECT	spre_materiales.descripcion ,
+			spre_sol_materiales.fecha_inicio ,
+			dateadd(mi,1,spre_sol_materiales.fecha_final),
+			spre_reserva_espacios.nombre_evento ,
+			spre_teventos_espacios.descripcion ,
+			spre_reserva_espacios.impartido_por ,
+			spre_reserva_espacios.resp_nombre ,
+			spre_estatus_sol.desc_estatus_sol,
+			spre_reserva_espacios.sol_depto,
+			'' as agrupar
+FROM		spre_solicitud
+								INNER JOIN	spre_sol_materiales ON
+								spre_solicitud.cvedepto = spre_sol_materiales.cvedepto
+						AND	spre_solicitud.folio = spre_sol_materiales.folio
+								
+								INNER JOIN	spre_reserva_espacios ON
+								spre_solicitud.cvedepto = spre_reserva_espacios.cvedepto
+						AND	spre_solicitud.folio = spre_reserva_espacios.folio
+								
+								INNER JOIN	spre_teventos_espacios ON
+								spre_reserva_espacios.cvetevento = spre_teventos_espacios.cvetevento
+								
+								INNER JOIN	spre_materiales ON
+								spre_sol_materiales.cvedepto = spre_materiales.cvedepto
+						AND	spre_sol_materiales.cvearea = spre_materiales.cvearea
+						AND	spre_sol_materiales.cvematerial = spre_materiales.cvematerial
+						AND	spre_sol_materiales.cvegrupo = spre_materiales.cvegrupo
+								
+								INNER JOIN	spre_estatus_sol ON
+								spre_solicitud.status = spre_estatus_sol.id_estatus_sol "  sort="agrupar A spre_sol_materiales_fecha_inicio A " )
+group(level=1 header.height=68 trailer.height=164 by=("agrupar" ) header.color="536870912" trailer.color="536870912" )
+bitmap(band=header filename="esclat.gif" x="64" y="4" height="352" width="1143" border="0"  name=p_1 visible="1" )
+text(band=header alignment="1" text="Total eventos por Departamento / Carrera" border="0" color="0" x="1312" y="280" height="72" width="1458" html.valueishtml="0"  name=t_9 visible="1"  font.face="Arial" font.height="-11" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="del" border="0" color="0" x="2798" y="280" height="72" width="114" html.valueishtml="0"  name=t_11 visible="1"  font.face="Arial" font.height="-11" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="" border="0" color="0" x="2921" y="280" height="72" width="416" html.valueishtml="0"  name=t_fecha_ini visible="1"  font.face="Arial" font.height="-11" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="al" border="0" color="0" x="3346" y="280" height="72" width="64" html.valueishtml="0"  name=t_13 visible="1"  font.face="Arial" font.height="-11" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="" border="0" color="0" x="3419" y="280" height="72" width="411" html.valueishtml="0"  name=t_fecha_fin visible="1"  font.face="Arial" font.height="-11" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="FECHA" border="0" color="0" x="32" y="524" height="56" width="251" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Hora
+Inicio" border="0" color="0" x="311" y="468" height="112" width="142" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Hora
+Final" border="0" color="0" x="485" y="468" height="112" width="142" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Tipo de Evento" border="0" color="0" x="1701" y="524" height="56" width="965" html.valueishtml="0"  name=t_5 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Responsable" border="0" color="0" x="3360" y="524" height="56" width="722" html.valueishtml="0"  name=t_7 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Expositor" border="0" color="0" x="2706" y="524" height="56" width="617" html.valueishtml="0"  name=t_6 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Estatus" border="0" color="0" x="4101" y="524" height="56" width="462" html.valueishtml="0"  name=t_8 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Nombre del Evento" border="0" color="0" x="654" y="524" height="56" width="1019" html.valueishtml="0"  name=t_4 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=header x1="14" y1="608" x2="4535" y2="608"  name=l_1 visible="1" pen.style="0" pen.width="9" pen.color="0"  background.mode="2" background.color="16777215" )
+line(band=header x1="14" y1="440" x2="4535" y2="440"  name=l_2 visible="1" pen.style="0" pen.width="9" pen.color="0"  background.mode="2" background.color="16777215" )
+compute(band=header.1 alignment="0" expression=" agrupar "border="0" color="0" x="14" y="8" height="48" width="1659" format="[GENERAL]" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Arial" font.height="-7" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" font.italic="1" font.underline="1" background.mode="1" background.color="536870912" )
+text(band=detail alignment="0" text="" border="0" color="0" x="5" y="8" height="56" width="4576" html.valueishtml="0"  name=t_14 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="16777215~tif(mod(getRow(),2)>0,rgb( 255, 255, 255),rgb(250,250,250))" )
+column(band=detail id=10 alignment="0" tabsequence=32766 border="0" color="0" x="32" y="80" height="48" width="357" format="[general]" html.valueishtml="0"  name=agrupar visible="1~t0" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="2" expression="mid(string(time(  compute_0003 )), 1, 5) "border="0" color="0" x="466" y="8" height="56" width="178" format="[GENERAL]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="2" expression="mid(string(date( spre_sol_materiales_fecha_inicio )), 1, 10)"border="0" color="0" x="32" y="8" height="56" width="256" format="[General]" html.valueishtml="0"  name=fecha visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="16777215~tif(mod(getRow(),2)>0,rgb( 255, 255, 255),rgb(250,250,250))" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="0" color="0" x="1678" y="8" height="56" width="1006" format="[general]" html.valueishtml="0"  name=spre_teventos_espacios_descripcion visible="1" height.autosize=yes edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="16777215~tif(mod(getRow(),2)>0,rgb( 255, 255, 255),rgb(250,250,250))" )
+column(band=detail id=7 alignment="0" tabsequence=32766 border="0" color="0" x="3365" y="8" height="56" width="727" format="[general]" html.valueishtml="0"  name=spre_reserva_espacios_resp_nombre visible="1" height.autosize=yes edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="16777215~tif(mod(getRow(),2)>0,rgb( 255, 255, 255),rgb(250,250,250))" )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="0" color="0" x="2702" y="8" height="56" width="640" format="[general]" html.valueishtml="0"  name=spre_reserva_espacios_impartido_por visible="1" height.autosize=yes edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="16777215~tif(mod(getRow(),2)>0,rgb( 255, 255, 255),rgb(250,250,250))" )
+column(band=detail id=8 alignment="0" tabsequence=32766 border="0" color="0" x="4119" y="8" height="56" width="443" format="[general]" html.valueishtml="0"  name=spre_estatus_sol_desc_estatus_sol visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="16777215~tif(mod(getRow(),2)>0,rgb( 255, 255, 255),rgb(250,250,250))" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="0" x="658" y="8" height="56" width="997" format="[general]" html.valueishtml="0"  name=spre_reserva_espacios_nombre_evento visible="1" height.autosize=yes edit.limit=80 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="16777215~tif(mod(getRow(),2)>0,rgb( 255, 255, 255),rgb(250,250,250))" )
+compute(band=detail alignment="2" expression="mid(string(time( spre_sol_materiales_fecha_inicio )), 1, 5)"border="0" color="0" x="311" y="8" height="56" width="142" format="[General]" html.valueishtml="0"  name=hini visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="16777215~tif(mod(getRow(),2)>0,rgb( 255, 255, 255),rgb(250,250,250))" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="0" x="4032" y="100" height="48" width="343" format="[shortdate] [time]" html.valueishtml="0"  name=compute_0003 visible="1~t0" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=trailer.1 alignment="1" text="Total eventos:" border="0" color="0" x="1198" y="72" height="76" width="471" html.valueishtml="0"  name=t_10 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.1 alignment="0" expression="count(spre_reserva_espacios_nombre_evento for group 1)"border="0" color="0" x="1696" y="72" height="76" width="987" format="[general]" html.valueishtml="0"  name=compute_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=footer alignment="0" expression="'Página ' + page() + ' de ' + pageCount()"border="0" color="0" x="32" y="12" height="56" width="503" format="[general]" html.valueishtml="0"  name=page_1 visible="1"  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

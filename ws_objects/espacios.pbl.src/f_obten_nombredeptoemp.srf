@@ -1,0 +1,42 @@
+﻿$PBExportHeader$f_obten_nombredeptoemp.srf
+global type f_obten_nombredeptoemp from function_object
+end type
+
+forward prototypes
+global function string f_obten_nombredeptoemp (long al_depto)
+end prototypes
+
+global function string f_obten_nombredeptoemp (long al_depto);String ls_depto
+
+ls_depto = ""
+
+SELECT dbo.deptos_uia1.nombre_depto
+INTO :ls_depto
+FROM dbo.deptos_uia1   
+Where   convert(integer,dbo.deptos_uia1.depto    )=:al_depto 
+using gtr_personal;
+
+	if gtr_personal.sqlcode=0 then
+		//TODO OK
+		if isnull(ls_depto) or ls_depto = ""  then
+			if al_depto = 9999 then
+				ls_depto = "Usuario Externo"
+			else
+				ls_depto = "Depto. no asignado"
+			end if
+		end if
+		return ls_depto
+	elseif gtr_personal.sqlcode=100 then
+		if isnull(ls_depto) or ls_depto = "" then
+			if al_depto = 9999 then
+				ls_depto = "Usuario Externo"
+			else
+				ls_depto = "Depto. no asignado"
+			end if
+		end if
+		return ls_depto
+	end if			
+
+return ls_depto
+end function
+

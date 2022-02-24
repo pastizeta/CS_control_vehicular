@@ -1,0 +1,30 @@
+﻿$PBExportHeader$d_dlb_grupos_mat.srd
+$PBExportComments$Muestra las descripciones del catalogo de grupos para el departamento y grupo seleccionado
+release 10;
+datawindow(units=0 timer_interval=0 color=29534863 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=72 color="536870912" )
+table(column=(type=long update=yes updatewhereclause=yes key=yes name=cvegrupo dbname="spre_grupo_material.cvegrupo" )
+ column=(type=long update=yes updatewhereclause=yes key=yes name=cvedepto dbname="spre_grupo_material.cvedepto" )
+ column=(type=char(100) update=yes updatewhereclause=yes name=descripcion dbname="spre_grupo_material.descripcion" )
+ column=(type=long update=yes updatewhereclause=yes key=yes name=cvearea dbname="spre_grupo_material.cvearea" )
+ retrieve="  SELECT spre_grupo_material.cvegrupo,   
+         spre_grupo_material.cvedepto,   
+         spre_grupo_material.descripcion,   
+         spre_grupo_material.cvearea  
+    FROM spre_grupo_material  
+   WHERE (spre_grupo_material.cvedepto = :lidepto)    
+" update="spre_grupo_material" updatewhere=1 updatekeyinplace=no arguments=(("lidepto", number)) )
+column(band=detail id=3 alignment="0" tabsequence=10 border="5" color="0" x="9" y="4" height="60" width="1701" format="[general]" html.valueishtml="0"  name=descripcion visible="1" edit.limit=100 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.displayonly=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

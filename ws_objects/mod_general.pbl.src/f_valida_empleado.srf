@@ -1,0 +1,36 @@
+﻿$PBExportHeader$f_valida_empleado.srf
+global type f_valida_empleado from function_object
+end type
+
+forward prototypes
+global function integer f_valida_empleado (long p_cuenta, ref string p_nombre)
+end prototypes
+
+global function integer f_valida_empleado (long p_cuenta, ref string p_nombre);integer li_existe
+long ll_cuenta
+string ls_nombre
+
+select nombre+' '+isnull(appaterno,'') +' ' +isnull(apmaterno,'')
+into :ls_nombre
+
+from dbo.empl_uia1 
+where dbo.empl_uia1.empleado= :p_cuenta
+using gtr_personal; 
+
+if gtr_personal.SQLCode = -1 then 
+		messagebox("Error PERSONAL: Validación de empleado.", gtr_personal.SQLErrText)	
+		li_existe=-1
+		rollback using gtr_personal;
+else
+	commit using gtr_personal;
+		if isnull(ls_nombre) or ls_nombre='' then
+			li_existe=-1
+		else
+		p_nombre=ls_nombre
+		li_existe=1	
+	end if
+end if
+
+return (li_existe)
+end function
+

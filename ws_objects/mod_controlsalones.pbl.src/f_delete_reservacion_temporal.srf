@@ -1,0 +1,23 @@
+﻿$PBExportHeader$f_delete_reservacion_temporal.srf
+global type f_delete_reservacion_temporal from function_object
+end type
+
+forward prototypes
+global subroutine f_delete_reservacion_temporal (long p_num_asignacion)
+end prototypes
+
+global subroutine f_delete_reservacion_temporal (long p_num_asignacion);
+delete from spre_reserva_salon_temporal
+where num_asignacion=:p_num_asignacion
+
+using gtr_sumuia;
+
+if gtr_sumuia.sqlcode<>0 then
+	messagebox("Error al cancelar reservación extraordinaria, código "+string(gtr_sumuia.sqlcode), gtr_sumuia.SQLErrText)	
+	rollback using gtr_sumuia;
+else
+	commit using gtr_sumuia;
+end if							
+							
+end subroutine
+

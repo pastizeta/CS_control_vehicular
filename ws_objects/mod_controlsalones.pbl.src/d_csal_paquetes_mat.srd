@@ -1,0 +1,51 @@
+﻿$PBExportHeader$d_csal_paquetes_mat.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=32096431 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=76 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=100 color="536870912" )
+table(column=(type=long update=yes updatewhereclause=yes key=yes name=spre_referencia_coduia_cvedepto dbname="spre_referencia_coduia.cvedepto" )
+ column=(type=char(15) update=yes updatewhereclause=yes key=yes name=spre_referencia_coduia_cvemat dbname="spre_referencia_coduia.cvemat" )
+ column=(type=long update=yes updatewhereclause=yes key=yes name=spre_referencia_coduia_cvegrupo dbname="spre_referencia_coduia.cvegrupo" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=spre_referencia_coduia_num_serie dbname="spre_referencia_coduia.num_serie" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=spre_referencia_coduia_cod_uia dbname="spre_referencia_coduia.cod_uia" )
+ column=(type=char(20) update=yes updatewhereclause=yes key=yes name=spre_referencia_coduia_cod_barra dbname="spre_referencia_coduia.cod_barra" )
+ column=(type=char(50) update=yes updatewhereclause=yes name=spre_referencia_coduia_descripcion dbname="spre_referencia_coduia.descripcion" )
+ retrieve="  SELECT spre_referencia_coduia.cvedepto,   
+         spre_referencia_coduia.cvemat,   
+         spre_referencia_coduia.cvegrupo,   
+         spre_referencia_coduia.num_serie,   
+         spre_referencia_coduia.cod_uia,   
+         spre_referencia_coduia.cod_barra,   
+         spre_referencia_coduia.descripcion  
+    FROM spre_referencia_coduia   
+WHERE   spre_referencia_coduia.cvegrupo = :grupo AND
+			spre_referencia_coduia.cvemat = :cvemat AND
+			spre_referencia_coduia.num_serie = :serie AND
+			spre_referencia_coduia.cod_uia = :coduia
+" update="spre_referencia_coduia" updatewhere=1 updatekeyinplace=yes arguments=(("grupo", number),("cvemat", string),("serie", string),("coduia", string)) )
+text(band=header alignment="2" text="Cve Material" border="0" color="0" x="18" y="4" height="64" width="471" html.valueishtml="0"  name=cvedepto_t visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="2" text="Descripción" border="0" color="0" x="1906" y="4" height="64" width="681" html.valueishtml="0"  name=descripcion_t visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="2" text="Num.Serie" border="0" color="0" x="489" y="4" height="64" width="457" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="2" text="Cod Uia" border="0" color="0" x="946" y="4" height="64" width="471" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="2" text="Cod. Barra" border="0" color="0" x="1413" y="4" height="64" width="485" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+line(band=detail x1="14" y1="88" x2="2587" y2="88"  name=l_1 visible="1" pen.style="0" pen.width="9" pen.color="255"  background.mode="2" background.color="16777215" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="1989" y="156" height="60" width="279" format="[general]" html.valueishtml="0"  name=spre_referencia_coduia_cvedepto visible="0" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="0" x="1696" y="160" height="60" width="224" format="[general]" html.valueishtml="0"  name=spre_referencia_coduia_cvegrupo visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=2 alignment="2" tabsequence=32766 border="0" color="0" x="18" y="8" height="60" width="448" format="[general]" html.valueishtml="0"  name=spre_referencia_coduia_cvemat visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=4 alignment="2" tabsequence=32766 border="0" color="0" x="475" y="8" height="60" width="462" format="[general]" html.valueishtml="0"  name=spre_referencia_coduia_num_serie visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=5 alignment="2" tabsequence=32766 border="0" color="0" x="946" y="8" height="60" width="462" format="[general]" html.valueishtml="0"  name=spre_referencia_coduia_cod_uia visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=6 alignment="0" tabsequence=10 border="0" color="0" x="1417" y="8" height="60" width="462" format="[general]" html.valueishtml="0"  name=spre_referencia_coduia_cod_barra visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=7 alignment="0" tabsequence=20 border="0" color="0" x="1888" y="8" height="60" width="699" format="[general]" html.valueishtml="0"  name=spre_referencia_coduia_descripcion visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

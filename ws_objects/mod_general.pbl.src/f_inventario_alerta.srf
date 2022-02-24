@@ -1,0 +1,12 @@
+﻿$PBExportHeader$f_inventario_alerta.srf
+global type f_inventario_alerta from function_object
+end type
+
+forward prototypes
+global subroutine f_inventario_alerta ()
+end prototypes
+
+global subroutine f_inventario_alerta ();opensheet(w_gen_cat_inventario_alerta,w_ppal,0,original!)
+
+end subroutine
+

@@ -1,0 +1,6 @@
+﻿$PBExportHeader$str_folios.srs
+global type str_folios from structure
+	long		folio_solicitud
+	long		folio_presol
+end type
+

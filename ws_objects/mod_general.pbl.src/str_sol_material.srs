@@ -1,0 +1,30 @@
+﻿$PBExportHeader$str_sol_material.srs
+global type str_sol_material from structure
+	integer		cvedepto
+	integer		cvearea
+	long		cvegrupo
+	string		cvematerial
+	string		num_serie
+	string		nommaterial
+	string		nomstatus
+	integer		prestamo_unitario
+	string		cod_uia
+	long		folio_presol
+	integer		status
+	datetime		fecha_inicio
+	datetime		fecha_final
+	decimal { 4 }		costo_mat
+	integer		consec_presol
+	long		folio_solicitud
+	integer		consec_sol
+	string		nomtipo
+	string		nomtamano
+	integer		tipo_unidad		descriptor "comment" = "1 Consumible"
+	integer		cantidad
+	integer		merma
+	long		solicitanteid
+	integer		disponibilidad		descriptor "comment" = "1 Primero"
+	integer		tipo_usuario
+	integer		multa		descriptor "comment" = "1 Si hay alguna multa abierta VENTANA ADICIONAL"
+end type
+

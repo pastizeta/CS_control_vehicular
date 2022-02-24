@@ -1,0 +1,23 @@
+﻿$PBExportHeader$f_equipo_sol.srf
+global type f_equipo_sol from function_object
+end type
+
+forward prototypes
+global subroutine f_equipo_sol (long ai_folio, long ai_depto, ref string as_descripcion)
+end prototypes
+
+global subroutine f_equipo_sol (long ai_folio, long ai_depto, ref string as_descripcion);
+
+SELECT  
+        spre_equipo_requerido.descripcion 
+INTO :as_descripcion
+FROM spre_equipo_solicitud ,
+           spre_equipo_requerido     
+WHERE ( spre_equipo_requerido.cveequipo = spre_equipo_solicitud.cveequipo ) and  
+        ( ( spre_equipo_solicitud.folio = :ai_folio ) and    
+      ( spre_equipo_solicitud.cvedepto = :ai_depto ) )  
+		
+using gtr_sumuia;
+
+end subroutine
+

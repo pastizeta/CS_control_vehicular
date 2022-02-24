@@ -1,0 +1,69 @@
+﻿$PBExportHeader$d_com_datos_evento.srd
+$PBExportComments$Muestra los datos del
+release 7;
+datawindow(units=0 timer_interval=0 color=32096431 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=192 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=660 color="536870912" )
+table(column=(type=long update=yes updatewhereclause=yes key=yes name=cvedepto dbname="spre_com_espacios_islas.cvedepto" )
+ column=(type=long update=yes updatewhereclause=yes key=yes name=folio dbname="spre_com_espacios_islas.folio" )
+ column=(type=long update=yes updatewhereclause=yes name=sol_tipo dbname="spre_com_espacios_islas.sol_tipo" values="Alumno	1/Empleado	2/Externo	3/" )
+ column=(type=long update=yes updatewhereclause=yes name=sol_num dbname="spre_com_espacios_islas.sol_num" )
+ column=(type=char(80) update=yes updatewhereclause=yes name=sol_nombre dbname="spre_com_espacios_islas.sol_nombre" )
+ column=(type=long update=yes updatewhereclause=yes name=sol_depto dbname="spre_com_espacios_islas.sol_depto" )
+ column=(type=char(15) update=yes updatewhereclause=yes name=sol_tel dbname="spre_com_espacios_islas.sol_tel" )
+ column=(type=char(80) update=yes updatewhereclause=yes name=resp_nombre dbname="spre_com_espacios_islas.resp_nombre" )
+ column=(type=long update=yes updatewhereclause=yes name=resp_tipo dbname="spre_com_espacios_islas.resp_tipo" values="Alumno	1/Empleado	2/" )
+ column=(type=long update=yes updatewhereclause=yes name=resp_depto dbname="spre_com_espacios_islas.resp_depto" )
+ column=(type=char(15) update=yes updatewhereclause=yes name=resp_tel dbname="spre_com_espacios_islas.resp_tel" )
+ column=(type=long update=yes updatewhereclause=yes key=yes name=cvedepto dbname="spre_com_espacios_islas.cvedepto" )
+ column=(type=datetime update=yes updatewhereclause=yes name=fechacarga dbname="spre_com_espacios_islas.fechacarga" )
+ column=(type=long update=yes updatewhereclause=yes name=resp_num dbname="spre_com_espacios_islas.resp_num" )
+ retrieve="SELECT  dbo.spre_com_espacios_islas.cvedepto,
+		  dbo.spre_com_espacios_islas.folio ,
+        dbo.spre_com_espacios_islas.sol_tipo ,
+        dbo.spre_com_espacios_islas.sol_num ,
+        dbo.spre_com_espacios_islas.sol_nombre ,
+        dbo.spre_com_espacios_islas.sol_depto ,
+        dbo.spre_com_espacios_islas.sol_tel ,
+        dbo.spre_com_espacios_islas.resp_nombre ,
+        dbo.spre_com_espacios_islas.resp_tipo ,
+        dbo.spre_com_espacios_islas.resp_depto ,
+        dbo.spre_com_espacios_islas.resp_tel ,
+        dbo.spre_com_espacios_islas.cvedepto ,
+		 dbo.spre_com_espacios_islas.fechacarga, 
+        dbo.spre_com_espacios_islas.resp_num      
+        FROM dbo.spre_com_espacios_islas      
+        WHERE ( dbo.spre_com_espacios_islas.folio = :li_folio ) and
+          ( dbo.spre_com_espacios_islas.cvedepto = :li_depto )   " update="dbo.spre_com_espacios_islas" updatewhere=0 updatekeyinplace=no arguments=(("li_folio", number),("li_depto", number)) )
+text(band=header alignment="0" text="Comunicación" border="0" color="0" x="23" y="76" height="60" width="613"  name=t_5  font.face="Tahoma" font.height="-11" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="32096431" )
+column(band=header id=13 alignment="2" tabsequence=32766 border="0" color="0" x="2395" y="76" height="60" width="398" format="dd/mm/yyyy"  name=fechacarga edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="10789024" )
+text(band=header alignment="0" text="Fecha:" border="0" color="0" x="2203" y="80" height="56" width="178"  name=t_6  font.face="Tahoma" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="32096431" )
+text(band=detail alignment="2" text="Datos del Solicitante" border="2" color="0" x="18" y="16" height="64" width="2775"  name=t_1  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=detail alignment="2" text="Tipo" border="0" color="16777215" x="18" y="100" height="60" width="238"  name=t_18  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="10789024" )
+text(band=detail alignment="2" text="Cuenta" border="0" color="16777215" x="270" y="100" height="60" width="329"  name=t_2  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="10789024" )
+text(band=detail alignment="2" text="Nombre Completo" border="0" color="16777215" x="617" y="100" height="60" width="1504"  name=t_3  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="10789024" )
+text(band=detail alignment="2" text="Depto" border="0" color="16777215" x="2144" y="100" height="60" width="229"  name=t_4  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="10789024" )
+text(band=detail alignment="2" text="Teléfono" border="0" color="16777215" x="2395" y="100" height="60" width="398"  name=t_7  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="10789024" )
+column(band=detail id=12 alignment="0" tabsequence=32766 border="0" color="16777215" x="2889" y="24" height="60" width="270" format="[general]"  name=cvedepto visible="1~t0" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="10789024" )
+column(band=detail id=3 alignment="0" tabsequence=10 border="5" color="0" x="18" y="184" height="60" width="238" format="[general]"  name=sol_tipo ddlb.limit=0 ddlb.allowedit=no ddlb.case=any  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=4 alignment="1" tabsequence=20 border="5" color="0" x="270" y="184" height="60" width="329" format="[general]"  name=sol_num edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=5 alignment="0" tabsequence=30 border="5" color="0" x="617" y="184" height="60" width="1504" format="[general]"  name=sol_nombre edit.limit=80 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=6 alignment="1" tabsequence=40 border="5" color="0" x="2144" y="184" height="60" width="229" format="[general]"  name=sol_depto dddw.name=d_sres_centro_costo dddw.displaycolumn=centro_costo dddw.datacolumn=centro_costo dddw.percentwidth=500 dddw.lines=0 dddw.limit=0 dddw.allowedit=yes dddw.useasborder=no dddw.case=upper dddw.nilisnull=yes dddw.hscrollbar=yes dddw.vscrollbar=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=7 alignment="0" tabsequence=50 border="5" color="0" x="2395" y="184" height="60" width="398" format="[general]"  name=sol_tel edit.limit=15 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+text(band=detail alignment="2" text="Responsable" border="2" color="0" x="18" y="336" height="64" width="2775"  name=t_17  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=detail alignment="2" text="Tipo" border="0" color="16777215" x="18" y="420" height="60" width="238"  name=t_19  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="10789024" )
+text(band=detail alignment="2" text="Cuenta" border="0" color="16777215" x="270" y="420" height="60" width="329"  name=t_8  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="10789024" )
+text(band=detail alignment="2" text="Nombre Completo" border="0" color="16777215" x="608" y="400" height="60" width="1504"  name=t_9  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="10789024" )
+text(band=detail alignment="2" text="Depto" border="0" color="16777215" x="2144" y="420" height="60" width="229"  name=t_10  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="10789024" )
+text(band=detail alignment="2" text="Teléfono" border="0" color="16777215" x="2395" y="420" height="60" width="398"  name=t_11  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="10789024" )
+column(band=detail id=9 alignment="0" tabsequence=60 border="5" color="0" x="18" y="504" height="64" width="238" format="[general]"  name=resp_tipo ddlb.limit=0 ddlb.allowedit=no ddlb.case=any  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=8 alignment="0" tabsequence=80 border="5" color="0" x="617" y="504" height="64" width="1504" format="[general]"  name=resp_nombre edit.limit=80 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=10 alignment="1" tabsequence=90 border="5" color="0" x="2144" y="504" height="64" width="229" format="[general]"  name=resp_depto dddw.name=d_sres_centro_costo dddw.displaycolumn=centro_costo dddw.datacolumn=centro_costo dddw.percentwidth=500 dddw.lines=0 dddw.limit=0 dddw.allowedit=yes dddw.useasborder=no dddw.case=upper dddw.nilisnull=yes dddw.hscrollbar=yes dddw.vscrollbar=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=11 alignment="0" tabsequence=100 border="5" color="0" x="2400" y="504" height="64" width="398" format="[general]"  name=resp_tel edit.limit=15 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=14 alignment="0" tabsequence=70 border="5" color="0" x="270" y="504" height="64" width="334" format="[general]"  name=resp_num edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+line(band=detail x1="14" y1="288" x2="2798" y2="288"  name=l_1 pen.style="0" pen.width="5" pen.color="255"  background.mode="2" background.color="16777215" )
+line(band=detail x1="14" y1="292" x2="2798" y2="292"  name=l_2 pen.style="0" pen.width="5" pen.color="255"  background.mode="2" background.color="16777215" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

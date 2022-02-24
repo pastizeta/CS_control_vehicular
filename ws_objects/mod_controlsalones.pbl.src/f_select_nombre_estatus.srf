@@ -1,0 +1,24 @@
+﻿$PBExportHeader$f_select_nombre_estatus.srf
+global type f_select_nombre_estatus from function_object
+end type
+
+forward prototypes
+global function string f_select_nombre_estatus (integer pi_cve_estatus)
+end prototypes
+
+global function string f_select_nombre_estatus (integer pi_cve_estatus);string ls_estatus
+
+select dbo.spre_estatus_reserva_salon.descripcion
+into :ls_estatus
+from dbo.spre_estatus_reserva_salon
+where dbo.spre_estatus_reserva_salon.cve_estatus=:pi_cve_estatus
+using gtr_sumuia; 
+
+
+if gtr_sumuia.SQLCode = -1 then 
+		messagebox("Error SUMUIA: Selección de nombre de estatus", gtr_sumuia.SQLErrText)	
+end if
+
+return (ls_estatus)
+end function
+

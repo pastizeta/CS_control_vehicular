@@ -1,0 +1,24 @@
+﻿$PBExportHeader$f_delete_reservacion_lapso_temporal.srf
+global type f_delete_reservacion_lapso_temporal from function_object
+end type
+
+forward prototypes
+global subroutine f_delete_reservacion_lapso_temporal (long p_lapso)
+end prototypes
+
+global subroutine f_delete_reservacion_lapso_temporal (long p_lapso);
+delete from spre_reserva_salon_temporal
+where lapso_completo > 0
+and lapso_completo=:p_lapso
+
+using gtr_sumuia;
+
+if gtr_sumuia.sqlcode<>0 then
+	messagebox("Error al cancelar reservación lapso, código "+string(gtr_sumuia.sqlcode), gtr_sumuia.SQLErrText)	
+	rollback using gtr_sumuia;
+else
+	commit using gtr_sumuia;
+end if							
+					
+end subroutine
+

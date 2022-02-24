@@ -1,0 +1,33 @@
+﻿$PBExportHeader$f_valida_cuenta.srf
+$PBExportComments$Valida que el alumno o profesor no tenga una multa sin pagar
+global type f_valida_cuenta from function_object
+end type
+
+forward prototypes
+global function integer f_valida_cuenta (long argl_cuenta)
+end prototypes
+
+global function integer f_valida_cuenta (long argl_cuenta); decimal lcSaldo
+	SELECT dbo.spre_multas.saldo
+	into:  lcSaldo
+	FROM dbo.spre_multas,   
+			dbo.spre_solicitud  
+	WHERE ( dbo.spre_solicitud.cvedepto = dbo.spre_multas.cvedepto ) and  
+			( dbo.spre_solicitud.folio = dbo.spre_multas.folio ) and  
+			( dbo.spre_multas.saldo > 0 ) AND  
+			( dbo.spre_solicitud.solicitanteid = :argl_cuenta ) AND
+			( dbo.spre_solicitud.cvedepto =:gi_depto ) 
+	USING gtr_sumuia;
+
+	IF gtr_sumuia.SQLCode = 100 THEN
+		return 0
+	ELSEIF gtr_sumuia.SQLCode > 0 then
+			MessageBox("Mensaje del Sistema", &
+			gtr_sumuia.SQLErrText, Exclamation!)
+			Return 1
+	END IF
+	MessageBox("Mensaje del Sistema", "La clave ingresada presenta una multa por: " + string(lcSaldo) ,stopsign!)
+	return 1
+	
+end function
+

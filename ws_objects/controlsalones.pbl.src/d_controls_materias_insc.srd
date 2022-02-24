@@ -1,0 +1,73 @@
+﻿$PBExportHeader$d_controls_materias_insc.srd
+$PBExportComments$Muestra las materias incritas para tomar el grupo y profesor
+release 10;
+datawindow(units=0 timer_interval=0 color=29534863 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=160 color="536870912"  height.autosize=yes)
+table(column=(type=long updatewhereclause=yes name=v_sce_mat_inscritas_cuenta dbname="v_sce_mat_inscritas.cuenta" )
+ column=(type=char(7) updatewhereclause=yes name=v_sce_grupos_cve_mat_gpo dbname="v_sce_grupos.cve_mat_gpo" )
+ column=(type=char(42) updatewhereclause=yes name=v_sce_materias_materia dbname="v_sce_materias.materia" )
+ column=(type=long updatewhereclause=yes name=v_sce_grupos_cve_profesor dbname="v_sce_grupos.cve_profesor" )
+ column=(type=long updatewhereclause=yes name=v_sce_horario_clase_aula dbname="v_sce_horario.clase_aula" )
+ column=(type=char(4) updatewhereclause=yes name=v_sce_horario_cve_salon dbname="v_sce_horario.cve_salon" )
+ column=(type=long updatewhereclause=yes name=v_sce_horario_hora_inicio dbname="v_sce_horario.hora_inicio" )
+ column=(type=long updatewhereclause=yes name=v_sce_horario_hora_final dbname="v_sce_horario.hora_final" )
+ column=(type=char(152) updatewhereclause=yes name=v_sce_profesor_nombre dbname="nombre" )
+ retrieve="  SELECT distinct dbo.v_sce_mat_inscritas.cuenta,   
+         dbo.v_sce_grupos.cve_mat_gpo,   
+         dbo.v_sce_materias.materia,   
+         dbo.v_sce_grupos.cve_profesor, 
+		dbo.v_sce_horario.clase_aula,
+		dbo.v_sce_horario.cve_salon,
+		dbo.v_sce_horario.hora_inicio,
+		dbo.v_sce_horario.hora_final,   
+         dbo.v_sce_profesor.apaterno +' '+ dbo.v_sce_profesor.amaterno+' '+ dbo.v_sce_profesor.nombre  nombre
+    FROM dbo.v_sce_grupos,   
+         dbo.v_sce_mat_inscritas,   
+         dbo.v_sce_materias,   
+         dbo.v_sce_profesor,
+		dbo.v_sce_horario
+   WHERE ( dbo.v_sce_grupos.cve_mat = dbo.v_sce_mat_inscritas.cve_mat ) and  
+         ( dbo.v_sce_mat_inscritas.cve_mat = dbo.v_sce_materias.cve_mat ) and  
+         ( dbo.v_sce_grupos.cve_profesor = dbo.v_sce_profesor.cve_profesor ) and  
+         ( dbo.v_sce_grupos.periodo = dbo.v_sce_mat_inscritas.periodo ) and  
+         ( dbo.v_sce_grupos.gpo = dbo.v_sce_mat_inscritas.gpo ) and  
+         ( dbo.v_sce_grupos.anio = dbo.v_sce_mat_inscritas.anio )  and
+		( dbo.v_sce_grupos.periodo = dbo.v_sce_horario.periodo ) and  
+		( dbo.v_sce_grupos.anio = dbo.v_sce_horario.anio )  and  
+		(( dbo.v_sce_grupos.cve_mat =       dbo.v_sce_horario.cve_mat) or
+		( dbo.v_sce_grupos.cve_asimilada = dbo.v_sce_horario.cve_mat) )and
+		( dbo.v_sce_grupos.gpo = dbo.v_sce_horario.gpo) and 
+		( dbo.v_sce_materias.cve_coordinacion in (   SELECT dbo.v_sce_coordinaciones.cve_coordinacion  
+																		 FROM dbo.v_sce_departamentos,   
+																				dbo.v_sce_coordinaciones  
+																		WHERE ( dbo.v_sce_departamentos.cve_depto = dbo.v_sce_coordinaciones.cve_depto ) )) and  
+	
+         ( dbo.v_sce_mat_inscritas.cuenta = :liCuenta )    
+
+" arguments=(("liCuenta", number)) )
+line(band=detail x1="0" y1="152" x2="2944" y2="156"  name=l_1 visible="1"  slideup=directlyabove pen.style="0" pen.width="9" pen.color="255"  background.mode="2" background.color="16777215" )
+text(band=detail alignment="1" text="Profesor : " border="0" color="0" x="9" y="84" height="60" width="375" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="1" text="Grupo : " border="0" color="0" x="9" y="0" height="60" width="375" html.valueishtml="0"  name=v_sce_grupos_cve_profesor_t visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="2" tabsequence=10 border="0" color="0" x="402" y="0" height="60" width="375" format="[general]" html.valueishtml="0"  name=v_sce_grupos_cve_mat_gpo visible="1" edit.limit=7 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.displayonly=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" font.underline="1" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="2" tabsequence=20 border="0" color="0" x="389" y="84" height="60" width="261" format="[general]" html.valueishtml="0"  name=v_sce_grupos_cve_profesor visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.displayonly=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" font.italic="1" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="0" tabsequence=60 border="0" color="0" x="3008" y="80" height="60" width="160" format="[general]" html.valueishtml="0"  name=v_sce_horario_clase_aula visible="0" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="0" x="800" y="0" height="64" width="1568" format="[general]" html.valueishtml="0"  name=v_sce_materias_materia visible="1" edit.limit=42 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.displayonly=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=9 alignment="0" tabsequence=32766 border="0" color="0" x="654" y="84" height="60" width="1719" format="[general]" html.valueishtml="0"  name=v_sce_profesor_nombre visible="1" edit.limit=50 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.displayonly=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="2" tabsequence=30 border="0" color="0" x="2606" y="4" height="60" width="334" format="[general]" html.valueishtml="0"  name=v_sce_horario_cve_salon visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="2" tabsequence=40 border="0" color="0" x="2610" y="80" height="60" width="160" format="[general]" html.valueishtml="0"  name=v_sce_horario_hora_inicio visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="2" tabsequence=50 border="0" color="0" x="2779" y="80" height="60" width="160" format="[general]" html.valueishtml="0"  name=v_sce_horario_hora_final visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="1" text="Salón:" border="0" color="0" x="2386" y="0" height="64" width="206" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="1" text="Horario:" border="0" color="0" x="2391" y="84" height="60" width="206" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

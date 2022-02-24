@@ -1,0 +1,25 @@
+﻿$PBExportHeader$f_valida_dia_enrango.srf
+global type f_valida_dia_enrango from function_object
+end type
+
+forward prototypes
+global function integer f_valida_dia_enrango (integer pi_dia, date pd_fecha_inicio, date pd_fecha_final)
+end prototypes
+
+global function integer f_valida_dia_enrango (integer pi_dia, date pd_fecha_inicio, date pd_fecha_final);integer li_dias, li_i, li_numero
+date ld_fecha
+
+li_dias=DaysAfter(pd_fecha_inicio,pd_fecha_final)
+
+for li_i=1 to li_dias+1
+				
+	ld_fecha=RelativeDate(pd_fecha_inicio,li_i -1)
+	li_numero=DayNumber(ld_fecha) -1
+	
+	if li_numero=pi_dia then return(1)
+			                     
+next
+
+return(0)
+end function
+

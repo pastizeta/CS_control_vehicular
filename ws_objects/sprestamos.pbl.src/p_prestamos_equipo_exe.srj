@@ -1,0 +1,40 @@
+﻿$PBExportHeader$p_prestamos_equipo_exe.srj
+$PBExportComments$Generated Application Executable Project
+EXE:prestamos_equipo.exe,,0,1,1
+CMP:0,0,0,2,0,0
+COM:Sybase, Inc.
+DES:Sybase, Inc. Product File
+CPY:
+PRD:PowerBuilder Enterprise Series
+PVN:1,0,0,1
+PVS:1.0.0.1
+FVN:1,0,0,1
+FVS:1.0.0.1
+PBD:sprestamos.pbl,,1
+PBD:fotos_y_gvbox.pbl,,1
+PBD:pfcapp.pbl,,1
+PBD:pfcapsrv.pbl,,1
+PBD:pfcdwsrv.pbl,,1
+PBD:pfcmain.pbl,,1
+PBD:pfcutil.pbl,,1
+PBD:pfcwnsrv.pbl,,1
+PBD:pfeapsrv.pbl,,1
+PBD:pfedwsrv.pbl,,1
+PBD:pfemain.pbl,,1
+PBD:pfeutil.pbl,,1
+PBD:pfewnsrv.pbl,,1
+PBD:mod_general.pbl,,1
+PBD:mod_posgrado.pbl,,1
+PBD:mod_comunic.pbl,,1
+PBD:mod_disenio.pbl,,1
+PBD:comunicacion.pbl,,1
+PBD:prestadmision.pbl,,1
+PBD:mod_controlsalones.pbl,,1
+PBD:mod_psicologia.pbl,,1
+PBD:mod_ingenieria.pbl,,1
+PBD:mod_ccd.pbl,,1
+PBD:mod_fisico.pbl,,1
+PBD:spre_animales.pbl,,1
+PBD:mod_informatica.pbl,,1
+
+ 

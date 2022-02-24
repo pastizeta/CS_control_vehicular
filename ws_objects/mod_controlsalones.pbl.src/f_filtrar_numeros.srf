@@ -1,0 +1,24 @@
+﻿$PBExportHeader$f_filtrar_numeros.srf
+global type f_filtrar_numeros from function_object
+end type
+
+forward prototypes
+global function string f_filtrar_numeros (string as_in)
+end prototypes
+
+global function string f_filtrar_numeros (string as_in);String ls_char, ls_out
+Long ll_pos
+
+FOR ll_pos = 1 TO Len( as_in )
+  ls_char = Mid( as_in, ll_pos, 1 )
+  IF ls_char >= '0' AND ls_char <= '9' THEN
+    ls_out += ls_char
+//  ELSEIF ls_char >= 'a' AND ls_char <= 'z' THEN
+//    ls_out += ls_char
+  END IF
+NEXT
+
+
+RETURN ls_out
+end function
+

@@ -1,0 +1,29 @@
+﻿$PBExportHeader$f_insert_solicitante_bloqueado.srf
+global type f_insert_solicitante_bloqueado from function_object
+end type
+
+forward prototypes
+global subroutine f_insert_solicitante_bloqueado (integer p_cvedepto, integer p_cvearea, integer p_anio, integer p_periodo, long p_solicitanteid, integer p_tipo_solicitante)
+end prototypes
+
+global subroutine f_insert_solicitante_bloqueado (integer p_cvedepto, integer p_cvearea, integer p_anio, integer p_periodo, long p_solicitanteid, integer p_tipo_solicitante);datetime ldt_ahora
+
+ldt_ahora=DateTime(today(),now())
+	
+	insert into dbo.spre_solicitantes_bloqueados
+	(cvedepto, cvearea, anio, cveperiodo, solicitanteid, tipo_solicitante, fecha_bloqueo)
+	 
+	values
+	(:p_cvedepto, :p_cvearea, :p_anio, :p_periodo, :p_solicitanteid, :p_tipo_solicitante, :ldt_ahora)
+	
+	using gtr_sumuia;	
+	
+	if gtr_sumuia.sqlcode<>0 then
+		messagebox("Error al bloquear solicitante, código "+string(gtr_sumuia.sqlcode), gtr_sumuia.SQLErrText)
+		rollback using gtr_sumuia;
+	else
+		commit using gtr_sumuia;		
+	end if		
+	
+end subroutine
+

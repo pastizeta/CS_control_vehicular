@@ -1,0 +1,61 @@
+﻿$PBExportHeader$f_select_psi_usuario_material.srf
+global type f_select_psi_usuario_material from function_object
+end type
+
+forward prototypes
+global function long f_select_psi_usuario_material (integer p_cvedepto, integer p_cvearea, string p_cvematerial, integer p_cvegrupo, string p_num_serie, datetime p_fechainicio, datetime p_fechafin, ref string p_nombresolicitante)
+end prototypes
+
+global function long f_select_psi_usuario_material (integer p_cvedepto, integer p_cvearea, string p_cvematerial, integer p_cvegrupo, string p_num_serie, datetime p_fechainicio, datetime p_fechafin, ref string p_nombresolicitante);long ll_solicitanteid=0
+integer li_existe=0
+
+p_nombresolicitante=''
+select count(b.solicitanteid)
+into :li_existe
+from dbo.spre_pre_sol_materiales a
+join dbo.spre_pre_solicitud b on a.cvedepto=b.cvedepto
+and a.folio=b.folio
+where a.cvedepto=:p_cvedepto
+and a.cvearea=:p_cvearea
+and a.cvematerial=:p_cvematerial
+and a.cvegrupo=:p_cvegrupo
+and a.num_serie=:p_num_serie
+and b.autorizada=1
+and (b.fecha_inicio between :p_fechainicio and :p_fechafin or b.fecha_fin between :p_fechainicio and :p_fechafin)
+
+using gtr_sumuia; 
+
+if gtr_sumuia.SQLCode = -1 then 
+		messagebox("Error SUMUIA: Selección de Solicitante de Material.", gtr_sumuia.SQLErrText)	
+end if
+
+
+if li_existe>0 then
+
+	select top 1 b.solicitanteid, b.solicitantenombre
+	into :ll_solicitanteid, :p_nombresolicitante
+	from dbo.spre_pre_sol_materiales a
+	join dbo.spre_pre_solicitud b on a.cvedepto=b.cvedepto
+	and a.folio=b.folio
+	where a.cvedepto=:p_cvedepto
+	and a.cvearea=:p_cvearea
+	and a.cvematerial=:p_cvematerial
+	and a.cvegrupo=:p_cvegrupo
+	and a.num_serie=:p_num_serie
+	and b.autorizada=1
+	and (((b.fecha_inicio > =:p_fechainicio) and (:p_fechafin > b.fecha_inicio))   
+	or   ((b.fecha_inicio < =:p_fechainicio) and (:p_fechainicio < b.fecha_fin)))
+
+	using gtr_sumuia; 
+	
+	if gtr_sumuia.SQLCode = -1 then 
+			messagebox("Error SUMUIA: Selección de Solicitante de Material.", gtr_sumuia.SQLErrText)	
+	end if
+
+end if
+
+
+return (ll_solicitanteid)
+
+end function
+

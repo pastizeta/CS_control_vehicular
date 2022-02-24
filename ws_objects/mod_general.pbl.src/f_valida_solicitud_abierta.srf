@@ -1,0 +1,122 @@
+﻿$PBExportHeader$f_valida_solicitud_abierta.srf
+global type f_valida_solicitud_abierta from function_object
+end type
+
+forward prototypes
+global function integer f_valida_mat_alumno_depto (long p_cuenta, ref string p_nombre)
+global function integer f_valida_mat_intercambio_depto (long p_cuenta, long p_depto, integer p_anio, integer p_periodo)
+global function integer f_valida_solicitud_abierta (long p_cuenta, string p_depto, integer p_anio, integer p_periodo)
+global function str_folios f_valida_solicitud_abierta (integer p_depto, integer p_area, long p_solicitante)
+end prototypes
+
+global function integer f_valida_mat_alumno_depto (long p_cuenta, ref string p_nombre);integer li_existe
+long ll_cuenta
+string ls_nombre
+
+
+select dbo.v_sce_banderas_inscrito.cuenta,   
+dbo.v_sce_alumnos.nombre+ ' ' + dbo.v_sce_alumnos.apaterno+' ' +dbo.v_sce_alumnos.amaterno 
+into :ll_cuenta, :ls_nombre
+
+from dbo.v_sce_alumnos	 
+inner join	dbo.v_sce_academicos on dbo.v_sce_alumnos.cuenta = dbo.v_sce_academicos.cuenta
+inner join	dbo.v_sce_carreras on dbo.v_sce_academicos.cve_carrera = dbo.v_sce_carreras.cve_carrera 
+left outer join dbo.v_sce_banderas_inscrito on dbo.v_sce_alumnos.cuenta = dbo.v_sce_banderas_inscrito.cuenta
+
+where dbo.v_sce_alumnos.cuenta = :p_cuenta
+using gtr_sumuia; 
+
+if gtr_sumuia.SQLCode = -1 then 
+		messagebox("Error SUMUIA: Validación de alumno.", gtr_sumuia.SQLErrText)	
+		li_existe=-1
+else
+	if isnull(ll_cuenta) then
+		if isnull(ls_nombre) or ls_nombre='' then
+			li_existe=-1
+		else
+		p_nombre=ls_nombre
+		li_existe=0	
+	end if
+	else
+		p_nombre=ls_nombre
+		li_existe=1	
+	end if
+end if
+
+return (li_existe)
+end function
+
+global function integer f_valida_mat_intercambio_depto (long p_cuenta, long p_depto, integer p_anio, integer p_periodo);integer li_existe=0
+
+select count(*)
+into :li_existe
+from dbo.v_sce_mat_inscritas b
+join dbo.v_sce_materias c on  b.cve_mat = c.cve_mat
+join dbo.v_sce_coordinaciones d on d.cve_coordinacion=c.cve_coordinacion
+join dbo.v_sce_departamentos e on e.cve_depto=d.cve_depto
+
+where 
+b.anio=:p_anio
+and b.periodo=:p_periodo
+and b.cuenta=:p_cuenta
+and e.cve_depto=:p_depto
+using gtr_sumuia; 
+
+if gtr_sumuia.SQLCode = -1 then 
+		messagebox("Error SUMUIA: Validación de alumno.", gtr_sumuia.SQLErrText)	
+end if
+
+return (li_existe)
+end function
+
+global function integer f_valida_solicitud_abierta (long p_cuenta, string p_depto, integer p_anio, integer p_periodo);integer li_existe=0
+select count(*)
+into :li_existe
+from dbo.dca_alumnos_ext,   
+dbo.dcaPeriodoEstancia 
+
+where dbo.dca_alumnos_ext.no_folio_inter = dbo.dcaPeriodoEstancia.noFolioCuenta
+and dbo.dcaPeriodoEstancia.anio=:p_anio
+and dbo.dcaPeriodoEstancia.periodo=:p_periodo
+and dbo.dca_alumnos_ext.no_folio_inter=:p_cuenta
+and dbo.dca_alumnos_ext.major like :p_depto
+using gtr_sumuia; 
+
+if gtr_sumuia.SQLCode = -1 then 
+		messagebox("Error SUMUIA: Validación intercambio materias por departamento.", gtr_sumuia.SQLErrText)	
+		rollback using gtr_sumuia;
+else
+	commit using gtr_sumuia;
+end if
+
+return (li_existe)
+end function
+
+global function str_folios f_valida_solicitud_abierta (integer p_depto, integer p_area, long p_solicitante);str_folios lstr_folios
+
+
+select distinct a.folio, c.folio
+into :lstr_folios.folio_solicitud, :lstr_folios.folio_presol
+from dbo.spre_solicitud a
+join dbo.spre_sol_materiales b on a.cvedepto=b.cvedepto and a.folio=b.folio
+left join dbo.spre_pre_solicitud c on a.cvedepto=c.cvedepto and a.folio=c.folio_prestamo
+where a.cvedepto=:p_depto
+and b.cvearea=:p_area
+and a.status=0
+and a.solicitanteid=:p_solicitante
+and convert(date,a.fecha_inicio)=getdate()
+using gtr_sumuia; 
+
+if gtr_sumuia.SQLCode = -1 then 
+	messagebox("Error SUMUIA: Validación solicitud abierta.", gtr_sumuia.SQLErrText)	
+	rollback using gtr_sumuia;
+else
+	commit using gtr_sumuia;
+end if
+
+if isNull(lstr_folios.folio_solicitud) then lstr_folios.folio_solicitud=0
+if isNull(lstr_folios.folio_presol) then lstr_folios.folio_presol=0
+
+return (lstr_folios)
+end function
+

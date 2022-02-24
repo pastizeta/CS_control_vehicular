@@ -1,0 +1,38 @@
+﻿$PBExportHeader$f_actualiza_foto_blob.srf
+global type f_actualiza_foto_blob from function_object
+end type
+
+forward prototypes
+global function integer f_actualiza_foto_blob (long al_cuenta, blob ablob_foto, transaction atr_transaccion)
+end prototypes
+
+global function integer f_actualiza_foto_blob (long al_cuenta, blob ablob_foto, transaction atr_transaccion);//*******************		FUNCION: f_actualiza_foto_blob		*************************************
+//	Descripcion:	Escribe el contenido de un archivo JPG a un registro BLOB
+//	Entradas:	al_cuenta(long),ablob_foto(BLOB de un JPG),atr_transaccion(transaction)
+//	Salida:	Un entero resultado de la actulizacion.
+//	Version 1.0,	20051999, 	Angel Jácome Sánchez	
+//********************************		REVISIONES		****************************************
+//	Rev x.x(developer/date<ddmmyyyy>) :
+//********************************************************************************************
+int li_res=1
+IF IsNull(ablob_foto) THEN
+	Setnull(li_res)
+	Return li_res;
+END IF	
+UPDATEBLOB fotos_alumnos SET foto=:ablob_foto
+WHERE cuenta = :al_cuenta
+USING atr_transaccion;
+IF atr_transaccion.SQLnRows > 0 THEN	
+	COMMIT USING atr_transaccion;
+ELSEIF atr_transaccion.SQLCode=100 THEN
+	Rollback Using atr_transaccion;
+	MessageBox('Error Actualizando Foto','No existe registro del N° de cuenta: '+string(al_cuenta)+'~n',Exclamation!)
+	li_res=0
+ELSEIF atr_transaccion.SQLCode=-1 THEN
+	Rollback Using atr_transaccion;
+	MessageBox('Error Actualizando Foto','N° de cuenta: '+string(al_cuenta)+'~n'+string(atr_transaccion.SQLDBCode)+': '+atr_transaccion.SQLErrText,StopSign!)
+	li_res=-1
+END IF
+Return li_res;
+end function
+

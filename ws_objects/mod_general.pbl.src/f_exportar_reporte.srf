@@ -1,0 +1,17 @@
+﻿$PBExportHeader$f_exportar_reporte.srf
+global type f_exportar_reporte from function_object
+end type
+
+forward prototypes
+global subroutine f_exportar_reporte (datawindow p_datawinpar, integer p_tipo, string p_nombre)
+end prototypes
+
+global subroutine f_exportar_reporte (datawindow p_datawinpar, integer p_tipo, string p_nombre);integer li_error=0
+
+li_error=p_datawinpar.SaveAs()
+
+if li_error<>1 then 	messagebox('AVISO','Error al intentar exportar la información ') else messagebox('AVISO','Información exportada exitosamente en la ruta ')
+
+
+end subroutine
+

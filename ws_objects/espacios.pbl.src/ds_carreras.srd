@@ -1,0 +1,18 @@
+﻿$PBExportHeader$ds_carreras.srd
+release 7;
+datawindow(units=0 timer_interval=0 color=16777215 processing=1 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no grid.lines=0 )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=92 color="536870912" )
+table(column=(type=long updatewhereclause=yes name=cve_carrera dbname="v_sce_carreras.cve_carrera" )
+ column=(type=char(100) updatewhereclause=yes name=carrera dbname="v_sce_carreras.carrera" )
+ retrieve="SELECT  v_sce_carreras.cve_carrera ,
+           v_sce_carreras.carrera     
+        FROM v_sce_carreras   
+        ORDER BY v_sce_carreras.carrera          ASC  " )
+text(band=header alignment="0" text="Cve Carrera" border="0" color="0" x="5" y="4" height="76" width="315"  font.face="Arial" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Carrera" border="0" color="0" x="329" y="4" height="76" width="3195"  font.face="Arial" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=1 alignment="0" tabsequence=0 border="0" color="0" x="9" y="4" height="76" width="311"  name=cve_carrera  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=2 alignment="0" tabsequence=0 border="0" color="0" x="334" y="4" height="76" width="3191"  name=carrera  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

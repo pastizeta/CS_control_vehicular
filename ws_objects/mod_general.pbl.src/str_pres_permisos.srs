@@ -1,0 +1,11 @@
+﻿$PBExportHeader$str_pres_permisos.srs
+global type str_pres_permisos from structure
+	integer		fecha
+	integer		vigente
+	integer		materias_a
+	integer		materias_p
+	integer		materiales
+	integer		suspendido
+	integer		concurrente_p
+end type
+

@@ -1,0 +1,7 @@
+﻿$PBExportHeader$str_animales_proveedores.srs
+$PBExportComments$Permite llamar a la pantalla destalle baja material
+global type str_animales_proveedores from structure
+	string		nombre
+	string		abreviacion
+end type
+

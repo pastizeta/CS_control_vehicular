@@ -1,0 +1,124 @@
+﻿$PBExportHeader$dw_rep_ctehoras.srd
+$PBExportComments$Cross Tab estatus
+release 7;
+datawindow(units=0 timer_interval=0 color=1090519039 processing=4 HTMLDW=no print.documentname="" print.orientation = 1 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no grid.lines=1 grid.columnmove=no selected.mouse=no )
+header[1](height=560 color="536870912" )
+header[2](height=132 color="536870912" )
+summary(height=168 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=88 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=descripcion dbname="descripcion" )
+ column=(type=number updatewhereclause=yes name=descripcion_1 dbname="descripcion_1" )
+ column=(type=number updatewhereclause=yes name=descripcion_2 dbname="descripcion_2" )
+ column=(type=number updatewhereclause=yes name=descripcion_3 dbname="descripcion_3" )
+ column=(type=number updatewhereclause=yes name=descripcion_4 dbname="descripcion_4" )
+ column=(type=number updatewhereclause=yes name=descripcion_5 dbname="descripcion_5" )
+ column=(type=number updatewhereclause=yes name=descripcion_6 dbname="descripcion_6" )
+ column=(type=number updatewhereclause=yes name=descripcion_7 dbname="descripcion_7" )
+ column=(type=number updatewhereclause=yes name=descripcion_8 dbname="descripcion_8" )
+ column=(type=number updatewhereclause=yes name=descripcion_9 dbname="descripcion_9" )
+ column=(type=number updatewhereclause=yes name=descripcion_10 dbname="descripcion_10" )
+ column=(type=number updatewhereclause=yes name=descripcion_11 dbname="descripcion_11" )
+ column=(type=number updatewhereclause=yes name=descripcion_12 dbname="descripcion_12" )
+ column=(type=number updatewhereclause=yes name=descripcion_13 dbname="descripcion_13" )
+ column=(type=number updatewhereclause=yes name=descripcion_14 dbname="descripcion_14" )
+ crosstabdata="1	2	3	4	5	6	7	8	9	10	11	12	13	14" retrieve=" SELECT  spre_materiales.descripcion,   
+         spre_estatus_sol.desc_estatus_sol,   
+         spre_estatus_sol.id_estatus_sol, 
+			spre_sol_materiales.folio,  
+         datediff( hh, spre_sol_materiales.fecha_inicio,dateadd(mi,1,spre_sol_materiales.fecha_final)) horas   
+    FROM spre_estatus_sol,   
+         spre_materiales,   
+         spre_sol_materiales,   
+         spre_reserva_espacios,   
+         spre_solicitud  
+   WHERE ( spre_solicitud.folio = spre_reserva_espacios.folio ) and  
+         ( spre_solicitud.cvedepto = spre_reserva_espacios.cvedepto ) and
+         ( spre_solicitud.cvedepto = spre_sol_materiales.cvedepto ) and  
+         ( spre_sol_materiales.cvedepto = spre_reserva_espacios.cvedepto ) and   
+         ( spre_sol_materiales.cvearea = spre_materiales.cvearea ) and   
+         ( spre_sol_materiales.cvegrupo = spre_materiales.cvegrupo ) and 
+         ( spre_sol_materiales.cvematerial = spre_materiales.cvematerial ) and 
+         ( spre_solicitud.folio = spre_sol_materiales.folio ) and  
+			( spre_solicitud.status = spre_estatus_sol.id_estatus_sol ) and 
+         ( ( spre_materiales.cvedepto = 1 ) )   AND
+			
+			datediff( hh, spre_sol_materiales.fecha_inicio,dateadd(mi,1,spre_sol_materiales.fecha_final)) > 0
+
+ 
+"  sort="descripcion A " )
+text(band=header[1] alignment="0" text="" border="0" color="0" x="9" y="420" height="72" width="1856"  name=t_1 visible="1~t0"  font.face="Arial" font.height="-11" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header[1] alignment="0" text="Horas" border="0" color="0" x="1874" y="4" height="72" width="169"  name=t_2 visible="1~t0"  font.face="Arial" font.height="-11" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+bitmap(band=header[1] filename="esclat.gif" x="91" y="48" height="352" width="1129" border="0"  name=p_1 )
+text(band=header[2] alignment="0" text="Descripción Aula/Espacio" border="0" color="0" x="9" y="4" height="60" width="1856"  name=descripcion_t  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header[2] alignment="1" text="1
+hr. " border="0" color="0" x="1874" y="4" height="112" width="169"  name=descripcion_1_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header[2] alignment="1" text="2
+hr. " border="0" color="0" x="2053" y="4" height="112" width="169"  name=descripcion_2_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header[2] alignment="1" text="3
+hr. " border="0" color="0" x="2231" y="4" height="112" width="169"  name=descripcion_3_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header[2] alignment="1" text="4
+hr. " border="0" color="0" x="2409" y="4" height="112" width="169"  name=descripcion_4_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header[2] alignment="1" text="5
+hr. " border="0" color="0" x="2587" y="4" height="112" width="169"  name=descripcion_5_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header[2] alignment="1" text="6
+hr. " border="0" color="0" x="2766" y="4" height="112" width="169"  name=descripcion_6_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header[2] alignment="1" text="7
+hr. " border="0" color="0" x="2944" y="4" height="112" width="169"  name=descripcion_7_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header[2] alignment="1" text="8
+hr. " border="0" color="0" x="3122" y="4" height="112" width="169"  name=descripcion_8_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header[2] alignment="1" text="9
+hr. " border="0" color="0" x="3301" y="4" height="112" width="169"  name=descripcion_9_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header[2] alignment="1" text="10
+hr. " border="0" color="0" x="3479" y="4" height="112" width="169"  name=descripcion_10_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header[2] alignment="1" text="11
+hr. " border="0" color="0" x="3657" y="4" height="112" width="169"  name=descripcion_11_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header[2] alignment="1" text="12
+hr. " border="0" color="0" x="3835" y="4" height="112" width="169"  name=descripcion_12_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header[2] alignment="1" text="13
+hr. " border="0" color="0" x="4014" y="4" height="112" width="169"  name=descripcion_13_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header[2] alignment="1" text="14
+hr. " border="0" color="0" x="4192" y="4" height="112" width="169"  name=descripcion_14_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header[2] alignment="1" text="
+Total " border="0" color="0" x="4370" y="4" height="112" width="229"  name=grand_count_descripcion_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+line(band=header[2] x1="1847" y1="124" x2="4265" y2="124"  name=l_1 pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="33554432" x="9" y="4" height="76" width="1856" format="[general]"  name=descripcion edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="16777215~tif(mod(getRow(),2)>0,rgb( 255, 255, 255),rgb(245,245,245))" )
+column(band=detail id=2 alignment="1" tabsequence=32766 border="0" color="33554432" x="1874" y="4" height="76" width="169" format="[general]"  name=descripcion_1 edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes crosstab.repeat=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="16777215~tif(mod(getRow(),2)>0,rgb( 255, 255, 255),rgb(245,245,245))" )
+column(band=detail id=3 alignment="1" tabsequence=32766 border="0" color="33554432" x="2053" y="4" height="76" width="169" format="[general]"  name=descripcion_2 edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes crosstab.repeat=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="16777215~tif(mod(getRow(),2)>0,rgb( 255, 255, 255),rgb(245,245,245))" )
+column(band=detail id=4 alignment="1" tabsequence=32766 border="0" color="33554432" x="2231" y="4" height="76" width="169" format="[general]"  name=descripcion_3 edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes crosstab.repeat=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="16777215~tif(mod(getRow(),2)>0,rgb( 255, 255, 255),rgb(245,245,245))" )
+column(band=detail id=5 alignment="1" tabsequence=32766 border="0" color="33554432" x="2409" y="4" height="76" width="169" format="[general]"  name=descripcion_4 edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes crosstab.repeat=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="16777215~tif(mod(getRow(),2)>0,rgb( 255, 255, 255),rgb(245,245,245))" )
+column(band=detail id=6 alignment="1" tabsequence=32766 border="0" color="33554432" x="2587" y="4" height="76" width="169" format="[general]"  name=descripcion_5 edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes crosstab.repeat=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="16777215~tif(mod(getRow(),2)>0,rgb( 255, 255, 255),rgb(245,245,245))" )
+column(band=detail id=7 alignment="1" tabsequence=32766 border="0" color="33554432" x="2766" y="4" height="76" width="169" format="[general]"  name=descripcion_6 edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes crosstab.repeat=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="16777215~tif(mod(getRow(),2)>0,rgb( 255, 255, 255),rgb(245,245,245))" )
+column(band=detail id=8 alignment="1" tabsequence=32766 border="0" color="33554432" x="2944" y="4" height="76" width="169" format="[general]"  name=descripcion_7 edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes crosstab.repeat=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="16777215~tif(mod(getRow(),2)>0,rgb( 255, 255, 255),rgb(245,245,245))" )
+column(band=detail id=9 alignment="1" tabsequence=32766 border="0" color="33554432" x="3122" y="4" height="76" width="169" format="[general]"  name=descripcion_8 edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes crosstab.repeat=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="16777215~tif(mod(getRow(),2)>0,rgb( 255, 255, 255),rgb(245,245,245))" )
+column(band=detail id=10 alignment="1" tabsequence=32766 border="0" color="33554432" x="3301" y="4" height="76" width="169" format="[general]"  name=descripcion_9 edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes crosstab.repeat=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="16777215~tif(mod(getRow(),2)>0,rgb( 255, 255, 255),rgb(245,245,245))" )
+column(band=detail id=11 alignment="1" tabsequence=32766 border="0" color="33554432" x="3479" y="4" height="76" width="169" format="[general]"  name=descripcion_10 edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes crosstab.repeat=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="16777215~tif(mod(getRow(),2)>0,rgb( 255, 255, 255),rgb(245,245,245))" )
+column(band=detail id=12 alignment="1" tabsequence=32766 border="0" color="33554432" x="3657" y="4" height="76" width="169" format="[general]"  name=descripcion_11 edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes crosstab.repeat=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="16777215~tif(mod(getRow(),2)>0,rgb( 255, 255, 255),rgb(245,245,245))" )
+column(band=detail id=13 alignment="1" tabsequence=32766 border="0" color="33554432" x="3835" y="4" height="76" width="169" format="[general]"  name=descripcion_12 edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes crosstab.repeat=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="16777215~tif(mod(getRow(),2)>0,rgb( 255, 255, 255),rgb(245,245,245))" )
+column(band=detail id=14 alignment="1" tabsequence=32766 border="0" color="33554432" x="4014" y="4" height="76" width="169" format="[general]"  name=descripcion_13 edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes crosstab.repeat=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="16777215~tif(mod(getRow(),2)>0,rgb( 255, 255, 255),rgb(245,245,245))" )
+column(band=detail id=15 alignment="1" tabsequence=32766 border="0" color="33554432" x="4192" y="4" height="76" width="169" format="[general]"  name=descripcion_14 edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes crosstab.repeat=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="16777215~tif(mod(getRow(),2)>0,rgb( 255, 255, 255),rgb(245,245,245))" )
+compute(band=detail alignment="1" expression="crosstabsum(1)"border="0" color="33554432" x="4370" y="4" height="76" width="229" format="[general]"  name=grand_count_descripcion  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="16777215~tif(mod(getRow(),2)>0,rgb( 255, 255, 255),rgb(245,245,245))" )
+compute(band=summary alignment="1" expression="~"Total    ~""border="0" color="0" x="9" y="88" height="76" width="1856" format="[general]"  name=compute_1  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=summary alignment="1" expression="sum(descripcion_1 for all )"border="0" color="33554432" x="1874" y="88" height="76" width="169" format="[general]"  name=compute_2  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=summary alignment="1" expression="sum(descripcion_2 for all )"border="0" color="33554432" x="2053" y="88" height="76" width="169" format="[general]"  name=compute_3  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=summary alignment="1" expression="sum(descripcion_3 for all )"border="0" color="33554432" x="2231" y="88" height="76" width="169" format="[general]"  name=compute_4  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=summary alignment="1" expression="sum(descripcion_4 for all )"border="0" color="33554432" x="2409" y="88" height="76" width="169" format="[general]"  name=compute_5  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=summary alignment="1" expression="sum(descripcion_5 for all )"border="0" color="33554432" x="2587" y="88" height="76" width="169" format="[general]"  name=compute_6  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=summary alignment="1" expression="sum(descripcion_6 for all )"border="0" color="33554432" x="2766" y="88" height="76" width="169" format="[general]"  name=compute_7  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=foreground alignment="1" text="Total Horas uso por espacio" border="0" color="0" x="1472" y="328" height="72" width="937"  name=t_4  slideup=allabove  font.face="Arial" font.height="-11" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=foreground alignment="2" text="del" border="0" color="0" x="2418" y="328" height="72" width="114"  name=t_3  slideup=allabove  font.face="Arial" font.height="-11" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=foreground alignment="2" text="" border="0" color="0" x="2542" y="328" height="72" width="416"  name=t_fecha_ini  slideup=allabove  font.face="Arial" font.height="-11" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=foreground alignment="2" text="al" border="0" color="0" x="2967" y="328" height="72" width="64"  name=t_5  slideup=allabove  font.face="Arial" font.height="-11" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=foreground alignment="2" text="" border="0" color="0" x="3040" y="328" height="72" width="411"  name=t_fecha_fin  slideup=allabove  font.face="Arial" font.height="-11" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=summary alignment="1" expression="sum(descripcion_7 for all )"border="0" color="33554432" x="2944" y="88" height="76" width="169" format="[general]"  name=compute_8  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=summary alignment="1" expression="sum(descripcion_8 for all )"border="0" color="33554432" x="3122" y="88" height="76" width="169" format="[general]"  name=compute_9  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=summary alignment="1" expression="sum(descripcion_9 for all )"border="0" color="33554432" x="3301" y="88" height="76" width="169" format="[general]"  name=compute_10  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=summary alignment="1" expression="sum(descripcion_10 for all )"border="0" color="33554432" x="3479" y="88" height="76" width="169" format="[general]"  name=compute_11  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=summary alignment="1" expression="sum(descripcion_11 for all )"border="0" color="33554432" x="3657" y="88" height="76" width="169" format="[general]"  name=compute_12  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=summary alignment="1" expression="sum(descripcion_12 for all )"border="0" color="33554432" x="3835" y="88" height="76" width="169" format="[general]"  name=compute_13  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=summary alignment="1" expression="sum(descripcion_13 for all )"border="0" color="33554432" x="4014" y="88" height="76" width="169" format="[general]"  name=compute_14  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=summary alignment="1" expression="sum(descripcion_14 for all )"border="0" color="33554432" x="4192" y="88" height="76" width="169" format="[general]"  name=compute_15  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=summary alignment="1" expression="sum(grand_count_descripcion for all )"border="0" color="33554432" x="4370" y="88" height="76" width="229" format="[general]"  name=compute_16  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+ crosstab(band = foreground  crosstabonly = yes 
+ columns = "horas" rows = "descripcion" values = "count(descripcion for crosstab)" sourcenames = "descripcion, desc_estatus_sol, id_estatus_sol, folio, horas")htmltable(border="0" cellpadding="1" cellspacing="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

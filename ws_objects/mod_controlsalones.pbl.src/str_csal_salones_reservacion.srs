@@ -1,0 +1,37 @@
+﻿$PBExportHeader$str_csal_salones_reservacion.srs
+global type str_csal_salones_reservacion from structure
+	integer		num_asignacion
+	string		salon
+	string		materia
+	string		profesor
+	string		dia
+	integer		hora_inicio
+	integer		hora_final
+	date		fecha_inicio
+	date		fecha_final
+	date		fecha_movimiento
+	string		tipo_reservacion
+	string		grupo
+	integer		estatus_salon
+	long		cve_profesor
+	long		cve_materia
+	integer		cve_dia
+	string		observacion
+	integer		estatus_reservacion
+	integer		bloqueado
+	string		observaciones
+	integer		temporal
+	integer		lapso_completo
+	string		lapso
+	integer		inscritos
+	integer		cupo_real
+	string		horario
+	string		salon_anterior
+	integer		periodo
+	integer		anio
+	integer		id_solicitud
+	integer		id_lapso_solicitud
+	integer		permanente
+	integer		indistinto
+end type
+

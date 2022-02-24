@@ -1,0 +1,36 @@
+﻿$PBExportHeader$d_gen_consulta_sol.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=72 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=84 color="536870912" )
+table(column=(type=datetime updatewhereclause=yes name=fecha_hoy dbname="compute_0001" )
+ column=(type=datetime updatewhereclause=yes name=fecha_inicio dbname="spre_solicitud.fecha_inicio" )
+ column=(type=datetime updatewhereclause=yes name=fecha_fin dbname="spre_solicitud.fecha_fin" )
+ column=(type=long updatewhereclause=yes name=status dbname="spre_solicitud.status" )
+ retrieve="  SELECT getdate(),
+			dbo.spre_solicitud.fecha_inicio,   
+         dbo.spre_solicitud.fecha_fin,
+			dbo.spre_solicitud.status  
+    FROM dbo.spre_solicitud  
+	WHERE dbo.spre_solicitud.folio = :llfolio AND
+			dbo.spre_solicitud.cvedepto = :li_cvedepto 
+" arguments=(("llfolio", number),("li_cvedepto", number)) )
+text(band=header alignment="2" text="Fecha Inicio" border="0" color="0" x="5" y="4" height="64" width="603" html.valueishtml="0"  name=fecha_inicio_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Fecha Fin" border="0" color="0" x="613" y="4" height="64" width="603" html.valueishtml="0"  name=fecha_fin_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="5" y="4" height="76" width="603" format="[shortdate] [time]" html.valueishtml="0"  name=fecha_inicio visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="0" x="613" y="4" height="76" width="603" format="[shortdate] [time]" html.valueishtml="0"  name=fecha_fin visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="1234" y="8" height="64" width="512" format="[shortdate] [time]" html.valueishtml="0"  name=fecha_hoy visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="0" x="1765" y="8" height="64" width="270" format="[general]" html.valueishtml="0"  name=status visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

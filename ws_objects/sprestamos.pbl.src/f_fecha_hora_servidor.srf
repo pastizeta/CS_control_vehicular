@@ -1,0 +1,36 @@
+﻿$PBExportHeader$f_fecha_hora_servidor.srf
+global type f_fecha_hora_servidor from function_object
+end type
+
+forward prototypes
+global function datetime f_fecha_hora_servidor ()
+end prototypes
+
+global function datetime f_fecha_hora_servidor ();/* 
+DESCRIPCIÓN:  Obtiene la fecha y hora del servidor
+PARÁMETROS: Ninguno
+REGRESA: La fecha y hora si tiene exito, Nulo en caso contrario
+AUTOR: Juan Campos Sánchez.
+FECHA: 25-Junio-2001
+MODIFICACIÓN: 
+*/ 
+
+
+
+datetime ldtm_fecha_hora
+long		ll_x
+
+SELECT getdate() , max(solicitanteid) 
+	INTO :ldtm_fecha_hora, :ll_x
+FROM spre_prestamo_material
+using gtr_sumuia;
+
+IF gtr_sumuia.sqlcode <> 0 then
+	setnull(ldtm_fecha_hora)
+	Messagebox("Error al obtener la fecha y hora del servidor",gtr_sumuia.sqlerrtext)
+end if
+
+Return ldtm_fecha_hora
+
+end function
+

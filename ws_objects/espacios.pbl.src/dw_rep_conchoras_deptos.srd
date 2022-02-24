@@ -1,0 +1,33 @@
+﻿$PBExportHeader$dw_rep_conchoras_deptos.srd
+release 7;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=892 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=92 color="536870912" )
+table(column=(type=char(250) updatewhereclause=yes name=descripcion dbname="Descripcion" )
+ column=(type=long updatewhereclause=yes name=horas_disponibles dbname="horas_disponibles" )
+ column=(type=long updatewhereclause=yes name=horas_ocupadas dbname="horas_ocupadas" )
+ column=(type=number updatewhereclause=yes name=porcentaje_ocupacion dbname="porcentaje_ocupacion" )
+ )
+bitmap(band=header filename="esclat.gif" x="91" y="48" height="352" width="1129" border="0"  name=p_1 )
+text(band=header alignment="2" text="Concentrado Horas por Departamento" border="0" color="0" x="1211" y="492" height="72" width="1234"  name=t_1  font.face="Arial" font.height="-11" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="del" border="0" color="0" x="2450" y="492" height="72" width="123"  name=t_2  font.face="Arial" font.height="-11" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="al" border="0" color="0" x="3045" y="492" height="72" width="82"  name=t_3  font.face="Arial" font.height="-11" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="" border="0" color="0" x="2583" y="492" height="72" width="453"  name=t_fecha_ini  font.face="Arial" font.height="-11" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="" border="0" color="0" x="3136" y="492" height="72" width="453"  name=t_fecha_fin  font.face="Arial" font.height="-11" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Departamento" border="0" color="0" x="603" y="788" height="60" width="1847"  name=descripcion_t  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Horas
+Disponibles" border="0" color="0" x="2478" y="728" height="120" width="329"  name=horas_disponibles_t  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Porcentaje
+Ocupacion" border="0" color="0" x="3694" y="728" height="120" width="361"  name=porcentaje_ocupacion_t  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Horas
+Ocupadas" border="0" color="0" x="2999" y="728" height="120" width="293"  name=horas_ocupadas_t  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=header x1="599" y1="880" x2="4055" y2="880"  name=l_2 pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+line(band=header x1="599" y1="868" x2="4055" y2="868"  name=l_1 pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+column(band=detail id=1 alignment="0" tabsequence=10 border="0" color="0" x="603" y="4" height="76" width="1847" format="[general]"  name=descripcion edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=20 border="0" color="0" x="2478" y="4" height="76" width="453" format="[general]"  name=horas_disponibles edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=40 border="0" color="0" x="3694" y="4" height="76" width="361" format="[general]"  name=porcentaje_ocupacion edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=30 border="0" color="0" x="2999" y="4" height="76" width="407" format="[general]"  name=horas_ocupadas edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

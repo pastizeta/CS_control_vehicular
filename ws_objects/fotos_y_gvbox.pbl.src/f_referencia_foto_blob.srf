@@ -1,0 +1,34 @@
+﻿$PBExportHeader$f_referencia_foto_blob.srf
+global type f_referencia_foto_blob from function_object
+end type
+
+forward prototypes
+global function integer f_referencia_foto_blob (long al_cuenta, transaction atr_transaccion)
+end prototypes
+
+global function integer f_referencia_foto_blob (long al_cuenta, transaction atr_transaccion);//*******************		FUNCION: f_referencia_foto_blob	***************************************
+// Descripcion: Crea ana transaccion con credenciales_bd y verifica la existencia
+// del registro asociado a al_cuenta
+//	Entrada: al_cuenta(N° de cuenta del alumno)
+//	Salida:	Blob con la foto del alumno en formato JPG o 
+//				NULL si no encuentra el registro o no logra conectarse a la base de datos
+//	Version 1.0,	20051999, 	Angel Jácome Sánchez
+//********************************		REVISIONES		****************************************
+//	Rev x.x(developer/date<ddmmyyyy>) :
+//********************************************************************************************
+
+long ll_cuenta,ll_sqlcode
+SELECT fotos_alumnos.cuenta INTO :ll_cuenta 
+FROM fotos_alumnos
+WHERE cuenta = :al_cuenta
+USING atr_transaccion;	
+ll_sqlcode = atr_transaccion.SQLCode
+IF ll_sqlcode = -1 THEN
+	MessageBox('Error en consulta de datos','N° Cuenta: '+string(al_cuenta)+'~n'+&
+	string(atr_transaccion.SQLDBCode)+': '+atr_transaccion.SQLErrText,StopSign!)
+	if atr_transaccion.SQLErrtext='Select returned more than one row' then Return -2
+END IF
+Return (ll_sqlcode)
+
+end function
+

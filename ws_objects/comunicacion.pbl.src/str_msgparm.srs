@@ -1,0 +1,6 @@
+﻿$PBExportHeader$str_msgparm.srs
+$PBExportComments$Estructura usada para el paso de parámetros entre ventanas.
+global type str_msgparm from structure
+	any		data[]
+end type
+

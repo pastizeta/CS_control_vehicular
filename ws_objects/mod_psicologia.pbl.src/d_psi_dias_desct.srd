@@ -1,0 +1,33 @@
+﻿$PBExportHeader$d_psi_dias_desct.srd
+$PBExportComments$Muestra los dias de descanso obligatorio que se encuentran dentro del rango seleccionado
+release 7;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=72 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=84 color="536870912" )
+table(column=(type=long updatewhereclause=yes name=periodo dbname="v_sce_calendario.periodo" )
+ column=(type=long updatewhereclause=yes name=anio dbname="v_sce_calendario.anio" )
+ column=(type=long updatewhereclause=yes name=cve_evento dbname="v_sce_calendario.cve_evento" )
+ column=(type=datetime updatewhereclause=yes name=fecha dbname="v_sce_calendario.fecha" )
+ retrieve="  SELECT dbo.v_sce_calendario.periodo,   
+         dbo.v_sce_calendario.anio,   
+         dbo.v_sce_calendario.cve_evento,   
+         dbo.v_sce_calendario.fecha  
+    FROM dbo.v_sce_calendario  
+   WHERE ( dbo.v_sce_calendario.anio = :arganio AND  
+         dbo.v_sce_calendario.periodo = :argperiodo ) AND  
+			( dbo.v_sce_calendario.fecha >= getdate()) AND
+			( dbo.v_sce_calendario.cve_evento =3 )
+            
+" arguments=(("arganio", number),("argperiodo", number)) )
+text(band=header alignment="2" text="Periodo" border="0" color="0" x="5" y="4" height="64" width="329"  name=periodo_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Anio" border="0" color="0" x="338" y="4" height="64" width="329"  name=anio_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cve Evento" border="0" color="0" x="672" y="4" height="64" width="329"  name=cve_evento_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Fecha" border="0" color="0" x="1006" y="4" height="64" width="603"  name=fecha_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="1" tabsequence=32766 border="0" color="0" x="5" y="4" height="76" width="329" format="[general]"  name=periodo edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="1" tabsequence=32766 border="0" color="0" x="338" y="4" height="76" width="329" format="[general]"  name=anio edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="1" tabsequence=32766 border="0" color="0" x="672" y="4" height="76" width="329" format="[general]"  name=cve_evento edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="0" x="1006" y="4" height="76" width="603" format="[shortdate] [time]"  name=fecha edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

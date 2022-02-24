@@ -1,0 +1,26 @@
+﻿$PBExportHeader$f_update_valor_lapso.srf
+global type f_update_valor_lapso from function_object
+end type
+
+forward prototypes
+global function integer f_update_valor_lapso (integer p_num_asignacion, integer p_lapso, date p_fecha_inicio, date p_fecha_final)
+end prototypes
+
+global function integer f_update_valor_lapso (integer p_num_asignacion, integer p_lapso, date p_fecha_inicio, date p_fecha_final);	update spre_reserva_salon_temporal
+	set lapso_completo=:p_lapso,
+	fecha_inicio=:p_fecha_inicio,
+	fecha_final=:p_fecha_final
+	
+	where num_asignacion=:p_num_asignacion
+	using gtr_sumuia;
+	
+
+if gtr_sumuia.sqlcode<>0 then
+	messagebox("Error al actualizar "+string(gtr_sumuia.sqlcode), gtr_sumuia.SQLErrText)	
+	return 0
+end if		
+
+return 1
+							
+end function
+

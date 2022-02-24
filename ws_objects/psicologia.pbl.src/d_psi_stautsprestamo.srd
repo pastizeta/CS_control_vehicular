@@ -1,0 +1,42 @@
+﻿$PBExportHeader$d_psi_stautsprestamo.srd
+release 7;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=72 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=84 color="536870912" )
+table(column=(type=long updatewhereclause=yes key=yes name=cvedepto dbname="spre_inventario.cvedepto" )
+ column=(type=long updatewhereclause=yes key=yes name=cvearea dbname="spre_inventario.cvearea" )
+ column=(type=char(15) updatewhereclause=yes key=yes name=cvematerial dbname="spre_inventario.cvematerial" )
+ column=(type=long updatewhereclause=yes key=yes name=cvegrupo dbname="spre_inventario.cvegrupo" )
+ column=(type=char(20) updatewhereclause=yes key=yes name=num_serie dbname="spre_inventario.num_serie" )
+ column=(type=long updatewhereclause=yes name=stauts dbname="spre_inventario.stauts" )
+ column=(type=long updatewhereclause=yes name=tiempo_prestamo dbname="spre_inventario.tiempo_prestamo" )
+ retrieve="SELECT dbo.spre_inventario.cvedepto, 
+			dbo.spre_inventario.cvearea, 
+			dbo.spre_inventario.cvematerial,
+			dbo.spre_inventario.cvegrupo,
+			dbo.spre_inventario.num_serie,
+			dbo.spre_inventario.stauts,
+			dbo.spre_inventario.tiempo_prestamo
+FROM 		dbo.spre_inventario
+WHERE ( dbo.spre_inventario.cvedepto = :gi_depto ) AND  
+		( dbo.spre_inventario.cvearea = :gi_area ) AND  
+		( dbo.spre_inventario.cvematerial = :lsCveMaterial ) AND  
+		( dbo.spre_inventario.cvegrupo = :grupo ) AND
+		( dbo.spre_inventario.num_serie = :lsNoSerie ) " update="dbo.spre_inventario" updatewhere=0 updatekeyinplace=no arguments=(("gi_depto", number),("gi_area", number),("lsCveMaterial", string),("grupo", number),("lsNoSerie", string)) )
+text(band=header alignment="2" text="Cvedepto" border="0" color="0" x="5" y="4" height="64" width="329"  name=cvedepto_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cvearea" border="0" color="0" x="338" y="4" height="64" width="329"  name=cvearea_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Cvematerial" border="0" color="0" x="672" y="4" height="64" width="439"  name=cvematerial_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Num Serie" border="0" color="0" x="1115" y="4" height="64" width="576"  name=num_serie_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Stauts" border="0" color="0" x="1696" y="4" height="64" width="329"  name=stauts_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Tiempo Prestamo" border="0" color="0" x="2034" y="4" height="64" width="462"  name=tiempo_prestamo_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="2" tabsequence=32766 border="0" color="0" x="5" y="4" height="76" width="329" format="[general]"  name=cvedepto edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="2" tabsequence=32766 border="0" color="0" x="338" y="4" height="76" width="329" format="[general]"  name=cvearea edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="2" tabsequence=32766 border="0" color="0" x="672" y="4" height="76" width="439" format="[general]"  name=cvematerial edit.limit=15 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="2" tabsequence=32766 border="0" color="0" x="1115" y="4" height="76" width="576" format="[general]"  name=num_serie edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="2" tabsequence=32766 border="0" color="0" x="1696" y="4" height="76" width="329" format="[general]"  name=stauts edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="2" tabsequence=32766 border="0" color="0" x="2034" y="4" height="76" width="457" format="[general]"  name=tiempo_prestamo edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=0 border="0" color="0" x="2501" y="8" height="64" width="270"  name=cvegrupo  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

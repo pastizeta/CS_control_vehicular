@@ -1,0 +1,20 @@
+﻿$PBExportHeader$str_pres_control.srs
+global type str_pres_control from structure
+	long		folio
+	long		folio_presol
+	integer		cvearea
+	long		solicitanteid
+	integer		tipo_prestamo		descriptor "comment" = "1 Alumno, 2 Intercambio, 3 Profesor, 4 ExAlumno, 5 DEC"
+	long		cvegrupo
+	string		cvematerial
+	string		num_serie
+	integer		hora_inicio
+	integer		tipo_espacio		descriptor "comment" = "0 Almacen, 1 Foro, 2 Laboratorio"
+	integer		tipo_carga		descriptor "comment" = "0 Limpio/Nueva, 1 Presolicitud/Nueva, 2 Solicitud/Editar"
+	integer		inventario		descriptor "comment" = "0 Todo, 1 Grupo/Material,  2 Sin Inventario "
+	datetime		fecha_inicio
+	string		nom_area
+	datetime		fecha_final
+	integer		cvedepto
+end type
+

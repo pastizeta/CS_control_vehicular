@@ -1,0 +1,22 @@
+﻿$PBExportHeader$f_strip.srf
+global type f_strip from function_object
+end type
+
+forward prototypes
+global function string f_strip (string a_szarg)
+end prototypes
+
+global function string f_strip (string a_szarg);Integer nLength, nPos
+
+nLength = Len( a_szArg)
+
+For nPos = 1 To nLength
+	Choose Case Mid( a_szArg, nPos, 1)
+		Case "~t", "~r", "~n", '"'
+			a_szArg = Replace( a_szArg, nPos, 1, " ")
+	End Choose
+Next 
+
+Return Trim( a_szArg)
+end function
+

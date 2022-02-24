@@ -1,0 +1,54 @@
+﻿$PBExportHeader$d_com_matsol.srd
+$PBExportComments$Material solicitado por el alumno o profesor, para una solicitud determinada
+release 7;
+datawindow(units=0 timer_interval=0 color=29534863 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=84 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=96 color="536870912" )
+table(column=(type=long update=yes updatewhereclause=yes key=yes name=cvedepto dbname="spre_sol_materiales.cvedepto" )
+ column=(type=long update=yes updatewhereclause=yes key=yes name=folio dbname="spre_sol_materiales.folio" )
+ column=(type=long update=yes updatewhereclause=yes key=yes name=consecutivo dbname="spre_sol_materiales.consecutivo" )
+ column=(type=long update=yes updatewhereclause=yes name=cvearea dbname="spre_sol_materiales.cvearea" )
+ column=(type=char(15) update=yes updatewhereclause=yes name=cvematerial dbname="spre_sol_materiales.cvematerial" )
+ column=(type=datetime update=yes updatewhereclause=yes name=fecha_inicio dbname="spre_sol_materiales.fecha_inicio" )
+ column=(type=datetime update=yes updatewhereclause=yes name=fecha_final1_1 dbname="spre_sol_materiales.fecha_final" )
+ column=(type=long update=yes updatewhereclause=yes name=status dbname="spre_sol_materiales.status" values="Prestamo Activo	0/Cancelado	2/Reservado	5/	/	/" )
+ column=(type=long update=yes updatewhereclause=yes name=cvegrupo dbname="spre_sol_materiales.cvegrupo" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=num_serie dbname="spre_sol_materiales.num_serie" )
+ retrieve="  SELECT dbo.spre_sol_materiales.cvedepto,   
+          dbo.spre_sol_materiales.folio,  
+         dbo.spre_sol_materiales.consecutivo,   
+         dbo.spre_sol_materiales.cvearea,   
+         dbo.spre_sol_materiales.cvematerial,   
+         dbo.spre_sol_materiales.fecha_inicio,   
+         dbo.spre_sol_materiales.fecha_final,   
+         dbo.spre_sol_materiales.status,   
+           dbo.spre_sol_materiales.cvegrupo, 
+         dbo.spre_sol_materiales.num_serie  
+    FROM dbo.spre_sol_materiales  
+   WHERE (dbo.spre_sol_materiales.cvedepto = :argdepto) AND  
+         (dbo.spre_sol_materiales.cvearea = :argarea) AND  
+         (dbo.spre_sol_materiales.cvegrupo = :arggrupo) AND  
+         (dbo.spre_sol_materiales.folio = :argfolio)    
+" update="dbo.spre_sol_materiales" updatewhere=0 updatekeyinplace=yes arguments=(("argdepto", number),("argarea", number),("arggrupo", number),("argfolio", number)) )
+rectangle(band=header x="5" y="0" height="84" width="457"  name=r_2 brush.hatch="6" brush.color="16777215" pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="0" )
+text(band=header alignment="2" text="Num Serie" border="0" color="0" x="14" y="8" height="68" width="439"  name=num_serie_t  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+rectangle(band=header x="462" y="0" height="84" width="773"  name=r_1 brush.hatch="6" brush.color="16777215" pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="0" )
+text(band=header alignment="2" text="Status" border="0" color="0" x="471" y="8" height="68" width="754"  name=status_t  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+rectangle(band=header x="1234" y="0" height="84" width="983"  name=r_3 brush.hatch="6" brush.color="16777215" pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="0" )
+text(band=header alignment="2" text="Fecha y Hora de Apartado" border="0" color="0" x="1243" y="8" height="68" width="965"  name=fecha_inicio_t  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+rectangle(band=header x="1920" y="140" height="84" width="114"  name=r_4 brush.hatch="6" brush.color="16777215" pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+column(band=detail id=7 alignment="0" tabsequence=32766 border="5" color="0" x="1504" y="128" height="60" width="206" format="[shortdate]"  name=fecha_final visible="1~t0" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=7 alignment="0" tabsequence=32766 border="5" color="0" x="1289" y="124" height="60" width="178" format="[shortdate]"  name=fecha_final1 visible="1~t0" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+line(band=detail x1="23" y1="84" x2="2217" y2="84"  name=l_1 pen.style="0" pen.width="5" pen.color="255"  background.mode="2" background.color="16777215" )
+column(band=detail id=10 alignment="2" tabsequence=10 border="5" color="0" x="18" y="4" height="60" width="439" format="[general]"  name=num_serie editmask.mask="XXXXXXXXXXXXXXXXXXXX" editmask.focusrectangle=no  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=8 alignment="0" tabsequence=20 border="5" color="0" x="466" y="4" height="60" width="763" format="[general]"  name=status ddlb.limit=0 ddlb.allowedit=no ddlb.case=any  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="5" color="0" x="1239" y="4" height="60" width="439" format="dd/mm/yyyy"  name=fecha_inicio edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="5" color="0" x="1691" y="4" height="60" width="206" format="hh:mm"  name=fecha_inicio_1 edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=7 alignment="0" tabsequence=32766 border="5" color="0" x="2030" y="4" height="60" width="178" format="hh:mm"  name=fecha_final1_1 edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+text(band=detail alignment="2" text="A" border="0" color="0" x="1915" y="4" height="68" width="96"  name=t_1  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="2249" y="12" height="60" width="233" format="[general]"  name=folio visible="1~t0" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=9 alignment="0" tabsequence=32766 border="0" color="0" x="2514" y="12" height="60" width="229" format="[general]"  name=cvegrupo visible="1~t0" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

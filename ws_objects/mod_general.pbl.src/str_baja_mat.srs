@@ -1,0 +1,9 @@
+﻿$PBExportHeader$str_baja_mat.srs
+$PBExportComments$Permite llamar a la pantalla destalle baja material
+global type str_baja_mat from structure
+	string		lscvemat
+	string		lsnoserie
+	string		lsdesmat
+	integer		licvegrupo
+end type
+

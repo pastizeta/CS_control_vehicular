@@ -1,0 +1,30 @@
+﻿$PBExportHeader$f_select_texto_salones_anteriores.srf
+global type f_select_texto_salones_anteriores from function_object
+end type
+
+forward prototypes
+global function string f_select_texto_salones_anteriores (integer pi_dia, integer pi_hora_inicio, long pl_materia, string ps_grupo, integer pi_periodo, integer pi_anio)
+end prototypes
+
+global function string f_select_texto_salones_anteriores (integer pi_dia, integer pi_hora_inicio, long pl_materia, string ps_grupo, integer pi_periodo, integer pi_anio);integer li_i, li_row
+string ls_salones=''
+
+datastore ids_salones_anteriores
+
+ids_salones_anteriores = create datastore 
+ids_salones_anteriores.dataobject ='d_csal_salones_anteriores'
+ids_salones_anteriores.settransobject(gtr_sumuia)
+ids_salones_anteriores.retrieve(pi_periodo,pi_anio,pi_dia, pi_hora_inicio,pl_materia,ps_grupo)
+	
+li_row=ids_salones_anteriores.rowcount()
+
+for li_i=1 to li_row
+	
+	if ls_salones<>'' then ls_salones=ls_salones+', '
+	ls_salones=ls_salones+ids_salones_anteriores.GetItemString(li_i,"cve_salon")
+
+next
+
+return (ls_salones)
+end function
+

@@ -1,0 +1,78 @@
+﻿$PBExportHeader$dw_rep_ctestatus.srd
+$PBExportComments$Cross Tab estatus
+release 7;
+datawindow(units=0 timer_interval=0 color=1090519039 processing=4 HTMLDW=no print.documentname="" print.orientation = 1 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no grid.lines=1 grid.columnmove=no selected.mouse=no )
+header[1](height=488 color="536870912" )
+header[2](height=180 color="536870912" )
+summary(height=208 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=88 color="536870912" )
+table(column=(type=char(20) updatewhereclause=yes name=descripcion dbname="descripcion" )
+ column=(type=number updatewhereclause=yes name=desc_estatus_sol dbname="desc_estatus_sol" )
+ column=(type=number updatewhereclause=yes name=desc_estatus_sol_1 dbname="desc_estatus_sol_1" )
+ column=(type=number updatewhereclause=yes name=desc_estatus_sol_2 dbname="desc_estatus_sol_2" )
+ column=(type=number updatewhereclause=yes name=desc_estatus_sol_3 dbname="desc_estatus_sol_3" )
+ column=(type=number updatewhereclause=yes name=desc_estatus_sol_4 dbname="desc_estatus_sol_4" )
+ column=(type=number updatewhereclause=yes name=desc_estatus_sol_5 dbname="desc_estatus_sol_5" )
+ column=(type=number updatewhereclause=yes name=desc_estatus_sol_6 dbname="desc_estatus_sol_6" )
+ crosstabdata="Cancelado por el solicitante	Cancelado por no confirmar	Confirmado	No disponible	No se presento	Reservado	Solicitado" retrieve="  SELECT  spre_materiales.descripcion,   
+         spre_estatus_sol.desc_estatus_sol,   
+         spre_estatus_sol.id_estatus_sol  
+    FROM	spre_estatus_sol,   
+			spre_materiales,   
+			spre_sol_materiales,   
+			spre_reserva_espacios,   
+			spre_solicitud  
+   WHERE ( spre_solicitud.folio = spre_reserva_espacios.folio ) and  
+         ( spre_solicitud.cvedepto = spre_reserva_espacios.cvedepto ) and
+         ( spre_solicitud.cvedepto = spre_reserva_espacios.cvedepto ) and  
+         ( spre_sol_materiales.cvedepto = spre_reserva_espacios.cvedepto ) and   
+         ( spre_sol_materiales.cvearea = spre_materiales.cvearea ) and   
+         ( spre_sol_materiales.cvegrupo = spre_materiales.cvegrupo ) and 
+         ( spre_sol_materiales.cvematerial = spre_materiales.cvematerial ) and 
+         ( spre_solicitud.folio = spre_sol_materiales.folio ) and  
+			( spre_solicitud.status = spre_estatus_sol.id_estatus_sol ) and 
+         ( ( spre_materiales.cvedepto = 1 ) )   
+"  sort="descripcion A " )
+bitmap(band=header[1] filename="esclat.gif" x="91" y="48" height="352" width="1015" border="0"  name=p_1 )
+text(band=header[2] alignment="2" text="Descripcion Aula/Espacio" border="0" color="0" x="9" y="72" height="64" width="1614"  name=descripcion_t  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header[2] alignment="2" text="Cancelado
+por el solicitante" border="0" color="0" x="1632" y="48" height="88" width="421"  name=desc_estatus_sol_t  font.face="Arial" font.height="-7" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header[2] alignment="2" text="Cancelado
+por no confirmar" border="0" color="0" x="2062" y="48" height="88" width="411"  name=desc_estatus_sol_1_t  font.face="Arial" font.height="-7" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header[2] alignment="2" text="Confirmado" border="0" color="0" x="2482" y="92" height="44" width="256"  name=desc_estatus_sol_2_t  font.face="Arial" font.height="-7" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header[2] alignment="2" text="No disponible" border="0" color="0" x="2747" y="92" height="44" width="297"  name=desc_estatus_sol_3_t  font.face="Arial" font.height="-7" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header[2] alignment="2" text="No se presento" border="0" color="0" x="3054" y="92" height="44" width="425"  name=desc_estatus_sol_4_t  font.face="Arial" font.height="-7" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header[2] alignment="2" text="Reservado" border="0" color="0" x="3488" y="92" height="44" width="320"  name=desc_estatus_sol_5_t  font.face="Arial" font.height="-7" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header[2] alignment="2" text="Solicitado" border="0" color="0" x="3817" y="92" height="44" width="288"  name=desc_estatus_sol_6_t  font.face="Arial" font.height="-7" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header[2] alignment="2" text="Total " border="0" color="0" x="4114" y="92" height="44" width="357"  name=grand_count_desc_estatus_sol_t  font.face="Arial" font.height="-7" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+line(band=header[2] x1="18" y1="24" x2="4466" y2="24"  name=l_1 pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+line(band=header[2] x1="18" y1="28" x2="4466" y2="28"  name=l_2 pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+line(band=header[2] x1="18" y1="164" x2="4466" y2="164"  name=l_3 pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+line(band=header[2] x1="14" y1="168" x2="4462" y2="168"  name=l_4 pen.style="0" pen.width="5" pen.color="0"  background.mode="2" background.color="16777215" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="33554432" x="9" y="4" height="76" width="1614" format="[general]"  name=descripcion edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="16777215~tif(mod(getRow(),2)>0,rgb( 255, 255, 255),rgb(245,245,245))" )
+column(band=detail id=2 alignment="2" tabsequence=32766 border="0" color="33554432" x="1632" y="4" height="76" width="421" format="#,##0"  name=desc_estatus_sol edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes crosstab.repeat=yes  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="16777215~tif(mod(getRow(),2)>0,rgb( 255, 255, 255),rgb(245,245,245))" )
+column(band=detail id=3 alignment="2" tabsequence=32766 border="0" color="33554432" x="2062" y="4" height="76" width="411" format="#,##0"  name=desc_estatus_sol_1 edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes crosstab.repeat=yes  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="16777215~tif(mod(getRow(),2)>0,rgb( 255, 255, 255),rgb(245,245,245))" )
+column(band=detail id=4 alignment="2" tabsequence=32766 border="0" color="33554432" x="2482" y="4" height="76" width="256" format="#,##0"  name=desc_estatus_sol_2 edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes crosstab.repeat=yes  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="16777215~tif(mod(getRow(),2)>0,rgb( 255, 255, 255),rgb(245,245,245))" )
+column(band=detail id=5 alignment="2" tabsequence=32766 border="0" color="33554432" x="2747" y="4" height="76" width="297" format="#,##0"  name=desc_estatus_sol_3 edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes crosstab.repeat=yes  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="16777215~tif(mod(getRow(),2)>0,rgb( 255, 255, 255),rgb(245,245,245))" )
+column(band=detail id=6 alignment="2" tabsequence=32766 border="0" color="33554432" x="3054" y="4" height="76" width="425" format="#,##0"  name=desc_estatus_sol_4 edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes crosstab.repeat=yes  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="16777215~tif(mod(getRow(),2)>0,rgb( 255, 255, 255),rgb(245,245,245))" )
+column(band=detail id=7 alignment="2" tabsequence=32766 border="0" color="33554432" x="3488" y="4" height="76" width="320" format="#,##0"  name=desc_estatus_sol_5 edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes crosstab.repeat=yes  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="16777215~tif(mod(getRow(),2)>0,rgb( 255, 255, 255),rgb(245,245,245))" )
+column(band=detail id=8 alignment="2" tabsequence=32766 border="0" color="33554432" x="3817" y="4" height="76" width="288" format="#,##0"  name=desc_estatus_sol_6 edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autohscroll=yes crosstab.repeat=yes  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="16777215~tif(mod(getRow(),2)>0,rgb( 255, 255, 255),rgb(245,245,245))" )
+compute(band=detail alignment="2" expression="crosstabsum(1)"border="0" color="33554432" x="4114" y="4" height="76" width="357" format="#,##0"  name=grand_count_desc_estatus_sol  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="16777215~tif(mod(getRow(),2)>0,rgb( 255, 255, 255),rgb(245,245,245))" )
+compute(band=summary alignment="1" expression="~"Total     ~""border="0" color="0" x="9" y="124" height="76" width="1614" format="[general]"  name=compute_1  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=summary alignment="2" expression="sum(desc_estatus_sol for all )"border="0" color="33554432" x="1632" y="128" height="76" width="421" format="#,##0"  name=compute_2  font.face="Arial" font.height="-7" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="2" expression="sum(desc_estatus_sol_1 for all )"border="0" color="33554432" x="2062" y="128" height="76" width="411" format="#,##0"  name=compute_3  font.face="Arial" font.height="-7" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="2" expression="sum(desc_estatus_sol_2 for all )"border="0" color="33554432" x="2482" y="128" height="76" width="256" format="#,##0"  name=compute_4  font.face="Arial" font.height="-7" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="2" expression="sum(desc_estatus_sol_3 for all )"border="0" color="33554432" x="2747" y="128" height="76" width="297" format="#,##0"  name=compute_5  font.face="Arial" font.height="-7" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="2" expression="sum(desc_estatus_sol_4 for all )"border="0" color="33554432" x="3054" y="128" height="76" width="425" format="#,##0"  name=compute_6  font.face="Arial" font.height="-7" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="2" expression="sum(desc_estatus_sol_5 for all )"border="0" color="33554432" x="3488" y="128" height="76" width="320" format="#,##0"  name=compute_7  font.face="Arial" font.height="-7" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="2" expression="sum(desc_estatus_sol_6 for all )"border="0" color="33554432" x="3817" y="128" height="76" width="288" format="#,##0"  name=compute_8  font.face="Arial" font.height="-7" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="2" expression="sum(grand_count_desc_estatus_sol for all )"border="0" color="33554432" x="4114" y="128" height="76" width="357" format="#,##0"  name=compute_9  font.face="Arial" font.height="-7" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=foreground alignment="1" text="Total solicitudes por estatus" border="0" color="0" x="1390" y="332" height="72" width="960"  name=eventossemana  slideup=allabove  font.face="Arial" font.height="-11" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=foreground alignment="2" text="del" border="0" color="0" x="2368" y="332" height="72" width="119"  name=t_3  slideup=allabove  font.face="Arial" font.height="-11" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=foreground alignment="2" text="" border="0" color="0" x="2496" y="332" height="72" width="425"  name=t_fecha_ini  slideup=allabove  font.face="Arial" font.height="-11" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=foreground alignment="2" text="al" border="0" color="0" x="2930" y="332" height="72" width="64"  name=t_1  slideup=allabove  font.face="Arial" font.height="-11" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=foreground alignment="2" text="" border="0" color="0" x="3003" y="332" height="72" width="421"  name=t_fecha_fin  slideup=allabove  font.face="Arial" font.height="-11" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+ crosstab(band = foreground  crosstabonly = yes 
+ columns = "desc_estatus_sol" rows = "descripcion" values = "count(desc_estatus_sol for crosstab)" sourcenames = "descripcion, desc_estatus_sol, id_estatus_sol")htmltable(border="0" cellpadding="1" cellspacing="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

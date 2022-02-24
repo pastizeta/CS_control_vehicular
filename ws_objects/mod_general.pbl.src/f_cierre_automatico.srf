@@ -1,0 +1,99 @@
+﻿$PBExportHeader$f_cierre_automatico.srf
+global type f_cierre_automatico from function_object
+end type
+
+forward prototypes
+global subroutine f_cierre_automatico ()
+end prototypes
+
+global subroutine f_cierre_automatico ();//Buscar si tiene material vencido en el departamento y área
+
+datetime ldt_ahorita
+integer li_row, li_i
+long ll_folio, ll_consec
+
+
+ldt_ahorita=datetime(today(),now())
+
+datastore lds_mat_vencidos
+
+lds_mat_vencidos =  create datastore
+
+lds_mat_vencidos.dataobject ='d_gen_mat_vencidos_fechahora'
+lds_mat_vencidos.settransobject(gtr_sumuia)	
+lds_mat_vencidos.Retrieve(gi_depto,gi_area,ldt_ahorita)
+li_row = lds_mat_vencidos.Rowcount()
+
+for li_i=1 to li_row
+	
+	ll_folio=lds_mat_vencidos.GetItemNumber(li_i,'spre_sol_materiales_folio')
+	ll_consec=lds_mat_vencidos.GetItemNumber(li_i,'spre_sol_materiales_consecutivo')
+	
+	//Actualizar el estatus de la solicitud
+	update dbo.spre_solicitud
+	set status=1
+	where cvedepto=:gi_depto
+	and folio=:ll_folio
+	using gtr_sumuia;	
+	
+	if gtr_sumuia.sqlcode<>0 then
+		messagebox("Error al actualizar la solicitud "+string(gtr_sumuia.sqlcode), gtr_sumuia.SQLErrText)
+		rollback using gtr_sumuia;
+		goto salir
+	else
+		commit using gtr_sumuia;
+	end if			
+	
+	//Actualizar el estatus de los materiales
+	update dbo.spre_sol_materiales
+	set status=1,
+	fecha_entrega = getdate()
+	where cvedepto=:gi_depto
+	and folio=:ll_folio
+	and consecutivo=:ll_consec
+	using gtr_sumuia;	
+	
+	if gtr_sumuia.sqlcode<>0 then
+		messagebox("Error al actualizar el material "+string(gtr_sumuia.sqlcode), gtr_sumuia.SQLErrText)
+		rollback using gtr_sumuia;
+		goto salir
+	else
+		commit using gtr_sumuia;
+	end if	
+
+	//Actualizar el estatus de la solicitud
+	update dbo.spre_pre_solicitud
+	set status=3
+	where cvedepto=:gi_depto
+	and folio=:ll_folio
+	using gtr_sumuia;	
+	
+	if gtr_sumuia.sqlcode<>0 then
+		messagebox("Error al actualizar la presolicitud "+string(gtr_sumuia.sqlcode), gtr_sumuia.SQLErrText)
+		rollback using gtr_sumuia;
+		goto salir
+	else
+		commit using gtr_sumuia;
+	end if			
+	
+	//Actualizar el estatus de los materiales
+	update dbo.spre_pre_sol_materiales
+	set status=3
+	where cvedepto=:gi_depto
+	and folio=:ll_folio
+	and consecutivo=:ll_consec
+	using gtr_sumuia;	
+	
+	if gtr_sumuia.sqlcode<>0 then
+		messagebox("Error al actualizar el material de la presolicitud"+string(gtr_sumuia.sqlcode), gtr_sumuia.SQLErrText)
+		rollback using gtr_sumuia;
+		goto salir
+	else
+		commit using gtr_sumuia;
+	end if	
+
+next
+
+salir:
+end subroutine
+

@@ -1,0 +1,54 @@
+﻿$PBExportHeader$dw_rep_tot_plantilla.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=1090519039 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 1 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=716 color="536870912" )
+summary(height=172 color="536870912" )
+footer(height=92 color="536870912" )
+detail(height=80 color="536870912"  height.autosize=yes)
+table(column=(type=char(100) updatewhereclause=yes name=spre_materiales_descripcion dbname="descripcion" )
+ column=(type=long updatewhereclause=yes name=compute_0002 dbname="compute_0002" )
+ retrieve="SELECT  spre_materiales.descripcion ,
+           count(spre_reserva_espacios.nombre_evento )
+       FROM      spre_solicitud INNER JOIN
+                      spre_sol_materiales ON spre_solicitud.cvedepto = spre_sol_materiales.cvedepto AND spre_solicitud.folio = spre_sol_materiales.folio INNER JOIN
+                      spre_reserva_espacios ON spre_solicitud.cvedepto = spre_reserva_espacios.cvedepto AND 
+                      spre_solicitud.folio = spre_reserva_espacios.folio INNER JOIN
+                      spre_teventos_espacios ON spre_reserva_espacios.cvetevento = spre_teventos_espacios.cvetevento INNER JOIN
+                      spre_materiales ON spre_sol_materiales.cvedepto = spre_materiales.cvedepto AND spre_sol_materiales.cvearea = spre_materiales.cvearea AND 
+                      spre_sol_materiales.cvematerial = spre_materiales.cvematerial AND spre_sol_materiales.cvegrupo = spre_materiales.cvegrupo INNER JOIN
+                      spre_estatus_sol ON spre_solicitud.status = spre_estatus_sol.id_estatus_sol 
+WHERE		(spre_solicitud.status =:status) and 
+				(spre_sol_materiales.fecha_inicio >=:fecha_ini ) and
+				(spre_sol_materiales.fecha_final <=:fecha_fin)
+				
+GROUP BY spre_materiales.descripcion
+order by 2 desc" arguments=(("status", number),("fecha_ini", datetime),("fecha_fin", datetime))  sort="spre_materiales_descripcion A " )
+bitmap(band=header filename="esclat.gif" x="50" y="28" height="352" width="1143" border="0"  name=p_1 visible="1" )
+text(band=header alignment="2" text="Total eventos por espacio" border="0" color="0" x="1358" y="228" height="72" width="910" html.valueishtml="0"  name=t_9 visible="1"  font.face="Arial" font.height="-11" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+text(band=header alignment="2" text="del" border="0" color="0" x="2295" y="228" height="72" width="114" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-11" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+text(band=header alignment="2" text="" border="0" color="0" x="2418" y="228" height="72" width="416" html.valueishtml="0"  name=t_fecha_ini visible="1"  font.face="Arial" font.height="-11" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+text(band=header alignment="2" text="al" border="0" color="0" x="2843" y="228" height="72" width="64" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-11" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+text(band=header alignment="2" text="" border="0" color="0" x="2917" y="228" height="72" width="411" html.valueishtml="0"  name=t_fecha_fin visible="1"  font.face="Arial" font.height="-11" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+text(band=header alignment="0" text="Descripción Aula/Espacio" border="0" color="0" x="933" y="580" height="60" width="1019" html.valueishtml="0"  name=t_4 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=header x1="512" y1="524" x2="4082" y2="520"  name=l_4 visible="1" pen.style="0" pen.width="9" pen.color="0"  background.mode="2" background.color="16777215" )
+text(band=header alignment="1" text="Eventos" border="0" color="0" x="2569" y="576" height="60" width="471" html.valueishtml="0"  name=t_10 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=header x1="503" y1="692" x2="4096" y2="692"  name=l_3 visible="1" pen.style="0" pen.width="9" pen.color="0"  background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Estatus:" border="0" color="0" x="1934" y="316" height="64" width="261" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-11" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+text(band=header alignment="0" text="" border="0" color="0" x="2217" y="316" height="64" width="1111" html.valueishtml="0"  name=t_estatus visible="1"  font.face="Arial" font.height="-11" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=detail alignment="1" text="" border="0" color="0" x="503" y="4" height="68" width="3584" html.valueishtml="0"  name=t_6 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="16777215~tif(mod(getRow(),2)>0,rgb( 255, 255, 255),rgb(250,250,250))" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="544" y="4" height="68" width="1618" format="[general]" html.valueishtml="0"  name=spre_materiales_descripcion visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="16777215~tif(mod(getRow(),2)>0,rgb( 255, 255, 255),rgb(250,250,250))" )
+column(band=detail id=2 alignment="1" tabsequence=32766 border="0" color="0" x="2592" y="4" height="68" width="443" format="#,##0" html.valueishtml="0"  name=compute_0002_1 visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="16777215~tif(mod(getRow(),2)>0,rgb( 255, 255, 255),rgb(250,250,250))" )
+text(band=summary alignment="1" text="Total" border="0" color="0" x="2254" y="100" height="64" width="128" html.valueishtml="0"  name=t_5 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+compute(band=summary alignment="1" expression="sum(  compute_0002  for all )"border="0" color="0" x="2597" y="100" height="64" width="439" format="#,##0" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+compute(band=footer alignment="0" expression="'Página ' + page() + ' de ' + pageCount()"border="0" color="0" x="923" y="12" height="56" width="503" format="[general]" html.valueishtml="0"  name=page_1 visible="1"  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

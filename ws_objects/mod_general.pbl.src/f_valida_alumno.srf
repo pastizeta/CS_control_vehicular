@@ -1,0 +1,47 @@
+﻿$PBExportHeader$f_valida_alumno.srf
+global type f_valida_alumno from function_object
+end type
+
+forward prototypes
+global function integer f_valida_alumno (long p_cuenta, ref string p_nombre)
+end prototypes
+
+global function integer f_valida_alumno (long p_cuenta, ref string p_nombre);integer li_existe
+long ll_cuenta
+string ls_nombre
+
+
+select dbo.v_sce_banderas_inscrito.cuenta,   
+dbo.v_sce_alumnos.nombre+ ' ' + dbo.v_sce_alumnos.apaterno+' ' +dbo.v_sce_alumnos.amaterno 
+into :ll_cuenta, :ls_nombre
+
+from dbo.v_sce_alumnos	 
+/*inner join	dbo.v_sce_academicos on dbo.v_sce_alumnos.cuenta = dbo.v_sce_academicos.cuenta
+inner join	dbo.v_sce_carreras on dbo.v_sce_academicos.cve_carrera = dbo.v_sce_carreras.cve_carrera*/ 
+left outer join dbo.v_sce_banderas_inscrito on dbo.v_sce_alumnos.cuenta = dbo.v_sce_banderas_inscrito.cuenta
+
+where dbo.v_sce_alumnos.cuenta = :p_cuenta
+using gtr_sumuia; 
+
+if gtr_sumuia.SQLCode = -1 then 
+		messagebox("Error SUMUIA: Validación de alumno.", gtr_sumuia.SQLErrText)	
+		li_existe=-1
+		rollback using gtr_sumuia;
+else
+	commit using gtr_sumuia;	
+	if isnull(ll_cuenta) or ll_cuenta=0 then
+		if isnull(ls_nombre) or ls_nombre='' then
+			li_existe=-1
+		else
+		p_nombre=ls_nombre
+		li_existe=0	
+	end if
+	else
+		p_nombre=ls_nombre
+		li_existe=1	
+	end if
+end if
+
+return (li_existe)
+end function
+

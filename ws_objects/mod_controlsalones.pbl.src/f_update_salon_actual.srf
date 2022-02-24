@@ -1,0 +1,30 @@
+﻿$PBExportHeader$f_update_salon_actual.srf
+global type f_update_salon_actual from function_object
+end type
+
+forward prototypes
+global function integer f_update_salon_actual (string p_salon_nuevo, string p_salon_anterior, integer p_dia, integer p_hora_inicio, long p_materia, string p_grupo)
+end prototypes
+
+global function integer f_update_salon_actual (string p_salon_nuevo, string p_salon_anterior, integer p_dia, integer p_hora_inicio, long p_materia, string p_grupo);update dbo.horario
+set cve_salon=:p_salon_nuevo
+where cve_salon=:p_salon_anterior and
+cve_dia=:p_dia and
+hora_inicio=:p_hora_inicio and
+cve_mat=:p_materia and
+gpo=:p_grupo
+
+using gtr_escolar;
+
+if gtr_escolar.sqlcode<>0 then
+	messagebox("Error al cambiar salón, código "+string(gtr_escolar.sqlcode), gtr_escolar.SQLErrText)	
+	rollback using gtr_escolar;
+	return 0
+else
+	commit using gtr_escolar;	
+end if		
+
+return 1 
+							
+end function
+

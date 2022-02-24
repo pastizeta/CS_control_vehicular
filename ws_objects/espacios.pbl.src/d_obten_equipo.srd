@@ -1,0 +1,43 @@
+﻿$PBExportHeader$d_obten_equipo.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=136 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=92 color="536870912" )
+table(column=(type=long updatewhereclause=yes name=spre_equipo_requerido_cveequipo dbname="spre_equipo_requerido.cveequipo" )
+ column=(type=char(50) updatewhereclause=yes name=spre_equipo_requerido_descripcion dbname="spre_equipo_requerido.descripcion" )
+ column=(type=long updatewhereclause=yes name=spre_equipo_solicitud_cantidad dbname="spre_equipo_solicitud.cantidad" )
+ column=(type=long updatewhereclause=yes name=spre_equipo_solicitud_folio dbname="spre_equipo_solicitud.folio" )
+ retrieve="  SELECT dbo.spre_equipo_requerido.cveequipo,   
+         dbo.spre_equipo_requerido.descripcion,
+			dbo.spre_equipo_solicitud.cantidad,   
+         dbo.spre_equipo_solicitud.folio  
+    FROM dbo.spre_equipo_solicitud INNER JOIN   
+         dbo.spre_equipo_requerido  
+   ON ( dbo.spre_equipo_solicitud.cveequipo = dbo.spre_equipo_requerido.cveequipo ) 
+WHERE ( dbo.spre_equipo_solicitud.folio = :folio)  
+
+
+" arguments=(("folio", number)) )
+text(band=header alignment="2" text="Spre Equipo Requerido
+Cveequipo" border="0" color="0" x="5" y="4" height="128" width="608" html.valueishtml="0"  name=spre_equipo_requerido_cveequipo_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Spre Equipo Requerido
+Descripcion" border="0" color="0" x="617" y="4" height="128" width="1399" html.valueishtml="0"  name=spre_equipo_requerido_descripcion_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Spre Equipo Solicitud
+Folio" border="0" color="0" x="2021" y="4" height="128" width="571" html.valueishtml="0"  name=spre_equipo_solicitud_folio_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="2" tabsequence=32766 border="0" color="0" x="32" y="8" height="76" width="571" format="[general]" html.valueishtml="0"  name=spre_equipo_requerido_cveequipo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="617" y="4" height="76" width="1399" format="[general]" html.valueishtml="0"  name=spre_equipo_requerido_descripcion visible="1" edit.limit=50 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="2" tabsequence=32766 border="0" color="0" x="2021" y="4" height="76" width="631" format="[general]" html.valueishtml="0"  name=spre_equipo_solicitud_folio visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="0" x="2683" y="4" height="64" width="855" format="[general]" html.valueishtml="0"  name=spre_equipo_solicitud_cantidad visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

@@ -1,0 +1,49 @@
+﻿$PBExportHeader$d_adm_detsolmaterial.srd
+$PBExportComments$Detalles solicitud admisión
+release 10;
+datawindow(units=0 timer_interval=0 color=29534863 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=68 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=152 color="536870912" )
+table(column=(type=long update=yes updatewhereclause=yes key=yes name=cvedepto dbname="spre_solicitud.cvedepto" )
+ column=(type=long update=yes updatewhereclause=yes key=yes name=folio dbname="spre_solicitud.folio" )
+ column=(type=long update=yes updatewhereclause=yes name=solicitanteid dbname="spre_solicitud.solicitanteid" )
+ column=(type=long update=yes updatewhereclause=yes name=status dbname="spre_solicitud.status" values="Activa	0/Cerrada	1/Entregada parcialmente	2/Multa	3/" )
+ column=(type=long update=yes updatewhereclause=yes name=cveperiodo dbname="spre_solicitud.cveperiodo" values="Primavera	0/Verano	1/Otoño	2/" )
+ column=(type=long update=yes updatewhereclause=yes name=condicion dbname="spre_solicitud.condicion" )
+ column=(type=datetime update=yes updatewhereclause=yes name=fecha_solicitud dbname="spre_solicitud.fecha_solicitud" )
+ column=(type=datetime update=yes updatewhereclause=yes name=fecha_inicio dbname="spre_solicitud.fecha_inicio" )
+ column=(type=datetime update=yes updatewhereclause=yes name=fecha_fin dbname="spre_solicitud.fecha_fin" )
+ retrieve="  SELECT dbo.spre_solicitud.cvedepto,   
+         dbo.spre_solicitud.folio,   
+         dbo.spre_solicitud.solicitanteid,  
+         dbo.spre_solicitud.status,   
+         dbo.spre_solicitud.cveperiodo,   
+         dbo.spre_solicitud.condicion,   
+         dbo.spre_solicitud.fecha_solicitud,   
+         dbo.spre_solicitud.fecha_inicio,   
+         dbo.spre_solicitud.fecha_fin  
+    FROM dbo.spre_solicitud   
+" update="dbo.spre_solicitud" updatewhere=0 updatekeyinplace=no )
+text(band=header alignment="2" text="Datos solictud" border="0" color="0" x="9" y="4" height="60" width="2245" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="276856960" )
+text(band=detail alignment="2" text="Fecha prestamo" border="0" color="0" x="1271" y="4" height="60" width="489" html.valueishtml="0"  name=fecha_inicio_t visible="1"  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=detail alignment="2" text="Fecha entrega" border="0" color="0" x="1769" y="4" height="60" width="485" html.valueishtml="0"  name=fecha_fin_t visible="1"  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=detail alignment="2" text="Estatus solicitud " border="0" color="0" x="562" y="4" height="60" width="690" html.valueishtml="0"  name=fecha_solicitud_t visible="1"  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=detail alignment="2" text="Periodo " border="0" color="0" x="9" y="4" height="60" width="539" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+column(band=detail id=8 alignment="0" tabsequence=10 border="5" color="0" x="1271" y="76" height="60" width="480" format="[shortdate]" html.valueishtml="0"  name=fecha_inicio visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=9 alignment="0" tabsequence=20 border="5" color="0" x="1769" y="76" height="60" width="475" format="[shortdate]" html.valueishtml="0"  name=fecha_fin visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="5" color="0" x="562" y="76" height="60" width="690" format="[general]" html.valueishtml="0"  name=status visible="1" ddlb.limit=0 ddlb.allowedit=no ddlb.case=any  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="5" color="0" x="9" y="76" height="60" width="539" format="[general]" html.valueishtml="0"  name=cveperiodo visible="1" ddlb.limit=0 ddlb.allowedit=no ddlb.case=any  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="0" x="2254" y="0" height="60" width="233" format="[general]" html.valueishtml="0"  name=solicitanteid visible="1~t0" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

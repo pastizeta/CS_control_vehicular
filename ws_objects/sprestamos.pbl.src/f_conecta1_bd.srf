@@ -1,0 +1,64 @@
+﻿$PBExportHeader$f_conecta1_bd.srf
+global type f_conecta1_bd from function_object
+end type
+
+forward prototypes
+global function any f_conecta1_bd (ref transaction tr_base_datos, string st_seccion)
+end prototypes
+
+global function any f_conecta1_bd (ref transaction tr_base_datos, string st_seccion);/*
+DESCRIPCIÓN: Se hace la conexión a la base de datos por medio del objeto de trabsacción
+					del archivo_ini y la sección.
+PARÁMETROS: Transaction tr_base_datos, string st_seccion,string st_usuario, string st_contrasenia																
+REGRESA: 1 si la conexión se realizó de forma correcta
+AUTOR: CAMP(DkWf)
+*/
+
+if isvalid(tr_base_datos) = false  then
+	tr_base_datos = CREATE transaction//Creación de la transacción
+end if
+
+// Se anexa el path del ini del sistema . Juan Campos 5-nov-2001
+ 
+/* Populate sqlca from current PB.INI settings */
+tr_base_datos.DBMS       = ProfileString (gs_startupfile, st_seccion, "dbms",       "")
+tr_base_datos.database   = ProfileString (gs_startupfile, st_seccion, "database",   "")
+//tr_base_datos.userid     = ProfileString (gs_startupfile, st_seccion, "userid",     "")
+//tr_base_datos.dbpass     = ProfileString (gs_startupfile, st_seccion, "dbpass",     "")
+tr_base_datos.userid		= gs_usuario
+tr_base_datos.dbpass		= gs_pass
+choose case  ProfileString (gs_startupfile, st_seccion, "AutoCommit","")
+	case 'true'
+		tr_base_datos.AutoCommit = true
+	case 'false'
+		tr_base_datos.AutoCommit = false
+end choose
+
+/*
+tr_base_datos.logid      = ProfileString (gs_startupfile, st_seccion, "LogID",     "")
+tr_base_datos.logpass    = ProfileString (gs_startupfile, st_seccion, "LogPassword",     "")
+*/
+tr_base_datos.logid			= gs_usuario
+tr_base_datos.logpass		= gs_pass
+tr_base_datos.servername	= ProfileString (gs_startupfile, st_seccion, "servername", "")
+tr_base_datos.dbparm     	= ProfileString (gs_startupfile, st_seccion, "dbparm",     "")
+
+if pos(tr_base_datos.dbparm,'SQLINTDES')>0 then
+	//Desarrollo
+	tr_base_datos.userid = 'sa'
+	tr_base_datos.dbpass = 'desarrollo'
+	tr_base_datos.logid  = 'sa'
+	tr_base_datos.logpass= 'desarrollo'
+end if
+
+//Conexión a la base de datos
+connect using tr_base_datos;
+
+if tr_base_datos.sqlcode <> 0 then
+	MessageBox ("No hay conexión con la Base de Datos "+st_seccion+".", tr_base_datos.sqlerrtext, None!)
+	return 0
+end if
+return 1
+
+end function
+

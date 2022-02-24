@@ -1,0 +1,26 @@
+﻿$PBExportHeader$f_fecha_valida.srf
+$PBExportComments$Función utilizada para validar que la entrega de material no se asigne en sabado o domingo
+global type f_fecha_valida from function_object
+end type
+
+forward prototypes
+global subroutine f_fecha_valida (ref datetime argd_fecha_final)
+end prototypes
+
+global subroutine f_fecha_valida (ref datetime argd_fecha_final);//////////////////////////////////////////////////////////////////////////////
+//	Function:		f_fecha_valida
+//	Arguments:		argd_fecha_final por referencia
+//	Returns:			argd_fecha_final
+//	Description:	Permite validar la fecha de entrega de material validando que 
+//						en caso de ser fin de semana se recorra al siguiente dia habil
+//////////////////////////////////////////////////////////////////////////////
+string  daynameinicio 
+daynameinicio = DayName(date(argd_fecha_final))
+choose case daynameinicio
+	case 'Saturday'
+		argd_fecha_final = DateTime(RelativeDate(date (argd_fecha_final), 2), time('23:59:59'))
+	case 'Sunday'
+		argd_fecha_final = DateTime(RelativeDate(date (argd_fecha_final), 1), time('23:59:59'))
+end choose
+end subroutine
+

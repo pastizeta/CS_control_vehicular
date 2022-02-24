@@ -1,0 +1,55 @@
+﻿$PBExportHeader$d_esp_gral_busca_empleados.srd
+$PBExportComments$Data window utilizada para la busqueda de empleados
+release 7;
+datawindow(units=0 timer_interval=0 color=32096431 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=76 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=80 color="536870912"  height.autosize=yes)
+table(column=(type=long updatewhereclause=yes name=empleado dbname="empleado" )
+ column=(type=long updatewhereclause=yes name=estructura_nomina_responsable dbname="nomina_responsable" )
+ column=(type=char(60) updatewhereclause=yes name=tipos_nominas_descripcion dbname="descripcion" )
+ column=(type=char(70) updatewhereclause=yes name=appaterno dbname="appaterno" )
+ column=(type=char(70) updatewhereclause=yes name=apmaterno dbname="apmaterno" )
+ column=(type=char(100) updatewhereclause=yes name=nombre dbname="nombre" )
+ column=(type=char(60) updatewhereclause=yes name=nombredepto dbname="nombredepto" )
+ column=(type=char(90) updatewhereclause=yes name=nombrepuesto dbname="nombrepuesto" )
+ column=(type=long updatewhereclause=yes name=empl_uia1_tnom dbname="tnom" )
+ column=(type=char(10) updatewhereclause=yes name=empl_uia1_ccosto dbname="ccosto" )
+ retrieve="  SELECT empl_uia1.empleado,   
+        	estructura.nomina_responsable , 
+         tipos_nominas.descripcion,   
+         empl_uia1.appaterno,   
+         empl_uia1.apmaterno,   
+         empl_uia1.nombre,   
+         empl_uia1.nombredepto,   
+         empl_uia1.nombrepuesto,   
+         empl_uia1.tnom,   
+         empl_uia1.ccosto  
+    FROM empl_uia1,   
+         tipos_nominas ,
+			estructura 
+   WHERE ( empl_uia1.tnom = tipos_nominas.tipo_nomina ) and  
+			( empl_uia1.depto = estructura.depto ) and
+         ( empl_uia1.templ < 20 ) 
+			
+" )
+text(band=header alignment="2" text="Empleado" border="6" color="0" x="5" y="4" height="60" width="329"  name=empleado_t  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="2" text="Nomina Resp." border="6" color="0" x="352" y="4" height="60" width="407"  name=estatus_t  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="2" text="Apellido paterno" border="6" color="0" x="777" y="4" height="60" width="850"  name=appaterno_t  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="2" text="Apellido materno" border="6" color="0" x="1646" y="4" height="60" width="850"  name=apmaterno_t  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="2" text="Nombre" border="6" color="0" x="2514" y="4" height="60" width="850"  name=nombre_t  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="2" text="Sector" border="6" color="0" x="3383" y="4" height="60" width="594"  name=t_1  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="2" text="Labora" border="6" color="0" x="4000" y="4" height="60" width="713"  name=nombredepto_t  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="2" text="Puesto" border="6" color="0" x="4731" y="4" height="60" width="1541"  name=nombrepuesto_t  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+column(band=detail id=1 alignment="1" tabsequence=32766 border="5" color="0" x="5" y="4" height="64" width="329" format="[general]"  name=empleado edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=2 alignment="1" tabsequence=32766 border="5" color="0" x="357" y="4" height="64" width="398" format="[general]"  name=estructura_nomina_responsable edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Tahoma" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=10 alignment="0" tabsequence=32766 border="5" color="0" x="6304" y="4" height="64" width="270" format="[general]"  name=empl_uia1_ccosto visible="1~t0" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="5" color="0" x="777" y="4" height="64" width="850" format="[general]"  name=appaterno edit.limit=30 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="5" color="0" x="1646" y="4" height="64" width="850" format="[general]"  name=apmaterno edit.limit=30 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="5" color="0" x="2514" y="4" height="64" width="850" format="[general]"  name=nombre edit.limit=30 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="5" color="0" x="3383" y="4" height="64" width="594" format="[general]"  name=tipos_nominas_descripcion edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Tahoma" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=7 alignment="0" tabsequence=32766 border="5" color="0" x="4000" y="4" height="64" width="713" format="[general]"  name=nombredepto edit.limit=60 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=8 alignment="0" tabsequence=32766 border="5" color="0" x="4731" y="4" height="64" width="1541" format="[general]"  name=nombrepuesto height.autosize=yes edit.limit=90 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Tahoma" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

@@ -1,0 +1,8 @@
+﻿$PBExportHeader$str_dia_imprime.srs
+$PBExportComments$Permite llamar a la pantalla destalle baja material
+global type str_dia_imprime from structure
+	date		dia_semana
+	string		material
+	string		numserie
+end type
+

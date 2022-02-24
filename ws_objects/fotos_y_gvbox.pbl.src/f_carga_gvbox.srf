@@ -1,0 +1,46 @@
+﻿$PBExportHeader$f_carga_gvbox.srf
+global type f_carga_gvbox from function_object
+end type
+
+forward prototypes
+global function boolean f_carga_gvbox (blob ablob_foto, ref olecontrol aole_gvbox)
+end prototypes
+
+global function boolean f_carga_gvbox (blob ablob_foto, ref olecontrol aole_gvbox);//*******************		FUNCION: f_carga_gvbox		***************************************
+//	Entradas:	ablob_foto(archivo de foto en formato JPG asociado a un registro),
+//					aole_gvbox(referencia al control del OCX GvBox)
+//	Salida:	TRUE y logra cargar la imagen de ablob_foto al control referenciado por 
+//				aole_gbvox, de lo contrario FALSE
+//	Version 1.0,	20051999, 	Angel Jácome Sánchez
+//********************************		REVISIONES		***************************************
+//	Rev x.x(developer/date<ddmmyyyy>) :
+string ls_arch_nom,ls_ruta='c:\',ls_nombre='foto_al_',ls_extension='.jpg'
+integer li_FileNum,li_consecutivo=1
+// Verificacion de la
+DO
+	ls_arch_nom = ls_ruta + ls_nombre + string(li_consecutivo) + ls_extension
+	li_consecutivo++
+	li_FileNum = FileOpen(ls_arch_nom,StreamMode!,Write!,LockReadWrite!,Replace!)
+LOOP WHILE li_FileNum = -1
+// Seleccion del blob de foto del alumno segun el argumrnto 'al_cuenta'
+FileWrite(li_FileNum, ablob_foto)
+FileClose (li_FileNum)
+// Seleccion del blob de foto del alumno segun el argumrnto 'al_cuenta'
+aole_gvbox.Object.FileName = ls_arch_nom
+//Resultado exitoso, devolviendo un blob
+Return TRUE
+//**********************	NOTAS SOBRE EL USO DEL OCX GvBox	**********************************
+//Algunas propiedades de interes son:  
+//<FileName> Archivo asociado al control Gvbox (BMP,GIF,JPG, y otros)
+//Sintaxis de asignación: ObjectName.Object.FileName = valor	, donde valor es un string 
+//que contiene un nombre valido de archivo.
+//<Zoom>Escala de la imagen dentro del recipiente grafico del control GvBox. Si el valor es
+//mayor que 1 se aumneta el tamaño ariginal si es menor que uno se dismiye. El valor por 
+//omosión es 1.
+//Sintaxis de asignación: ObjectName.Object.Zoom = valor
+//Sintaxis de descripción: valor = ObjectName.Object.Zoom
+//En ambos casos valor puede ser real o decimal
+//Para obtener informacion general  y de la instalación de GVbOX consulte el archivo GVBOX.HLP
+
+end function
+

@@ -1,0 +1,46 @@
+﻿$PBExportHeader$f_select_anio_periodo_actual_fechas.srf
+global type f_select_anio_periodo_actual_fechas from function_object
+end type
+
+forward prototypes
+global subroutine f_select_anio_periodo_actual_fechas (ref integer pi_periodo, ref integer pi_anio, date pd_fecha)
+global subroutine f_select_anio_periodo_actual_fechas (ref integer pi_periodo, ref integer pi_anio, date pd_fecha, ref date pd_inicio, ref date pd_final)
+end prototypes
+
+global subroutine f_select_anio_periodo_actual_fechas (ref integer pi_periodo, ref integer pi_anio, date pd_fecha);SetNull(pi_periodo)
+SetNull(pi_anio)
+
+select max(dbo.spre_periodos.anio), max(dbo.spre_periodos.cveperiodo)
+into :pi_anio, :pi_periodo
+from dbo.spre_periodos
+where dbo.spre_periodos.cvedepto=:gi_depto
+and :pd_fecha between fecha_inicio and fecha_fin
+using gtr_sumuia; 
+
+if gtr_sumuia.SQLCode = -1 then 
+	messagebox("Error SUMUIA: Selección de año y periodo actual", gtr_sumuia.SQLErrText)	
+end if
+
+
+end subroutine
+
+global subroutine f_select_anio_periodo_actual_fechas (ref integer pi_periodo, ref integer pi_anio, date pd_fecha, ref date pd_inicio, ref date pd_final);SetNull(pi_periodo)
+SetNull(pi_anio)
+SetNull(pd_inicio)
+SetNull(pd_final)
+
+select top 1 anio, cveperiodo, fecha_inicio, fecha_fin
+into :pi_anio, :pi_periodo, :pd_inicio, :pd_final
+from dbo.spre_periodos
+where cvedepto=:gi_depto
+and :pd_fecha between fecha_inicio and fecha_fin
+order by anio desc,cveperiodo desc
+using gtr_sumuia; 
+
+if gtr_sumuia.SQLCode = -1 then 
+	messagebox("Error SUMUIA: Selección de año y periodo actual", gtr_sumuia.SQLErrText)	
+end if
+
+
+end subroutine
+

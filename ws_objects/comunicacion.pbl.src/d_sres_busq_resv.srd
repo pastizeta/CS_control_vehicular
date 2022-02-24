@@ -1,0 +1,55 @@
+﻿$PBExportHeader$d_sres_busq_resv.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=32096431 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=72 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=96 color="536870912" )
+table(column=(type=long updatewhereclause=yes name=folio dbname="folio" )
+ column=(type=long updatewhereclause=yes name=status dbname="status" values="Apartado	1/Confirmado	2/Cancelado por no confirmar	3/Cancelado por el solicitande	4/Cancelado	5/" )
+ column=(type=long updatewhereclause=yes name=cveperiodo dbname="cveperiodo" )
+ column=(type=datetime updatewhereclause=yes name=fecha_inicio dbname="fecha_inicio" )
+ column=(type=datetime updatewhereclause=yes name=fecha_fin dbname="fecha_fin" )
+ column=(type=char(100) updatewhereclause=yes name=descripcion dbname="descripcion" )
+ column=(type=char(15) updatewhereclause=yes name=cvematerial dbname="cvematerial" )
+ column=(type=char(50) updatewhereclause=yes name=periodos_descripcion dbname="descripcion" )
+ retrieve="  SELECT DISTINCT  spre_solicitud.folio , 
+          spre_solicitud.status ,        
+   spre_solicitud.cveperiodo ,        
+   spre_solicitud.fecha_inicio ,          
+ spre_solicitud.fecha_fin ,        
+   spre_materiales.descripcion , 
+          spre_materiales.cvematerial ,  
+         spre_periodos.descripcion   
+ FROM         spre_solicitud INNER JOIN
+                      spre_sol_materiales ON spre_solicitud.cvedepto = spre_sol_materiales.cvedepto AND spre_solicitud.folio = spre_sol_materiales.folio INNER JOIN
+                      spre_reserva_espacios ON spre_solicitud.cvedepto = spre_reserva_espacios.cvedepto AND 
+                      spre_solicitud.folio = spre_reserva_espacios.folio INNER JOIN
+                      spre_periodos ON spre_solicitud.cvedepto = spre_periodos.cvedepto AND spre_solicitud.cveperiodo = spre_periodos.cveperiodo INNER JOIN
+                      spre_equipo_solicitud ON spre_solicitud.cvedepto = spre_equipo_solicitud.cvedepto AND spre_solicitud.folio = spre_equipo_solicitud.folio INNER JOIN
+                      spre_materiales ON spre_sol_materiales.cvedepto = spre_materiales.cvedepto AND spre_sol_materiales.cvearea = spre_materiales.cvearea AND 
+                      spre_sol_materiales.cvematerial = spre_materiales.cvematerial INNER JOIN
+                      spre_equipo_requerido ON spre_equipo_solicitud.cveequipo = spre_equipo_requerido.cveequipo" )
+text(band=header alignment="2" text="Folio" border="2" color="0" x="5" y="4" height="64" width="320" html.valueishtml="0"  name=spre_solicitud_folio_t visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="2" text="Espacio" border="2" color="0" x="343" y="4" height="64" width="1166" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="2" text="Fecha Fin" border="2" color="0" x="2702" y="4" height="64" width="379" html.valueishtml="0"  name=spre_solicitud_fecha_fin_t visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="2" text="Fecha Inicio" border="2" color="0" x="2304" y="4" height="64" width="379" html.valueishtml="0"  name=spre_solicitud_fecha_inicio_t visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="2" text="Status" border="2" color="0" x="1527" y="4" height="64" width="370" html.valueishtml="0"  name=spre_solicitud_status_t visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="2" text="Periodo" border="2" color="0" x="1915" y="4" height="64" width="370" html.valueishtml="0"  name=spre_solicitud_cveperiodo_t visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+column(band=detail id=1 alignment="1" tabsequence=32766 border="5" color="0" x="5" y="12" height="64" width="320" format="[general]" html.valueishtml="0"  name=folio visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="5" color="0" x="343" y="12" height="64" width="1166" format="[general]" html.valueishtml="0"  name=descripcion visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=5 alignment="2" tabsequence=32766 border="5" color="0" x="2702" y="12" height="64" width="379" format="dd/mm/yyyy" html.valueishtml="0"  name=fecha_fin visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=4 alignment="2" tabsequence=32766 border="5" color="0" x="2304" y="12" height="64" width="379" format="dd/mm/yyyy" html.valueishtml="0"  name=fecha_inicio visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=2 alignment="2" tabsequence=32766 border="5" color="0" x="1527" y="12" height="64" width="370" format="[general]" html.valueishtml="0"  name=status visible="1" ddlb.limit=0 ddlb.allowedit=no ddlb.case=any  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=8 alignment="2" tabsequence=32766 border="5" color="0" x="1915" y="12" height="64" width="370" format="[general]" html.valueishtml="0"  name=periodos_descripcion visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

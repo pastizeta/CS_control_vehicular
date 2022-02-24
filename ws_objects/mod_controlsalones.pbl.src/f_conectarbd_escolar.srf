@@ -1,0 +1,36 @@
+﻿$PBExportHeader$f_conectarbd_escolar.srf
+global type f_conectarbd_escolar from function_object
+end type
+
+forward prototypes
+global subroutine f_conectarbd_escolar ()
+end prototypes
+
+global subroutine f_conectarbd_escolar ();/********************** DATOS ESCOLAR ***************************/
+
+gtr_escolar.DBMS = ProfileString("sispre.ini","escolar","dbms","");
+gtr_escolar.database = ProfileString("sispre.ini","escolar","database","");
+gtr_escolar.logid = gs_usuario
+gtr_escolar.logpass = gs_pass
+gtr_escolar.userid = gs_usuario
+gtr_escolar.dbpass = gs_pass
+gtr_escolar.servername = ProfileString("sispre.ini","escolar","servername","");
+gtr_escolar.dbparm = ProfileString("sispre.ini","escolar","dbparm","");
+
+
+if (gtr_sumuia.servername='sybcesdes') then
+	//Desarrollo
+	gtr_escolar.logid = 'sa'
+	gtr_escolar.logpass = 'desarrollo'
+	gtr_escolar.userid = 'sa'
+	gtr_escolar.dbpass = 'desarrollo'
+end if
+
+connect using gtr_escolar;
+
+if gtr_escolar.sqlcode <> 0 then
+	messagebox("Error de Conexión BD Escolar: "+string(gtr_escolar.sqlcode),gtr_escolar.sqlerrtext)
+end if
+
+end subroutine
+

@@ -1,0 +1,39 @@
+﻿$PBExportHeader$f_valida_alumno_dec.srf
+global type f_valida_alumno_dec from function_object
+end type
+
+forward prototypes
+global function integer f_valida_alumno_dec (long p_cuenta, ref string p_nombre)
+end prototypes
+
+global function integer f_valida_alumno_dec (long p_cuenta, ref string p_nombre);integer li_existe
+long ll_cuenta
+string ls_nombre
+
+
+f_conectarbd_decse()
+
+select  
+dbo.datpersonales.datper_nombre+' '+dbo.datpersonales.datper_appaterno+' '+dbo.datpersonales.datper_apmaterno 
+into :ls_nombre
+
+from dbo.datpersonales
+
+where dbo.datpersonales.alum_cuenta = :p_cuenta
+using gtr_decse; 
+
+if gtr_sumuia.SQLCode = -1 then 
+	messagebox("Error SUMUIA: Validación de alumno DEC.", gtr_decse.SQLErrText)	
+	li_existe=-1 
+	rollback using gtr_decse;
+else
+	commit using gtr_decse;	
+	p_nombre=ls_nombre
+	li_existe=1	
+end if
+
+disconnect using gtr_decse;
+
+return (li_existe)
+end function
+

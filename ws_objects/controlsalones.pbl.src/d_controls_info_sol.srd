@@ -1,0 +1,41 @@
+﻿$PBExportHeader$d_controls_info_sol.srd
+$PBExportComments$Muestra infomación del solicitante
+release 10;
+datawindow(units=0 timer_interval=0 color=29534863 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=76 color="536870912" )
+summary(height=8 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=72 color="536870912" )
+table(column=(type=char(80) update=yes updatewhereclause=yes name=solicitantenombre dbname="solicitantenombre" )
+ column=(type=long update=yes updatewhereclause=yes name=solicitanteid dbname="solicitanteid" )
+ column=(type=char(15) update=yes updatewhereclause=yes name=solicitantetel dbname="solicitantetel" )
+ retrieve="  SELECT DISTINCT spre_prestamo_material.solicitantenombre,   
+         spre_prestamo_material.solicitanteid,   
+         spre_prestamo_material.solicitantetel  
+    FROM spre_prestamo_material,   
+         spre_solicitud  
+   WHERE ( spre_solicitud.cvedepto = spre_prestamo_material.cvedepto ) and  
+         ( spre_solicitud.folio = spre_prestamo_material.folio ) and  
+         ( spre_prestamo_material.solicitanteid = :argIdSol ) AND  
+         ( spre_solicitud.status <> 1 ) AND  
+         spre_solicitud.cvedepto = 5   
+" arguments=(("argIdSol", number)) )
+group(level=1 header.height=164 trailer.height=0 by=("solicitanteid" ) header.color="536870912" trailer.color="536870912" )
+text(band=header alignment="2" text="Información solicitante" border="0" color="0" x="5" y="12" height="60" width="2491" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="276856960" )
+column(band=header.1 id=2 alignment="1" tabsequence=32766 border="5" color="0" x="283" y="8" height="60" width="315" format="[general]" html.valueishtml="0"  name=solicitanteid visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="33554431" )
+column(band=header.1 id=1 alignment="0" tabsequence=32766 border="5" color="0" x="279" y="92" height="60" width="1632" format="[general]" html.valueishtml="0"  name=solicitantenombre visible="1" edit.limit=80 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="33554431" )
+text(band=header.1 alignment="1" text="Nombre: " border="0" color="0" x="9" y="92" height="60" width="256" html.valueishtml="0"  name=solicitanteprofesor_t visible="1"  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="29534863" )
+text(band=header.1 alignment="1" text="Clave: " border="0" color="0" x="9" y="8" height="60" width="256" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="29534863" )
+text(band=header.1 alignment="2" text="Teléfonos" border="0" color="0" x="1929" y="88" height="60" width="544" html.valueishtml="0"  name=solicitantetel_t visible="1"  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="5" color="0" x="1929" y="0" height="60" width="544" format="[general]" html.valueishtml="0"  name=solicitantetel visible="1" edit.limit=15 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="33554431" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

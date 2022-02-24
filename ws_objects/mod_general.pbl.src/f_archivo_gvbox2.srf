@@ -1,0 +1,99 @@
+﻿$PBExportHeader$f_archivo_gvbox2.srf
+global type f_archivo_gvbox2 from function_object
+end type
+
+forward prototypes
+global function string f_archivo_gvbox2 (blob ablob_foto)
+end prototypes
+
+global function string f_archivo_gvbox2 (blob ablob_foto);////////////////////////////////////////////////////////
+
+//*******************		FUNCION: f_archivo_gvbox		*************************************
+//*****************	Ver notas sobre el uso del OCX GvBox al pie del codigo	****************
+//	Entradas:	ablob_foto(archivo de foto en formato JPG asociado a un registro)
+//	Salida:	string de ruta y nombre del archivo(JPG) que contiene la imagen de ablob_foto
+//				o un nulo
+//	Version 1.0,	20051999, 	Angel Jácome Sánchez	
+//********************************		REVISIONES		****************************************
+//	Rev x.x(developer/date<ddmmyyyy>) :
+//********************************************************************************************
+
+string ls_arch_nom,ls_ruta='c:\',ls_nombre='foto_al_',ls_extension='.jpg',ls_null
+long li_FileNum,li_consecutivo=1
+SetNull(ls_null)
+// Verificacion de acceso exclusivo al archivo utilizado
+if IsNull(ablob_foto) then Return ls_null
+
+for li_consecutivo = 1 to 5
+	ls_arch_nom = ls_ruta + ls_nombre + string(li_consecutivo) + ls_extension
+	li_FileNum = FileOpen(ls_arch_nom,StreamMode!,Write!,LockReadWrite!,Replace!)
+	li_consecutivo++
+	if li_FileNum <> -1 then li_consecutivo = 5
+next
+
+if li_FileNum = -1 then 
+	ls_ruta='d:\'
+	li_consecutivo = 1
+
+	for li_consecutivo = 1 to 5
+		ls_arch_nom = ls_ruta + ls_nombre + string(li_consecutivo) + ls_extension
+		li_FileNum = FileOpen(ls_arch_nom,StreamMode!,Write!,LockReadWrite!,Replace!)
+		li_consecutivo++
+		if li_FileNum <> -1 then li_consecutivo = 5
+	next	
+end if
+	
+if li_FileNum = -1 then 
+	messagebox('Aviso', 'No pudo cargar la foto.')
+	Return ls_arch_nom	
+else
+	// Asignación de un Nulo o un Blob al string del archivo
+	if FileWriteEx(li_FileNum, ablob_foto) = -1 then SetNull(ls_arch_nom)
+	FileClose (li_FileNum)
+	Return ls_arch_nom	
+end if
+
+
+/*
+string ls_arch_nom,ls_ruta='c:\',ls_nombre='foto_al_',ls_extension='.jpg',ls_null
+integer li_FileNum,li_consecutivo=1
+SetNull(ls_null)
+// Verificacion de acceso exclusivo al archivo utilizado
+
+if IsNull(ablob_foto) then Return ls_null
+DO
+	ls_arch_nom = ls_ruta + ls_nombre + string(li_consecutivo) + ls_extension
+	li_consecutivo++
+	li_FileNum = FileOpen(ls_arch_nom,StreamMode!,Write!,LockReadWrite!,Replace!)
+LOOP WHILE li_FileNum = -1
+
+// Asignación de un Nulo o un Blob al string del archivo
+if FileWriteEx(li_FileNum, ablob_foto) = -1 then SetNull(ls_arch_nom)
+FileClose (li_FileNum)
+*/
+
+
+
+
+
+
+//Para protejer la información de las imagenes se recomienda eliminar el archivo generado
+//antes de salir de la aplicación donde se empleo. Esta acción no es realizada en este
+// 'script' porque deteriora el 'performance' de la función.
+Return ls_arch_nom	
+
+
+//**********************	NOTAS SOBRE EL USO DEL OCX GvBox	**********************************
+//Algunas propiedades de interes son:  
+//<FileName> Archivo asociado al control Gvbox (BMP,GIF,JPG, y otros)
+//Sintaxis de asignación: ObjectName.Object.FileName = valor	, donde valor es un string 
+//que contiene un nombre valido de archivo.
+//<Zoom>Escala de la imagen dentro del recipiente grafico del control GvBox. Si el valor es
+//mayor que 1 se aumneta el tamaño ariginal si es menor que uno se dismiye. El valor por 
+//omosión es 1.
+//Sintaxis de asignación: ObjectName.Object.Zoom = valor
+//Sintaxis de descripción: valor = ObjectName.Object.Zoom
+//En ambos casos valor puede ser real o decimal
+//Para obtener informacion general  y de la instalación de GVbOX consulte el archivo GVBOX.HLP
+end function
+

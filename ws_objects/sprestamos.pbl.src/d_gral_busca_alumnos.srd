@@ -1,0 +1,52 @@
+﻿$PBExportHeader$d_gral_busca_alumnos.srd
+$PBExportComments$Data window utilizada para la busqueda de alumnos
+release 10;
+datawindow(units=0 timer_interval=0 color=32096431 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=80 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=88 color="536870912"  height.autosize=yes)
+table(column=(type=long updatewhereclause=yes name=v_sce_academicos_cuenta dbname="cuenta" )
+ column=(type=char(11) updatewhereclause=yes name=estatus dbname="Estatus" )
+ column=(type=char(50) updatewhereclause=yes name=nombre dbname="nombre" )
+ column=(type=char(50) updatewhereclause=yes name=apaterno dbname="apaterno" )
+ column=(type=char(50) updatewhereclause=yes name=amaterno dbname="amaterno" )
+ column=(type=long updatewhereclause=yes name=cve_carrera dbname="cve_carrera" )
+ column=(type=char(100) updatewhereclause=yes name=carrera dbname="carrera" )
+ retrieve="  SELECT v_sce_alumnos.cuenta,  
+			case isnull( v_sce_banderas_inscrito.cuenta,0) when 0 then 'No inscrito' else 'Inscrito' end as Estatus, 
+			v_sce_alumnos.nombre,
+			v_sce_alumnos.apaterno,
+			v_sce_alumnos.amaterno,
+			v_sce_academicos.cve_carrera,
+			v_sce_carreras.carrera
+FROM		v_sce_alumnos INNER JOIN
+			v_sce_academicos ON v_sce_alumnos.cuenta = v_sce_academicos.cuenta INNER JOIN
+			v_sce_carreras ON v_sce_academicos.cve_carrera = v_sce_carreras.cve_carrera LEFT OUTER JOIN
+			v_sce_banderas_inscrito ON v_sce_alumnos.cuenta = v_sce_banderas_inscrito.cuenta
+WHERE ( v_sce_alumnos.cuenta > 0 )
+		" )
+text(band=header alignment="2" text="Estatus" border="6" color="0" x="407" y="8" height="64" width="379" html.valueishtml="0"  name=estatus_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="2" text="Cuenta" border="6" color="0" x="5" y="8" height="64" width="379" html.valueishtml="0"  name=v_sce_academicos_cuenta_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="2" text="Apellido paterno" border="6" color="0" x="805" y="8" height="64" width="901" html.valueishtml="0"  name=apaterno_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="2" text="Apellido materno" border="6" color="0" x="1728" y="8" height="64" width="901" html.valueishtml="0"  name=amaterno_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="2" text="Nombre" border="6" color="0" x="2651" y="8" height="64" width="741" html.valueishtml="0"  name=nombre_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=header alignment="2" text="Carrera" border="6" color="0" x="3419" y="8" height="64" width="1262" html.valueishtml="0"  name=carrera_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="5" color="0" x="5" y="8" height="64" width="379" format="[general]" html.valueishtml="0"  name=v_sce_academicos_cuenta visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=2 alignment="2" tabsequence=32766 border="5" color="0" x="407" y="8" height="64" width="379" format="[general]" html.valueishtml="0"  name=estatus visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="5" color="0" x="805" y="8" height="64" width="901" format="[general]" html.valueishtml="0"  name=apaterno visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="5" color="0" x="1728" y="8" height="64" width="901" format="[general]" html.valueishtml="0"  name=amaterno visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="5" color="0" x="4681" y="8" height="64" width="270" format="[general]" html.valueishtml="0"  name=cve_carrera visible="1~t0" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="5" color="0" x="2651" y="8" height="64" width="741" format="[general]" html.valueishtml="0"  name=nombre visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=7 alignment="0" tabsequence=32766 border="5" color="0" x="3419" y="8" height="64" width="1262" format="[general]" html.valueishtml="0"  name=carrera visible="1" height.autosize=yes edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

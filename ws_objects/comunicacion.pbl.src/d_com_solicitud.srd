@@ -1,0 +1,51 @@
+﻿$PBExportHeader$d_com_solicitud.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=32096431 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=420 color="536870912" )
+table(column=(type=long update=yes updatewhereclause=yes key=yes name=cvedepto dbname="spre_solicitud.cvedepto" )
+ column=(type=long update=yes updatewhereclause=yes key=yes name=folio dbname="spre_solicitud.folio" )
+ column=(type=long update=yes updatewhereclause=yes name=solicitanteid dbname="spre_solicitud.solicitanteid" )
+ column=(type=long update=yes updatewhereclause=yes name=status dbname="spre_solicitud.status" values="Prestamo Activo	0/Entregado	1/Cancelado	2/Multa	3/	/" )
+ column=(type=long update=yes updatewhereclause=yes name=cveperiodo dbname="spre_solicitud.cveperiodo" )
+ column=(type=datetime update=yes updatewhereclause=yes name=fecha_solicitud dbname="spre_solicitud.fecha_solicitud" )
+ column=(type=datetime update=yes updatewhereclause=yes name=fecha_inicio dbname="spre_solicitud.fecha_inicio" )
+ column=(type=datetime update=yes updatewhereclause=yes name=fecha_fin dbname="spre_solicitud.fecha_fin" )
+ column=(type=char(1) updatewhereclause=yes name=periodo dbname="compute_0009" )
+ retrieve="SELECT  dbo.spre_solicitud.cvedepto ,
+         dbo.spre_solicitud.folio ,
+			  dbo.spre_solicitud.solicitanteid ,
+           dbo.spre_solicitud.status ,
+           dbo.spre_solicitud.cveperiodo ,
+           dbo.spre_solicitud.fecha_solicitud ,
+           dbo.spre_solicitud.fecha_inicio ,
+           dbo.spre_solicitud.fecha_fin,
+				' '	     
+        FROM dbo.spre_solicitud      
+        WHERE ( dbo.spre_solicitud.folio = :li_folio ) and          ( dbo.spre_solicitud.cvedepto = :li_depto )   " update="dbo.spre_solicitud" updatewhere=1 updatekeyinplace=yes arguments=(("li_folio", number),("li_depto", number)) )
+column(band=detail id=2 alignment="1" tabsequence=32766 border="5" color="0" x="558" y="24" height="64" width="306" format="[general]" html.valueishtml="0"  name=folio visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="5" color="0" x="558" y="120" height="64" width="306" format="dd/mm/yyyy" html.valueishtml="0"  name=fecha_solicitud  tag=" " visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=7 alignment="0" tabsequence=32766 border="5" color="0" x="558" y="216" height="64" width="306" format="dd/mm/yyyy" html.valueishtml="0"  name=fecha_inicio  tag=" " visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=8 alignment="0" tabsequence=32766 border="5" color="0" x="558" y="312" height="64" width="306" format="dd/mm/yyyy" html.valueishtml="0"  name=fecha_fin  tag=" " visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+text(band=detail alignment="2" text="Status" border="2" color="0" x="1134" y="28" height="60" width="370" html.valueishtml="0"  name=spre_solicitud_status_t visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=detail alignment="2" text="Periodo" border="2" color="0" x="1134" y="140" height="60" width="370" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=detail alignment="2" text="Folio" border="2" color="0" x="27" y="24" height="60" width="485" html.valueishtml="0"  name=spre_solicitud_folio_t visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=detail alignment="2" text="Fecha Solicitud" border="2" color="0" x="27" y="120" height="60" width="485" html.valueishtml="0"  name=spre_solicitud_fecha_solicitud_t visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=detail alignment="2" text="Fecha Inicio " border="2" color="0" x="27" y="216" height="60" width="485" html.valueishtml="0"  name=spre_solicitud_fecha_inicio_t visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+text(band=detail alignment="2" text="Fecha Fin" border="2" color="0" x="27" y="312" height="60" width="485" html.valueishtml="0"  name=spre_solicitud_fecha_fin_t visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="80269524" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="0" x="2341" y="240" height="60" width="37" format="[general]" html.valueishtml="0"  name=solicitanteid visible="1~t0" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="5" color="0" x="1550" y="240" height="64" width="709" format="[general]" html.valueishtml="0"  name=cveperiodo visible="1~t0" dddw.name=d_periodos dddw.displaycolumn=descripcion dddw.datacolumn=cveperiodo dddw.percentwidth=0 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=no dddw.case=any  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=4 alignment="0" tabsequence=10 border="5" color="0" x="1550" y="28" height="64" width="709" format="[general]" html.valueishtml="0"  name=status visible="1" ddlb.limit=0 ddlb.allowedit=no ddlb.case=any  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=9 alignment="0" tabsequence=20 border="5" color="0" x="1550" y="144" height="64" width="709" format="[general]" html.valueishtml="0"  name=periodo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

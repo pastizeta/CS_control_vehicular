@@ -1,0 +1,56 @@
+﻿$PBExportHeader$d_admi_detallebaja_mat.srd
+$PBExportComments$Pantalla baja de materiales para admisión
+release 10;
+datawindow(units=0 timer_interval=0 color=29534863 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=8 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=792 color="536870912" )
+table(column=(type=long update=yes updatewhereclause=yes key=yes name=folio_baja dbname="spre_materiales_bajas.folio_baja" )
+ column=(type=long update=yes updatewhereclause=yes name=cvedepto dbname="spre_materiales_bajas.cvedepto" )
+ column=(type=long update=yes updatewhereclause=yes name=cvearea dbname="spre_materiales_bajas.cvearea" )
+ column=(type=char(15) update=yes updatewhereclause=yes name=cvematerial dbname="spre_materiales_bajas.cvematerial" )
+ column=(type=char(20) update=yes updatewhereclause=yes name=num_serie dbname="spre_materiales_bajas.num_serie" )
+ column=(type=char(255) update=yes updatewhereclause=yes name=detalle_baja dbname="spre_materiales_bajas.detalle_baja" )
+ column=(type=datetime updatewhereclause=yes name=fecha_baja dbname="spre_materiales_bajas.fecha_baja" )
+ column=(type=char(50) updatewhereclause=yes name=usuario_baja dbname="spre_materiales_bajas.usuario_baja" )
+ column=(type=char(100) updatewhereclause=yes name=spre_materiales_descripcion dbname="spre_materiales.descripcion" )
+ retrieve="  SELECT dbo.spre_materiales_bajas.folio_baja,   
+         dbo.spre_materiales_bajas.cvedepto,   
+         dbo.spre_materiales_bajas.cvearea,   
+         dbo.spre_materiales_bajas.cvematerial,   
+         dbo.spre_materiales_bajas.num_serie,   
+         dbo.spre_materiales_bajas.detalle_baja,   
+         dbo.spre_materiales_bajas.fecha_baja,   
+         dbo.spre_materiales_bajas.usuario_baja,   
+         dbo.spre_materiales.descripcion  
+    FROM dbo.spre_materiales_bajas,   
+         dbo.spre_materiales  
+   WHERE ( dbo.spre_materiales_bajas.cvedepto = dbo.spre_materiales.cvedepto ) and  
+         ( dbo.spre_materiales_bajas.cvearea = dbo.spre_materiales.cvearea ) and  
+         ( dbo.spre_materiales_bajas.cvematerial = dbo.spre_materiales.cvematerial ) and  
+         ( ( dbo.spre_materiales_bajas.cvedepto = :licvedepto ) AND  
+         ( dbo.spre_materiales_bajas.cvearea = :licvearea ) AND  
+         ( dbo.spre_materiales_bajas.cvematerial = :lscvemat ) AND  
+         ( dbo.spre_materiales_bajas.num_serie = :lsnoserie ) )    
+" update="dbo.spre_materiales_bajas" updatewhere=0 updatekeyinplace=yes arguments=(("licvedepto", number),("licvearea", number),("lscvemat", string),("lsnoserie", string)) )
+text(band=header alignment="2" text="Fecha Baja" border="0" color="0" x="6423" y="4" height="64" width="603" html.valueishtml="0"  name=fecha_baja_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Usuario Baja" border="0" color="0" x="7031" y="4" height="64" width="1403" html.valueishtml="0"  name=usuario_baja_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=9 alignment="0" tabsequence=32766 border="5" color="0" x="9" y="248" height="160" width="2021" format="[general]" html.valueishtml="0"  name=spre_materiales_descripcion visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="0" text="Num Serie" border="0" color="0" x="9" y="8" height="64" width="2021" html.valueishtml="0"  name=num_serie_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="0" tabsequence=10 border="0" color="0" x="9" y="512" height="276" width="2021" format="[general]" html.valueishtml="0"  name=detalle_baja visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.autovscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+text(band=detail alignment="0" text="Motivo baja" border="0" color="0" x="9" y="444" height="64" width="2021" html.valueishtml="0"  name=detalle_baja_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="1655" y="548" height="76" width="128" format="[general]" html.valueishtml="0"  name=folio_baja visible="1~t0" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="5" color="0" x="5" y="76" height="76" width="2021" format="[general]" html.valueishtml="0"  name=num_serie visible="1" edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=detail alignment="0" text="Material" border="0" color="0" x="9" y="180" height="64" width="2021" html.valueishtml="0"  name=cvematerial_t visible="1"  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

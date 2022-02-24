@@ -1,0 +1,31 @@
+﻿$PBExportHeader$d_cat_detalle_cursoprop.srd
+release 7;
+datawindow(units=0 timer_interval=0 color=29534863 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=96 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=104 color="536870912" )
+table(column=(type=long update=yes updatewhereclause=yes key=yes name=solicitanteid dbname="spre_histcursoprop.solicitanteid" )
+ column=(type=long update=yes updatewhereclause=yes key=yes name=tipo_solicitante dbname="spre_histcursoprop.tipo_solicitante" values="Escolarizado	0/Intercambio	1/" )
+ column=(type=long update=yes updatewhereclause=yes key=yes name=id_curso dbname="spre_histcursoprop.id_curso" )
+ column=(type=number update=yes updatewhereclause=yes name=estatuscurso dbname="spre_histcursoprop.estatuscurso" values="Cursado	1/Pendiente	0/" )
+ retrieve="  SELECT dbo.spre_histcursoprop.solicitanteid,   
+         dbo.spre_histcursoprop.tipo_solicitante,   
+         dbo.spre_histcursoprop.id_curso,   
+         dbo.spre_histcursoprop.estatuscurso  
+    FROM dbo.spre_histcursoprop
+ WHERE dbo.spre_histcursoprop.id_curso = :cve_curso  
+   
+" update="dbo.spre_histcursoprop" updatewhere=1 updatekeyinplace=no arguments=(("cve_curso", number)) )
+line(band=detail x1="18" y1="96" x2="1563" y2="96"  name=l_1 pen.style="0" pen.width="5" pen.color="255"  background.mode="2" background.color="16777215" )
+column(band=detail id=1 alignment="0" tabsequence=10 border="5" color="0" x="18" y="8" height="76" width="329" format="[general]"  name=solicitanteid edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=2 alignment="0" tabsequence=20 border="5" color="0" x="352" y="8" height="76" width="443" format="[general]"  name=tipo_solicitante ddlb.limit=0 ddlb.allowedit=no ddlb.case=any  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=3 alignment="2" tabsequence=30 border="5" color="0" x="814" y="8" height="76" width="329" format="[general]"  name=id_curso edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+column(band=detail id=4 alignment="2" tabsequence=40 border="5" color="0" x="1147" y="8" height="76" width="402" format="[general]"  name=estatuscurso ddlb.limit=0 ddlb.allowedit=no ddlb.case=any  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="15793151" )
+button(band=header text=""filename=""action="0" border="0" color="0" x="9" y="8" height="84" width="1559" vtextalign="0" htextalign="0"  name=b_1  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+text(band=header alignment="2" text="Estatus curso" border="0" color="0" x="1175" y="16" height="60" width="375"  name=estatuscurso_t  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Solicitante" border="0" color="0" x="18" y="16" height="60" width="347"  name=solicitanteid_t  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Tipo alumno" border="0" color="0" x="393" y="16" height="60" width="434"  name=tipo_solicitante_t  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Curso" border="0" color="0" x="837" y="16" height="60" width="329"  name=id_curso_t  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

@@ -1,0 +1,30 @@
+﻿$PBExportHeader$f_select_salon_actual.srf
+global type f_select_salon_actual from function_object
+end type
+
+forward prototypes
+global function string f_select_salon_actual (integer pi_dia, integer pi_hora_inicio, long pl_materia, string ps_grupo, integer pi_periodo, integer pi_anio)
+end prototypes
+
+global function string f_select_salon_actual (integer pi_dia, integer pi_hora_inicio, long pl_materia, string ps_grupo, integer pi_periodo, integer pi_anio);string ls_salon=''
+
+select dbo.horario.cve_salon
+into :ls_salon
+from dbo.horario
+where dbo.horario.cve_dia=:pi_dia
+and dbo.horario.hora_inicio=:pi_hora_inicio
+and dbo.horario.cve_mat=:pl_materia
+and dbo.horario.gpo=:ps_grupo
+and dbo.horario.periodo=:pi_periodo
+and dbo.horario.anio=:pi_anio
+using gtr_escolar;
+
+ 
+if gtr_escolar.SQLCode = -1 then 
+		messagebox("Error ESCOLAR: Selección de salón actual", gtr_escolar.SQLErrText)	
+end if
+
+
+return (ls_salon)
+end function
+

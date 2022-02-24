@@ -1,0 +1,32 @@
+﻿$PBExportHeader$f_select_nombre_profesor.srf
+global type f_select_nombre_profesor from function_object
+end type
+
+forward prototypes
+global function string f_select_nombre_profesor (long pl_cve_profesor)
+end prototypes
+
+global function string f_select_nombre_profesor (long pl_cve_profesor);string ls_nombre, ls_apaterno, ls_amaterno, ls_completo
+
+select dbo.profesor.nombre, dbo.profesor.apaterno, dbo.profesor.amaterno
+into :ls_nombre, :ls_apaterno, :ls_amaterno
+from dbo.profesor
+where dbo.profesor.cve_profesor=:pl_cve_profesor
+using gtr_escolar;
+ 
+
+if gtr_escolar.SQLCode = -1 then 
+		messagebox("Error ESCOLAR: Selección de nombre de profesor", gtr_escolar.SQLErrText)	
+else
+	if IsNull(ls_nombre) then ls_nombre=''
+	if IsNull(ls_apaterno) then ls_apaterno=''
+	if IsNull(ls_amaterno) then ls_amaterno=''
+	
+	ls_completo=trim(trim(ls_apaterno)+ " "+trim(ls_amaterno)+" "+trim(ls_nombre))
+	
+end if
+ 
+return (ls_completo)
+
+end function
+

@@ -1,0 +1,98 @@
+﻿$PBExportHeader$d_psi_detalle_presolicitud.srd
+release 10;
+datawindow(units=0 timer_interval=0 color=134217731 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=492 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=80 color="536870912" )
+table(column=(type=long updatewhereclause=yes name=spre_pre_solicitud_cvedepto dbname="spre_pre_solicitud.cvedepto" )
+ column=(type=long updatewhereclause=yes name=folio dbname="spre_pre_solicitud.folio" )
+ column=(type=long updatewhereclause=yes name=spre_pre_solicitud_solicitanteid dbname="spre_pre_solicitud.solicitanteid" )
+ column=(type=long updatewhereclause=yes name=spre_pre_solicitud_status dbname="spre_pre_solicitud.status" )
+ column=(type=datetime updatewhereclause=yes name=spre_pre_solicitud_fecha_solicitud dbname="spre_pre_solicitud.fecha_solicitud" )
+ column=(type=datetime updatewhereclause=yes name=spre_pre_solicitud_fecha_inicio dbname="spre_pre_solicitud.fecha_inicio" )
+ column=(type=datetime updatewhereclause=yes name=spre_pre_solicitud_fecha_fin dbname="spre_pre_solicitud.fecha_fin" )
+ column=(type=char(80) updatewhereclause=yes name=spre_pre_solicitud_solicitantenombre dbname="spre_pre_solicitud.solicitantenombre" )
+ column=(type=long updatewhereclause=yes name=spre_pre_solicitud_autorizada dbname="spre_pre_solicitud.autorizada" )
+ column=(type=long updatewhereclause=yes name=spre_pre_sol_materiales_cvearea dbname="spre_pre_sol_materiales.cvearea" )
+ column=(type=char(100) updatewhereclause=yes name=spre_areas_nombre_area dbname="spre_areas.nombre_area" )
+ column=(type=char(15) updatewhereclause=yes name=spre_pre_sol_materiales_cvematerial dbname="spre_pre_sol_materiales.cvematerial" )
+ column=(type=char(100) updatewhereclause=yes name=spre_materiales_descripcion dbname="spre_materiales.descripcion" )
+ column=(type=char(20) updatewhereclause=yes name=spre_pre_sol_materiales_num_serie dbname="spre_pre_sol_materiales.num_serie" )
+ column=(type=long updatewhereclause=yes name=spre_pre_sol_materiales_cvegrupo dbname="spre_pre_sol_materiales.cvegrupo" )
+ column=(type=char(100) updatewhereclause=yes name=spre_grupo_material_desc_gpomaterial dbname="spre_grupo_material.desc_gpomaterial" )
+ column=(type=datetime updatewhereclause=yes name=spre_pre_sol_materiales_fec_ini_solmat dbname="spre_pre_sol_materiales.fec_ini_solmat" )
+ column=(type=datetime updatewhereclause=yes name=spre_pre_sol_materiales_fec_fin_solmat dbname="spre_pre_sol_materiales.fec_fin_solmat" )
+ column=(type=long updatewhereclause=yes name=spre_pre_sol_materiales_consecutivo dbname="spre_pre_sol_materiales.consecutivo" )
+ column=(type=long updatewhereclause=yes name=folio_origen dbname="spre_pre_solicitud.folio_origen" )
+ retrieve="			 SELECT spre_pre_solicitud.cvedepto,
+					spre_pre_solicitud.folio as folio,
+					spre_pre_solicitud.solicitanteid,
+					spre_pre_solicitud.status,
+					spre_pre_solicitud.fecha_solicitud,
+					spre_pre_solicitud.fecha_inicio,
+					spre_pre_solicitud.fecha_fin,
+					spre_pre_solicitud.solicitantenombre,
+					spre_pre_solicitud.autorizada,
+					spre_pre_sol_materiales.cvearea,   
+                    	spre_areas.descripcion as nombre_area,
+					spre_pre_sol_materiales.cvematerial,   
+					spre_materiales.descripcion,
+					spre_pre_sol_materiales.num_serie,   
+					spre_pre_sol_materiales.cvegrupo,
+					spre_grupo_material.descripcion as desc_gpomaterial,
+					spre_pre_sol_materiales.fecha_inicio AS fec_ini_solmat,
+					spre_pre_sol_materiales. fecha_final  AS fec_fin_solmat,
+					spre_pre_sol_materiales.consecutivo,
+					spre_pre_solicitud.folio_origen as folio_origen
+              FROM  spre_materiales INNER  JOIN	 spre_inventario ON
+                    spre_materiales.cvedepto = spre_inventario.cvedepto
+                AND	spre_materiales.cvearea = spre_inventario.cvearea
+                AND	spre_materiales.cvematerial = spre_inventario.cvematerial
+                AND	spre_materiales.cvegrupo = spre_inventario.cvegrupo
+                    INNER JOIN	spre_pre_sol_materiales ON
+                    spre_materiales.cvedepto = spre_pre_sol_materiales.cvedepto
+                AND	spre_materiales.cvearea = spre_pre_sol_materiales.cvearea
+                AND	spre_materiales.cvematerial = spre_pre_sol_materiales.cvematerial
+                AND	spre_materiales.cvegrupo = spre_pre_sol_materiales.cvegrupo
+                AND	spre_inventario.num_serie = spre_pre_sol_materiales.num_serie
+                    INNER  JOIN  spre_pre_solicitud ON
+                    spre_pre_sol_materiales.cvedepto = spre_pre_solicitud.cvedepto
+                AND	spre_pre_sol_materiales.folio = spre_pre_solicitud.folio
+					INNER JOIN spre_grupo_material ON spre_materiales.cvedepto = spre_grupo_material.cvedepto
+				AND	spre_materiales.cvearea = spre_grupo_material.cvearea
+				AND	spre_materiales.cvegrupo = spre_grupo_material.cvegrupo
+                	INNER JOIN spre_areas ON
+                    spre_pre_sol_materiales.cvedepto = spre_areas.cvedepto
+                AND spre_pre_sol_materiales.cvearea  = spre_areas.cvearea
+         	  WHERE spre_pre_solicitud.cvedepto = :cve_depto
+                AND spre_pre_solicitud.folio  = :folio_presolici
+              ORDER BY spre_pre_sol_materiales.consecutivo" arguments=(("cve_depto", number),("folio_presolici", number)) )
+text(band=header alignment="0" text="Renovación (Presolicitud)" border="0" color="16711680" x="23" y="20" height="64" width="741" html.valueishtml="0"  name=t_8 visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="2" text="Material" border="0" color="0" x="18" y="424" height="60" width="1243" html.valueishtml="0"  name=v_sce_mat_inscritas_gpo_t visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+text(band=header alignment="2" text="No. Serie" border="0" color="0" x="1275" y="424" height="60" width="544" html.valueishtml="0"  name=t_5 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+text(band=header alignment="2" text="Fecha Inicial" border="0" color="0" x="1833" y="424" height="60" width="558" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+text(band=header alignment="2" text="Fecha Final" border="0" color="0" x="2405" y="424" height="60" width="558" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+text(band=header alignment="0" text="Folio:" border="0" color="0" x="18" y="116" height="60" width="425" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+text(band=header alignment="0" text="Solicitante:" border="0" color="0" x="18" y="188" height="60" width="425" html.valueishtml="0"  name=t_4 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+text(band=header alignment="0" text="Fecha Solicitud:" border="0" color="0" x="18" y="260" height="60" width="425" html.valueishtml="0"  name=t_7 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+column(band=header id=5 alignment="0" tabsequence=32766 border="0" color="33554432" x="485" y="260" height="64" width="503" format="[shortdate] [time]" html.valueishtml="0"  name=spre_pre_solicitud_fecha_solicitud visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Area:" border="0" color="0" x="18" y="332" height="60" width="425" html.valueishtml="0"  name=t_6 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+column(band=header id=11 alignment="0" tabsequence=32766 border="0" color="33554432" x="485" y="332" height="64" width="2469" format="[general]" html.valueishtml="0"  name=spre_areas_nombre_area visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=header id=3 alignment="0" tabsequence=32766 border="0" color="33554432" x="485" y="188" height="64" width="485" format="[general]" html.valueishtml="0"  name=spre_pre_solicitud_solicitanteid visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=header id=2 alignment="0" tabsequence=32766 border="0" color="33554432" x="485" y="116" height="64" width="274" format="[general]" html.valueishtml="0"  name=folio visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=13 alignment="0" tabsequence=32766 border="0" color="33554432" x="27" y="8" height="64" width="1243" format="[general]" html.valueishtml="0"  name=spre_materiales_descripcion visible="1" height.autosize=yes edit.limit=100 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=14 alignment="1" tabsequence=32766 border="0" color="33554432" x="1285" y="8" height="64" width="535" format="[general]" html.valueishtml="0"  name=spre_pre_sol_materiales_num_serie visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=17 alignment="2" tabsequence=32766 border="0" color="33554432" x="1833" y="8" height="64" width="558" format="dd/mm/yyyy hh:mm" html.valueishtml="0"  name=spre_pre_sol_materiales_fec_ini_solmat visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=18 alignment="2" tabsequence=32766 border="0" color="33554432" x="2405" y="8" height="64" width="558" format="dd/mm/yyyy hh:mm" html.valueishtml="0"  name=spre_pre_sol_materiales_fec_fin_solmat visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

@@ -1,0 +1,47 @@
+﻿$PBExportHeader$f_foto_profesor.srf
+global type f_foto_profesor from function_object
+end type
+
+forward prototypes
+global function blob f_foto_profesor (long al_nomina)
+end prototypes
+
+global function blob f_foto_profesor (long al_nomina);//*******************		FUNCION: f_foto_alumnos		***************************************
+// Descripcion: Crea una transaccion con credenciales_bd y realiza la consulta del BLOB 
+// asociado al numero al_cuenta
+//	Entrada: al_cuenta(N° de cuenta del alumno)
+//	Salida:	Blob con la foto del alumno en formato JPG o 
+//				NULL si no encuentra el registro o no logra conectarse a la base de datos
+//	Version 1.0,	20051999, 	Angel Jácome Sánchez
+//********************************		REVISIONES		****************************************
+//	Rev x.x(developer/date<ddmmyyyy>) :
+//********************************************************************************************
+
+
+Blob lblob_foto
+
+
+// Seleccion del blob de foto del alumno segun el argumrnto 'al_cuenta'
+ SELECTBLOB foto
+INTO :lblob_foto 
+FROM fotografias
+WHERE nomina = :al_nomina
+Using gtr_personal;
+IF gtr_personal.sqlcode = 100 THEN
+	MessageBox ('No existe foto','N° de nomina: '+string(al_nomina),EXclamation!)
+	SetNull(lblob_foto)
+ELSEIF gtr_personal.sqlcode = -1 THEN
+	MessageBox ('Error Obteniendo foto','N° de nomina: '+string(al_nomina)+'~nError: '+&
+					gtr_personal.sqlerrtext,StopSign!)
+	SetNull(lblob_foto)
+ELSEIF gtr_personal.sqlcode = 0 AND IsNull(lblob_foto) THEN
+	MessageBox ('Foto Nula','El N° de nomina: '+string(al_nomina)+'~n,tiene una foto vacia.'+&
+					gtr_personal.sqlerrtext,Information!)
+	SetNull(lblob_foto)	
+END IF
+
+//Si el resultado fue exitoso entrega blob, sino un nulo
+commit using gtr_personal;
+Return lblob_foto
+end function
+

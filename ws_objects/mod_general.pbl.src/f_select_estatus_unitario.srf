@@ -1,0 +1,32 @@
+﻿$PBExportHeader$f_select_estatus_unitario.srf
+global type f_select_estatus_unitario from function_object
+end type
+
+forward prototypes
+global function integer f_select_estatus_unitario (integer pi_cvedepto, integer pi_cvearea, string ps_cvematerial, integer pi_cvegrupo, string ps_num_serie)
+end prototypes
+
+global function integer f_select_estatus_unitario (integer pi_cvedepto, integer pi_cvearea, string ps_cvematerial, integer pi_cvegrupo, string ps_num_serie);integer li_unitario
+
+select dbo.spre_inventario.prestamo_unitario
+into :li_unitario
+from dbo.spre_inventario
+where dbo.spre_inventario.cvedepto=:pi_cvedepto
+and dbo.spre_inventario.cvearea=:pi_cvearea
+and dbo.spre_inventario.cvematerial=:ps_cvematerial
+and dbo.spre_inventario.cvegrupo=:pi_cvegrupo
+and dbo.spre_inventario.num_serie=:ps_num_serie
+using gtr_sumuia; 
+
+if IsNull(li_unitario) then li_unitario=0
+
+if gtr_sumuia.SQLCode = -1 then 
+		messagebox("Error SUMUIA: Selección de estatus de préstamo unitario", gtr_sumuia.SQLErrText)	
+	rollback using gtr_sumuia;
+else
+	commit using gtr_sumuia;	
+end if
+
+return (li_unitario)
+end function
+

@@ -1,0 +1,26 @@
+﻿$PBExportHeader$f_select_alumno_digito.srf
+global type f_select_alumno_digito from function_object
+end type
+
+forward prototypes
+global function string f_select_alumno_digito (long p_alumno)
+end prototypes
+
+global function string f_select_alumno_digito (long p_alumno);string ls_digito
+
+select dbo.v_sce_alumno_digito.digito
+into :ls_digito
+from dbo.v_sce_alumno_digito
+where dbo.v_sce_alumno_digito.cuenta=:p_alumno
+using gtr_sumuia; 
+
+if gtr_sumuia.SQLCode = -1 then 
+		messagebox("Error SUMUIA: Seleccionar dígito alumno", gtr_sumuia.SQLErrText)	
+		rollback using gtr_sumuia;
+else
+	commit using gtr_sumuia;
+end if
+
+return (ls_digito)
+end function
+

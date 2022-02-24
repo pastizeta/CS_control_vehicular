@@ -1,0 +1,29 @@
+﻿$PBExportHeader$f_select_salon_valido.srf
+global type f_select_salon_valido from function_object
+end type
+
+forward prototypes
+global function integer f_select_salon_valido (string p_salon)
+end prototypes
+
+global function integer f_select_salon_valido (string p_salon);integer li_existe=0
+
+select count(*)
+into :li_existe
+from dbo.salon
+where    
+cve_salon =:p_salon AND
+bloqueado = 0 AND
+((clase_aula = 'SALON') OR (clase_aula = 'ESP' AND cve_salon like 'G%'))
+using gtr_escolar;
+
+if gtr_escolar.sqlcode<>0 then
+	messagebox("Error al verificar existencia del salón "+string(gtr_escolar.sqlcode), gtr_escolar.SQLErrText)	
+	rollback using gtr_escolar;
+else
+	commit using gtr_escolar;
+end if		
+
+return (li_existe)
+end function
+

@@ -1,0 +1,41 @@
+﻿$PBExportHeader$obten_digito.srf
+$PBExportComments$Utilísima función que reporta el dígito verificador. Entra cuenta, sale dígito.
+global type obten_digito from function_object
+end type
+
+forward prototypes
+global function character obten_digito (long cuenta)
+end prototypes
+
+global function character obten_digito (long cuenta);/*
+DESCRIPCIÓN: Obtención del digito verificador para el numero de cuenta.
+PARÁMETROS: Long Cuenta Num de cuenta
+REGRESA: char Dig  Digito 
+AUTOR: CAMP(DkWf)
+FECHA: Algún momento durante el año 1996
+MODIFICACIÓN:
+*/
+
+int valores[11] = {3,5,7,2,6,8,1,7,9,4,8}
+int cont,num,inv
+char dig
+
+num = 0
+if (cuenta = 1 or cuenta = 10 or cuenta = 11 or cuenta = 100 or cuenta = 101) then
+	dig = '0'
+else	
+	inv = len(string(cuenta))
+	for cont = 1 to len(string(cuenta))
+		num=(integer(mid(string(cuenta),inv,1)) * valores[cont]) + num
+		inv --
+	next
+   if mod(num,11) = 1 then
+		dig = 'A'
+	else	
+		dig = string(mod(10 - mod(num,11) + 1,11))
+	end if	
+end if
+
+return dig
+end function
+

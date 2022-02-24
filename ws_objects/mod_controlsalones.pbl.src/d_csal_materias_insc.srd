@@ -1,0 +1,110 @@
+﻿$PBExportHeader$d_csal_materias_insc.srd
+$PBExportComments$Muestra las materias incritas para tomar el grupo y profesor
+release 10;
+datawindow(units=0 timer_interval=0 color=29534863 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=80 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=131 color="536870912"  height.autosize=yes)
+table(column=(type=long updatewhereclause=yes name=v_sce_mat_inscritas_cuenta dbname="v_sce_mat_inscritas.cuenta" )
+ column=(type=char(7) updatewhereclause=yes name=v_sce_grupos_cve_mat_gpo dbname="v_sce_grupos.cve_mat_gpo" )
+ column=(type=char(42) updatewhereclause=yes name=v_sce_materias_materia dbname="v_sce_materias.materia" )
+ column=(type=long updatewhereclause=yes name=v_sce_grupos_cve_profesor dbname="v_sce_grupos.cve_profesor" )
+ column=(type=long updatewhereclause=yes name=v_sce_horario_clase_aula dbname="v_sce_horario.clase_aula" )
+ column=(type=char(16) updatewhereclause=yes name=v_sce_horario_cve_salon dbname="v_sce_horario.cve_salon" )
+ column=(type=long updatewhereclause=yes name=v_sce_horario_hora_inicio dbname="v_sce_horario.hora_inicio" )
+ column=(type=long updatewhereclause=yes name=v_sce_horario_hora_final dbname="v_sce_horario.hora_final" )
+ column=(type=char(152) updatewhereclause=yes name=v_sce_profesor_nombre dbname="nombre" )
+ column=(type=char(42) updatewhereclause=yes name=v_sce_materias_materia_asimilada dbname="v_sce_materias.materia_asimilada" )
+ column=(type=char(7) updatewhereclause=yes name=v_sce_grupos_grupo_asimilado dbname="v_sce_grupos.grupo_asimilado" )
+ column=(type=char(42) updatewhereclause=yes name=v_sce_materias_materia_asimilada_de dbname="v_sce_materias.materia_asimilada_de" )
+ column=(type=char(32) updatewhereclause=yes name=gpo_asimilado_de dbname="gpo_asimilado_de" )
+ column=(type=char(9) updatewhereclause=yes name=v_sce_dias_dia dbname="v_sce_dias.dia" )
+ retrieve="  SELECT distinct b.cuenta,   
+         a.cve_mat_gpo,   
+         c.materia,   
+         a.cve_profesor, 
+		e.clase_aula,
+		e.cve_salon,
+		e.hora_inicio,
+		e.hora_final,   
+         d.apaterno +' '+ d.amaterno+' '+ d.nombre  nombre,
+		g.materia as materia_asimilada,
+		f.cve_mat_gpo  as grupo_asimilado,
+		h.materia as materia_asimilada_de,
+		convert(varchar,a.cve_asimilada) +a.gpo_asimilado as gpo_asimilado_de,
+		i.dia      
+    FROM dbo.v_sce_grupos a,   
+         dbo.v_sce_mat_inscritas b,   
+         dbo.v_sce_materias c,   
+         dbo.v_sce_profesor d,
+		dbo.v_sce_horario e,
+		dbo.v_sce_grupos f ,   
+		dbo.v_sce_materias g,
+		dbo.v_sce_materias h,
+		dbo.v_sce_dias i
+   WHERE ( a.cve_mat = b.cve_mat ) and  
+         ( b.cve_mat = c.cve_mat ) and  
+         ( a.cve_profesor = d.cve_profesor ) and  
+         ( a.periodo = b.periodo ) and  
+         ( a.gpo = b.gpo ) and  
+         ( a.anio = b.anio )  and
+		( a.periodo = e.periodo ) and  
+		( a.anio = e.anio )  and  
+		(( a.cve_mat =   e.cve_mat) or
+		( a.cve_asimilada = e.cve_mat) )and
+		( a.gpo = e.gpo) and 
+		( c.cve_coordinacion in (   SELECT dbo.v_sce_coordinaciones.cve_coordinacion  
+																		 FROM dbo.v_sce_departamentos,   
+																				dbo.v_sce_coordinaciones  
+																		WHERE ( dbo.v_sce_departamentos.cve_depto = dbo.v_sce_coordinaciones.cve_depto ) ))   and
+	
+		( a.cve_mat *= f.cve_asimilada) and
+		( a.gpo *= f.gpo_asimilado) and
+		( f.cve_mat *= g.cve_mat) and
+		(a.cve_asimilada *=h.cve_mat) and
+		(e.cve_dia=i.cve_dia) and
+         ( b.cuenta = :liCuenta )  
+
+		order by  
+		c.materia,
+		a.cve_mat_gpo, 
+		d.apaterno,
+		d.amaterno,
+		d.nombre,
+		e.cve_dia
+
+" arguments=(("liCuenta", number)) )
+group(level=1 header.height=182 trailer.height=35 by=("v_sce_grupos_cve_profesor" , "v_sce_grupos_cve_mat_gpo" , "v_sce_horario_cve_salon" , "v_sce_horario_hora_inicio" , "v_sce_horario_hora_final" , "v_sce_dias_dia" ) header.color="536870912" trailer.color="536870912" )
+text(band=header.1 alignment="1" text="Grupo : " border="0" color="0" x="7" y="90" height="61" width="282" html.valueishtml="0"  name=v_sce_grupos_cve_profesor_t visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=header.1 id=2 alignment="0" tabsequence=10 border="0" color="0" x="307" y="93" height="61" width="271" format="[general]" html.valueishtml="0"  name=v_sce_grupos_cve_mat_gpo visible="1" edit.limit=7 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.displayonly=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" font.underline="1" background.mode="1" background.color="536870912" )
+text(band=header.1 alignment="1" text="Profesor : " border="0" color="0" x="7" y="13" height="61" width="282" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=header.1 id=4 alignment="0" tabsequence=20 border="0" color="0" x="311" y="19" height="61" width="263" format="[general]" html.valueishtml="0"  name=v_sce_grupos_cve_profesor visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.displayonly=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" font.italic="1" background.mode="1" background.color="536870912" )
+column(band=header.1 id=5 alignment="0" tabsequence=60 border="0" color="0" x="2860" y="0" height="61" width="99" format="[general]" html.valueishtml="0"  name=v_sce_horario_clase_aula visible="0" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=header.1 id=3 alignment="0" tabsequence=32766 border="0" color="0" x="600" y="93" height="64" width="1569" format="[general]" html.valueishtml="0"  name=v_sce_materias_materia visible="1" edit.limit=42 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.displayonly=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+column(band=header.1 id=9 alignment="0" tabsequence=32766 border="0" color="0" x="600" y="19" height="61" width="1573" format="[general]" html.valueishtml="0"  name=v_sce_profesor_nombre visible="1" edit.limit=50 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.displayonly=yes  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=header.1 id=6 alignment="0" tabsequence=30 border="0" color="0" x="2439" y="19" height="61" width="333" format="[general]" html.valueishtml="0"  name=v_sce_horario_cve_salon visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=header.1 id=14 alignment="0" tabsequence=110 border="0" color="0" x="2439" y="99" height="61" width="318" format="[general]" html.valueishtml="0"  name=v_sce_dias_dia visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=header.1 id=8 alignment="1" tabsequence=50 border="0" color="0" x="2790" y="99" height="61" width="59" format="[general]" html.valueishtml="0"  name=v_sce_horario_hora_final visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header.1 alignment="2" text="-" border="0" color="0" x="2856" y="99" height="61" width="37" html.valueishtml="0"  name=t_4 visible="1"  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=header.1 id=7 alignment="0" tabsequence=40 border="0" color="0" x="2900" y="99" height="61" width="69" format="[general]" html.valueishtml="0"  name=v_sce_horario_hora_inicio visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header.1 alignment="1" text="Horario:" border="0" color="0" x="2209" y="99" height="61" width="205" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header.1 alignment="1" text="Salón:" border="0" color="0" x="2202" y="16" height="64" width="208" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=11 alignment="0" tabsequence=80 border="0" color="0" x="629" y="7" height="54" width="256" format="[general]" html.valueishtml="0"  name=v_sce_grupos_grupo_asimilado visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" font.underline="1" background.mode="1" background.color="536870912" )
+column(band=detail id=10 alignment="0" tabsequence=70 border="0" color="0" x="900" y="7" height="54" width="1298" format="[general]" html.valueishtml="0"  name=v_sce_materias_materia_asimilada visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" font.underline="1" background.mode="1" background.color="536870912" )
+column(band=detail id=13 alignment="0" tabsequence=100 border="0" color="16777215" x="629" y="64" height="54" width="256" format="[general]" html.valueishtml="0"  name=gpo_asimilado_de visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" font.underline="1" background.mode="1" background.color="536870912" )
+column(band=detail id=12 alignment="0" tabsequence=90 border="0" color="16777215" x="900" y="64" height="54" width="1302" format="[general]" html.valueishtml="0"  name=v_sce_materias_materia_asimilada_de visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" font.underline="1" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="0" expression=" if (isNull(v_sce_materias_materia_asimilada),'','Asimilada') "border="0" color="0" x="296" y="7" height="54" width="282" format="[GENERAL]" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" font.italic="1" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="0" expression=" if (isNull( v_sce_materias_materia_asimilada_de ),'','Asimilada de') "border="0" color="16777215" x="296" y="64" height="54" width="282" format="[GENERAL]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-7" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" font.italic="1" background.mode="1" background.color="536870912" )
+line(band=trailer.1 x1="0" y1="9" x2="2951" y2="12"  name=l_1 visible="1"  slideup=directlyabove pen.style="0" pen.width="7" pen.color="255"  background.mode="2" background.color="16777215" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

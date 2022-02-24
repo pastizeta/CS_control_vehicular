@@ -1,0 +1,66 @@
+﻿$PBExportHeader$d_consulta_1.srd
+release 7;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=136 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=84 color="536870912" )
+table(column=(type=long updatewhereclause=yes name=spre_solicitud_solicitanteid dbname="spre_solicitud.solicitanteid" )
+ column=(type=datetime updatewhereclause=yes name=spre_solicitud_fecha_inicio dbname="spre_solicitud.fecha_inicio" )
+ column=(type=datetime updatewhereclause=yes name=spre_solicitud_fecha_fin dbname="spre_solicitud.fecha_fin" )
+ column=(type=long updatewhereclause=yes name=spre_solicitud_status dbname="spre_solicitud.status" )
+ column=(type=char(15) updatewhereclause=yes name=spre_sol_materiales_cvematerial dbname="spre_sol_materiales.cvematerial" )
+ column=(type=char(20) updatewhereclause=yes name=spre_sol_materiales_num_serie dbname="spre_sol_materiales.num_serie" )
+ column=(type=char(100) updatewhereclause=yes name=spre_materiales_descripcion dbname="spre_materiales.descripcion" )
+ retrieve="select dbo.spre_solicitud.solicitanteid,
+		dbo.spre_solicitud.fecha_inicio,
+		dbo.spre_solicitud.fecha_fin,
+		dbo.spre_solicitud.status,
+ 		dbo.spre_sol_materiales.cvematerial,
+		dbo.spre_sol_materiales.num_serie,
+		dbo.spre_materiales.descripcion
+from	dbo.spre_sol_materiales, 
+		dbo.spre_solicitud,
+		dbo.spre_materiales
+where dbo.spre_solicitud.folio = dbo.spre_sol_materiales.folio and
+		dbo.spre_sol_materiales.cvematerial = dbo.spre_materiales.cvematerial and
+		dbo.spre_sol_materiales.cvegrupo    = dbo.spre_materiales.cvegrupo and
+		dbo.spre_sol_materiales.cvearea     = dbo.spre_materiales.cvearea and 
+		dbo.spre_sol_materiales.cvedepto    = dbo.spre_solicitud.cvedepto and 
+		dbo.spre_sol_materiales.cvedepto    = dbo.spre_materiales.cvedepto and
+		dbo.spre_sol_materiales.cvedepto    = 4 and 
+		dbo.spre_sol_materiales.cvearea     = 1 and
+		dbo.spre_solicitud.status in(0,5) and
+
+		DATEPART(wk,dbo.spre_solicitud.fecha_inicio) = DATEPART(wk,:adt_fecha)
+
+
+Group by dbo.spre_solicitud.solicitanteid,
+		dbo.spre_solicitud.fecha_inicio,
+		dbo.spre_solicitud.fecha_fin,
+		dbo.spre_solicitud.status,
+ 		dbo.spre_sol_materiales.cvematerial,
+		dbo.spre_sol_materiales.num_serie,
+		dbo.spre_materiales.descripcion 
+" arguments=(("adt_fecha", datetime)) )
+text(band=header alignment="2" text="Spre Solicitud
+Solicitanteid" border="0" color="0" x="5" y="4" height="128" width="370"  name=spre_solicitud_solicitanteid_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Spre Solicitud
+Fecha Inicio" border="0" color="0" x="379" y="4" height="128" width="603"  name=spre_solicitud_fecha_inicio_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Spre Solicitud
+Fecha Fin" border="0" color="0" x="987" y="4" height="128" width="603"  name=spre_solicitud_fecha_fin_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Spre Sol Materiales
+Cvematerial" border="0" color="0" x="1595" y="4" height="128" width="521"  name=spre_sol_materiales_cvematerial_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Spre Sol Materiales
+Num Serie" border="0" color="0" x="2121" y="4" height="128" width="576"  name=spre_sol_materiales_num_serie_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Spre Materiales
+Descripcion" border="0" color="0" x="2702" y="4" height="128" width="2770"  name=spre_materiales_descripcion_t  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="1" tabsequence=32766 border="0" color="0" x="5" y="4" height="76" width="329" format="[general]"  name=spre_solicitud_solicitanteid edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="379" y="4" height="76" width="603" format="[shortdate] [time]"  name=spre_solicitud_fecha_inicio edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="0" x="987" y="4" height="76" width="603" format="[shortdate] [time]"  name=spre_solicitud_fecha_fin edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="0" color="0" x="1595" y="4" height="76" width="439" format="[general]"  name=spre_sol_materiales_cvematerial edit.limit=15 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="0" color="0" x="2121" y="4" height="76" width="576" format="[general]"  name=spre_sol_materiales_num_serie edit.limit=20 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="0" tabsequence=32766 border="0" color="0" x="2702" y="4" height="76" width="2770" format="[general]"  name=spre_materiales_descripcion edit.limit=100 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="0" x="5472" y="0" height="64" width="270" format="[general]"  name=spre_solicitud_status edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" )

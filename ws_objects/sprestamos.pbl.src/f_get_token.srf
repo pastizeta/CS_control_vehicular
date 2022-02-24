@@ -1,0 +1,24 @@
+﻿$PBExportHeader$f_get_token.srf
+global type f_get_token from function_object
+end type
+
+forward prototypes
+global function string f_get_token (ref string szsource, string szseparator)
+end prototypes
+
+global function string f_get_token (ref string szsource, string szseparator);Integer 	nPosition
+String 	szReturn
+
+nPosition = Pos( szSource, szSeparator)	
+
+If nPosition = 0 Then		// if no separator, 
+	szReturn = szSource		// return the whole source string and
+	szSource = ""				// make the original source of zero length
+Else
+	szReturn = Mid( szSource, 1, nPosition - 1)	// otherwise, return just the token and
+	szSource = Right( szSource, Len( szSource) - nPosition)	// strip it & the separator
+End If
+
+Return szReturn 
+end function
+

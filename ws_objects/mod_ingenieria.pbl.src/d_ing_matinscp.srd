@@ -1,0 +1,48 @@
+﻿$PBExportHeader$d_ing_matinscp.srd
+$PBExportComments$Muestra los grupo impartidos por un profesor
+release 10;
+datawindow(units=0 timer_interval=0 color=1090519039 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=60 color="536870912"  height.autosize=yes)
+table(column=(type=long updatewhereclause=yes name=v_sce_materias_cve_mat dbname="v_sce_materias.cve_mat" )
+ column=(type=char(42) updatewhereclause=yes name=v_sce_materias_materia dbname="v_sce_materias.materia" )
+ column=(type=char(2) updatewhereclause=yes name=v_sce_mat_inscritas_gpo dbname="v_sce_mat_inscritas.gpo" )
+ column=(type=long updatewhereclause=yes name=v_sce_mat_inscritas_periodo dbname="v_sce_mat_inscritas.periodo" values="Primavera	0/Verano	1/Otoño	2/" )
+ column=(type=long updatewhereclause=yes name=v_sce_mat_inscritas_anio dbname="v_sce_mat_inscritas.anio" )
+ column=(type=char(7) updatewhereclause=yes name=v_sce_grupos_cve_mat_gpo dbname="v_sce_grupos.cve_mat_gpo" )
+ column=(type=long updatewhereclause=yes name=v_sce_grupos_cve_profesor dbname="v_sce_grupos.cve_profesor" )
+ column=(type=char(152) updatewhereclause=yes name=nombre_profesor dbname="nombre_profesor" )
+ retrieve="  SELECT Distinct dbo.v_sce_materias.cve_mat,   
+         dbo.v_sce_materias.materia,   
+         dbo.v_sce_mat_inscritas.gpo,   
+         dbo.v_sce_mat_inscritas.periodo,   
+         dbo.v_sce_mat_inscritas.anio,
+		dbo.v_sce_grupos.cve_mat_gpo,   
+         dbo.v_sce_grupos.cve_profesor,   
+         dbo.v_sce_profesor.apaterno+' '+ dbo.v_sce_profesor.amaterno+ ' '+  dbo.v_sce_profesor.nombre  nombre_profesor
+   FROM		dbo.v_sce_mat_inscritas INNER JOIN
+                  dbo.v_sce_grupos ON dbo.v_sce_mat_inscritas.cve_mat = dbo.v_sce_grupos.cve_mat AND dbo.v_sce_mat_inscritas.gpo = dbo.v_sce_grupos.gpo AND 
+                  dbo.v_sce_mat_inscritas.periodo = dbo.v_sce_grupos.periodo AND dbo.v_sce_mat_inscritas.anio = dbo.v_sce_grupos.anio INNER JOIN
+                  dbo.v_sce_materias ON dbo.v_sce_mat_inscritas.cve_mat = dbo.v_sce_materias.cve_mat INNER JOIN
+                  dbo.v_sce_profesor ON dbo.v_sce_grupos.cve_profesor = dbo.v_sce_profesor.cve_profesor
+WHERE		( dbo.v_sce_materias.cve_coordinacion in (   SELECT dbo.v_sce_coordinaciones.cve_coordinacion  
+																		 FROM dbo.v_sce_departamentos,   
+																				dbo.v_sce_coordinaciones  
+																		WHERE ( dbo.v_sce_departamentos.cve_depto = dbo.v_sce_coordinaciones.cve_depto ) and  
+																				( ( dbo.v_sce_departamentos.cve_depto = 2100 ) ) ) ) and
+         (  dbo.v_sce_profesor.cve_profesor = :arg_cuenta )    
+" arguments=(("arg_cuenta", number))  sort="v_sce_materias_cve_mat A " )
+group(level=1 header.height=4 trailer.height=0 by=("v_sce_grupos_cve_profesor" ) header.color="536870912" trailer.color="536870912" )
+column(band=detail id=1 alignment="1" tabsequence=32766 border="0" color="0" x="0" y="0" height="56" width="402" format="[general]" html.valueishtml="0"  name=v_sce_materias_cve_mat visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

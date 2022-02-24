@@ -1,0 +1,26 @@
+﻿$PBExportHeader$d_adm_mat_act.srd
+$PBExportComments$Muestra las solicitudes de material prestado para un alumno o empleado siempre y cuando estas se encuentren en los estatus de activa, parcial o multa
+release 10;
+datawindow(units=0 timer_interval=0 color=1090519039 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=4 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=68 color="536870912" )
+table(column=(type=long updatewhereclause=yes name=spre_solicitud_folio dbname="spre_solicitud.folio" )
+ column=(type=long updatewhereclause=yes name=spre_sol_materiales_consecutivo dbname="spre_sol_materiales.consecutivo" )
+ column=(type=long updatewhereclause=yes name=spre_sol_materiales_status dbname="spre_sol_materiales.status" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"spre_solicitud~" )  TABLE(NAME=~"spre_sol_materiales~" ) COLUMN(NAME=~"spre_solicitud.folio~") COLUMN(NAME=~"spre_sol_materiales.consecutivo~") COLUMN(NAME=~"spre_sol_materiales.status~")    JOIN (LEFT=~"spre_sol_materiales.cvedepto~"    OP =~"=~"RIGHT=~"spre_solicitud.cvedepto~" )    JOIN (LEFT=~"spre_sol_materiales.folio~"    OP =~"=~"RIGHT=~"spre_solicitud.folio~" )WHERE(    EXP1 =~"spre_solicitud.cvedepto~"   OP =~"=~"    EXP2 =~"6~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"( dbo.spre_solicitud.solicitanteid~"   OP =~"=~"    EXP2 =~":arglIdSol)~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"( dbo.spre_solicitud.status~"   OP =~"in~"    EXP2 =~"(0,2,3) )~" ) ) ARG(NAME = ~"arglIdSol~" TYPE = number) " arguments=(("arglIdSol", number)) )
+column(band=detail id=1 alignment="2" tabsequence=10 border="0" color="0" x="5" y="4" height="60" width="219" format="[general]" html.valueishtml="0"  name=spre_solicitud_folio visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.displayonly=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="233" y="4" height="60" width="219" format="[general]" html.valueishtml="0"  name=spre_sol_materiales_consecutivo visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="0" x="453" y="4" height="60" width="219" format="[general]" html.valueishtml="0"  name=spre_sol_materiales_status visible="1" edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-10" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+xhtmlgen() cssgen(sessionspecific="0" )
+xmlgen(inline="0" )
+xsltgen()
+jsgen()
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+export.xhtml()
+ 

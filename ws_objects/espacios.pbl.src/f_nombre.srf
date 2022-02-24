@@ -1,0 +1,23 @@
+﻿$PBExportHeader$f_nombre.srf
+global type f_nombre from function_object
+end type
+
+forward prototypes
+global function string f_nombre (long al_depto)
+end prototypes
+
+global function string f_nombre (long al_depto);//		Se obtiene Nombre del Departamento.
+
+String ls_depto
+
+ls_depto = ""
+
+SELECT dbo.deptos_uia1.nombre_depto
+INTO :ls_depto
+FROM dbo.deptos_uia1   
+Where   convert(integer,dbo.deptos_uia1.depto    )=:al_depto 
+using gtr_personal;
+
+return ls_depto
+end function
+

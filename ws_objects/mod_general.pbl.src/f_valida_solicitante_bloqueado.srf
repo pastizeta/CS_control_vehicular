@@ -1,0 +1,30 @@
+﻿$PBExportHeader$f_valida_solicitante_bloqueado.srf
+global type f_valida_solicitante_bloqueado from function_object
+end type
+
+forward prototypes
+global function integer f_valida_solicitante_bloqueado (integer p_cvedepto, integer p_cvearea, integer p_anio, integer p_periodo, long p_solicitanteid, integer p_tipo_solicitante)
+end prototypes
+
+global function integer f_valida_solicitante_bloqueado (integer p_cvedepto, integer p_cvearea, integer p_anio, integer p_periodo, long p_solicitanteid, integer p_tipo_solicitante);integer li_bloqueado
+
+	select count(*) 
+	into :li_bloqueado
+	from dbo.spre_solicitantes_bloqueados
+	where dbo.spre_solicitantes_bloqueados.cvedepto = :p_cvedepto
+	and dbo.spre_solicitantes_bloqueados.cvearea = :p_cvearea
+	and dbo.spre_solicitantes_bloqueados.anio = :p_anio
+	and dbo.spre_solicitantes_bloqueados.cveperiodo = :p_periodo
+	and dbo.spre_solicitantes_bloqueados.solicitanteid = :p_solicitanteid
+	and dbo.spre_solicitantes_bloqueados.tipo_solicitante = :p_tipo_solicitante
+
+	using gtr_sumuia; 
+	
+	if gtr_sumuia.SQLCode = -1 then 
+			messagebox("Error SUMUIA: Selección de Usuario bloqueado.", gtr_sumuia.SQLErrText)	
+	end if
+
+
+return(li_bloqueado)
+end function
+
